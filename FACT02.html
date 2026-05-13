@@ -1,0 +1,498 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MCQ Online Exam</title>  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 850px;
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+      color: #1e3a8a;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #555;
+      margin-bottom: 30px;
+    }
+
+    .question-box {
+      margin-bottom: 25px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 14px;
+      background: #f9fafb;
+    }
+
+    .question {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #111827;
+    }
+
+    .option {
+      display: block;
+      margin-bottom: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      background: white;
+      border: 1px solid #d1d5db;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .option:hover {
+      background: #e0e7ff;
+    }
+
+    input[type="radio"] {
+      margin-right: 10px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      background: #2563eb;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    .result-box {
+      text-align: center;
+      display: none;
+    }
+
+    .score {
+      font-size: 48px;
+      color: #16a34a;
+      margin: 20px 0;
+      font-weight: bold;
+    }
+
+    .details {
+      font-size: 18px;
+      color: #444;
+      margin-bottom: 20px;
+    }
+
+    .correct {
+      color: green;
+      font-weight: bold;
+    }
+
+    .wrong {
+      color: red;
+      font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+      }
+
+      .question {
+        font-size: 16px;
+      }
+    }
+  </style></head>
+<body>  <div class="container"><div id="examSection">
+  <h1>Online MCQ Exam</h1>
+  <p class="subtitle">Answer all questions and submit to see your score instantly.</p>
+
+  <form id="examForm"></form>
+
+  <button onclick="submitExam()">Finish Exam</button>
+</div>
+
+<div id="resultSection" class="result-box">
+  <h1>Exam Result</h1>
+  <div class="score" id="scoreText">0/0</div>
+  <div class="details" id="detailsText"></div>
+
+  <button onclick="showWrongAnswers()">View Wrong Answers</button>
+  <button onclick="restartExam()">Restart Exam</button>
+
+  <div id="wrongAnswersSection" style="display:none; margin-top:25px; text-align:left;"></div>
+</div>
+
+  </div>  <script>
+    
+const questions = [
+  {
+    question: 'Which protocol provides both error recovery and flow control?',
+    options: ['UDP', 'IP', 'TCP', 'ICMP'],
+    answer: 2
+  },
+  {
+    question: 'Which OSI layer is responsible for segmentation?',
+    options: ['Network', 'Data Link', 'Session', 'Transport'],
+    answer: 3
+  },
+  {
+    question: 'Which protocol is MOST vulnerable to spoofing due to lack of authentication?',
+    options: ['HTTPS', 'SSH', 'ARP', 'TLS'],
+    answer: 2
+  },
+  {
+    question: 'Which malware type mainly focuses on stealth and persistence?',
+    options: ['Worm', 'Rootkit', 'Adware', 'Ransomware'],
+    answer: 1
+  },
+  {
+    question: 'Which command helps identify route path to destination?',
+    options: ['ping', 'arp -a', 'tracert', 'netstat'],
+    answer: 2
+  },
+  {
+    question: 'Which attack abuses trust relationship between browser and website?',
+    options: ['DDoS', 'XSS', 'MITM', 'Port scanning'],
+    answer: 1
+  },
+  {
+    question: 'Which Wi-Fi attack forces clients to disconnect from AP?',
+    options: ['Evil Twin', 'Rogue AP', 'Deauthentication', 'Replay Attack'],
+    answer: 2
+  },
+  {
+    question: 'Which forensic principle requires original evidence to remain untouched?',
+    options: ['Authentication', 'Availability', 'Integrity', 'Compression'],
+    answer: 2
+  },
+  {
+    question: 'Which protocol converts domain names to IP addresses?',
+    options: ['DHCP', 'DNS', 'SNMP', 'SMTP'],
+    answer: 1
+  },
+  {
+    question: 'Which port is associated with SSH?',
+    options: ['20', '21', '22', '25'],
+    answer: 2
+  },
+  {
+    question: 'Which malware spreads WITHOUT user interaction?',
+    options: ['Trojan', 'Worm', 'Virus', 'Spyware'],
+    answer: 1
+  },
+  {
+    question: 'Which cryptographic method uses same key for encryption and decryption?',
+    options: ['Asymmetric encryption', 'Public-key cryptography', 'Symmetric encryption', 'Hashing'],
+    answer: 2
+  },
+  {
+    question: 'Which layer of OSI adds MAC addresses?',
+    options: ['Physical', 'Data Link', 'Transport', 'Session'],
+    answer: 1
+  },
+  {
+    question: 'Which attack attempts every possible password combination?',
+    options: ['Replay attack', 'Credential stuffing', 'Brute force attack', 'Spoofing'],
+    answer: 2
+  },
+  {
+    question: 'Which type of firewall tracks connection states?',
+    options: ['Packet filtering firewall', 'Stateful firewall', 'Proxy firewall', 'Stateless firewall'],
+    answer: 1
+  },
+  {
+    question: 'Which protocol is commonly used in VPN tunneling?',
+    options: ['POP3', 'PPTP', 'IMAP', 'SNMP'],
+    answer: 1
+  },
+  {
+    question: 'Which network device separates broadcast domains?',
+    options: ['Hub', 'Switch', 'Router', 'Repeater'],
+    answer: 2
+  },
+  {
+    question: 'Which evidence is MOST volatile?',
+    options: ['Hard disk image', 'RAM contents', 'USB logs', 'Backup files'],
+    answer: 1
+  },
+  {
+    question: 'Which attack uses fake access point with similar SSID?',
+    options: ['ARP spoofing', 'Evil Twin', 'Smurf attack', 'DNS poisoning'],
+    answer: 1
+  },
+  {
+    question: 'Which protocol is unreliable but faster?',
+    options: ['TCP', 'UDP', 'SSH', 'HTTPS'],
+    answer: 1
+  },
+  {
+    question: 'Which command displays active ARP entries?',
+    options: ['ipconfig', 'ping', 'arp -a', 'net use'],
+    answer: 2
+  },
+  {
+    question: 'Which protocol is used for encrypted web communication?',
+    options: ['FTP', 'HTTP', 'HTTPS', 'Telnet'],
+    answer: 2
+  },
+  {
+    question: 'Which malware disguises itself as useful software?',
+    options: ['Rootkit', 'Worm', 'Trojan', 'Adware'],
+    answer: 2
+  },
+  {
+    question: 'Which wireless security protocol is considered outdated and insecure?',
+    options: ['WPA3', 'WPA2', 'WPA', 'WEP'],
+    answer: 3
+  },
+  {
+    question: 'Which tool is commonly used for packet sniffing?',
+    options: ['Hydra', 'Nmap', 'Wireshark', 'John the Ripper'],
+    answer: 2
+  },
+  {
+    question: 'Which process creates exact bit-level copy of storage media?',
+    options: ['Formatting', 'Cloning', 'Imaging', 'Compression'],
+    answer: 2
+  },
+  {
+    question: 'Which protocol dynamically assigns IP addresses?',
+    options: ['DNS', 'DHCP', 'SNMP', 'FTP'],
+    answer: 1
+  },
+  {
+    question: 'Which attack intercepts communication between two parties?',
+    options: ['MITM', 'Smishing', 'Worm attack', 'SQL Injection'],
+    answer: 0
+  },
+  {
+    question: 'Which layer handles logical addressing?',
+    options: ['Layer 1', 'Layer 2', 'Layer 3', 'Layer 4'],
+    answer: 2
+  },
+  {
+    question: 'Which malware category includes keyloggers?',
+    options: ['Adware', 'Spyware', 'Worm', 'Rootkit'],
+    answer: 1
+  },
+  {
+    question: 'Which command checks network reachability?',
+    options: ['ping', 'tasklist', 'route print', 'net user'],
+    answer: 0
+  },
+  {
+    question: 'Which concept ensures sender cannot deny sending message?',
+    options: ['Confidentiality', 'Integrity', 'Non-repudiation', 'Availability'],
+    answer: 2
+  },
+  {
+    question: 'Which attack manipulates users through psychology?',
+    options: ['Buffer overflow', 'Social engineering', 'Port scanning', 'Session timeout'],
+    answer: 1
+  },
+  {
+    question: 'Which field identifies source application in TCP communication?',
+    options: ['MAC address', 'Port number', 'IP address', 'VLAN ID'],
+    answer: 1
+  },
+  {
+    question: 'Which forensic tool specializes in memory analysis?',
+    options: ['FTK Imager', 'Wireshark', 'Volatility', 'Nmap'],
+    answer: 2
+  },
+  {
+    question: 'Which protocol sends emails between servers?',
+    options: ['IMAP', 'POP3', 'SMTP', 'SNMP'],
+    answer: 2
+  },
+  {
+    question: 'Which attack injects malicious SQL queries?',
+    options: ['XSS', 'SQL Injection', 'Smishing', 'Spoofing'],
+    answer: 1
+  },
+  {
+    question: 'Which type of malware can create botnets?',
+    options: ['Worms', 'Bots', 'Rootkits', 'Adware'],
+    answer: 1
+  },
+  {
+    question: 'Which command shows routing table in Windows?',
+    options: ['route print', 'ipconfig', 'tracert', 'nslookup'],
+    answer: 0
+  },
+  {
+    question: 'Which protocol translates IP addresses to MAC addresses?',
+    options: ['DNS', 'DHCP', 'ARP', 'ICMP'],
+    answer: 2
+  },
+  {
+    question: 'Which evidence field stores creation/modification timestamps?',
+    options: ['Encryption', 'Metadata', 'Payload', 'Signature'],
+    answer: 1
+  },
+  {
+    question: 'Which attack floods network with excessive traffic?',
+    options: ['DDoS', 'XSS', 'MITM', 'Vishing'],
+    answer: 0
+  },
+  {
+    question: 'Which protocol is commonly associated with port 53?',
+    options: ['DNS', 'FTP', 'HTTP', 'SSH'],
+    answer: 0
+  },
+  {
+    question: 'Which encryption algorithm is modern symmetric standard?',
+    options: ['DES', 'RSA', 'AES', 'MD5'],
+    answer: 2
+  },
+  {
+    question: 'Which network topology has single central connection point?',
+    options: ['Bus', 'Ring', 'Star', 'Mesh'],
+    answer: 2
+  },
+  {
+    question: 'Which attack uses fraudulent phone calls?',
+    options: ['Smishing', 'Spoofing', 'Vishing', 'Sniffing'],
+    answer: 2
+  },
+  {
+    question: 'Which OSI layer is responsible for end-to-end communication?',
+    options: ['Transport', 'Session', 'Network', 'Data Link'],
+    answer: 0
+  },
+  {
+    question: 'Which technique hides data inside images/audio?',
+    options: ['Encryption', 'Steganography', 'Hashing', 'Compression'],
+    answer: 1
+  },
+  {
+    question: 'Which command displays wireless profiles in Windows?',
+    options: ['net user', 'netsh wlan show profiles', 'ipconfig /all', 'nslookup'],
+    answer: 1
+  },
+  {
+    question: 'Which protocol is primarily used for network device monitoring?',
+    options: ['SNMP', 'SMTP', 'DNS', 'POP3'],
+    answer: 0
+  }
+];
+
+
+
+    const examForm = document.getElementById('examForm');
+
+    function loadQuestions() {
+      examForm.innerHTML = '';
+
+      questions.forEach((q, index) => {
+        const questionHTML = `
+          <div class="question-box">
+            <div class="question">
+              Q${index + 1}. ${q.question}
+            </div>
+
+            ${q.options.map((option, i) => `
+              <label class="option">
+                <input type="radio" name="question${index}" value="${i}">
+                ${option}
+              </label>
+            `).join('')}
+          </div>
+        `;
+
+        examForm.innerHTML += questionHTML;
+      });
+    }
+
+    let wrongAnswers = [];
+
+    function submitExam() {
+      let score = 0;
+      wrongAnswers = [];
+
+      questions.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="question${index}"]:checked`);
+
+        if (selected && parseInt(selected.value) === q.answer) {
+          score++;
+        } else {
+          wrongAnswers.push({
+            question: q.question,
+            correct: q.options[q.answer],
+            selected: selected ? q.options[parseInt(selected.value)] : 'Not Answered'
+          });
+        }
+      });
+
+      document.getElementById('examSection').style.display = 'none';
+      document.getElementById('resultSection').style.display = 'block';
+
+      document.getElementById('scoreText').innerText = `${score} / ${questions.length}`;
+
+      const percentage = ((score / questions.length) * 100).toFixed(2);
+
+      document.getElementById('detailsText').innerHTML = `
+        Correct Answers: <span class="correct">${score}</span><br><br>
+        Wrong Answers: <span class="wrong">${questions.length - score}</span><br><br>
+        Percentage: <strong>${percentage}%</strong>
+      `;
+    }
+
+    function showWrongAnswers() {
+      const section = document.getElementById('wrongAnswersSection');
+
+      if (wrongAnswers.length === 0) {
+        section.innerHTML = '<h2 style="color:green;">Excellent! No wrong answers.</h2>';
+      } else {
+        section.innerHTML = '<h2 style="margin-bottom:15px;">Wrong Answers Review</h2>';
+
+        wrongAnswers.forEach((item, index) => {
+          section.innerHTML += `
+            <div style="background:#f9fafb; border:1px solid #ddd; border-radius:12px; padding:15px; margin-bottom:15px;">
+              <strong>Q${index + 1}: ${item.question}</strong><br><br>
+              <span style="color:red;"><strong>Your Answer:</strong> ${item.selected}</span><br><br>
+              <span style="color:green;"><strong>Correct Answer:</strong> ${item.correct}</span>
+            </div>
+          `;
+        });
+      }
+
+      section.style.display = 'block';
+    }
+
+    function restartExam() {
+      document.getElementById('resultSection').style.display = 'none';
+      document.getElementById('examSection').style.display = 'block';
+      loadQuestions();
+    }
+
+    loadQuestions();
+  </script></body>
+</html>
