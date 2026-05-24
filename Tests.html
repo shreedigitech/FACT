@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>FACT & FACT+ MCQ Test</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#0f172a,#1e3a8a);
+    min-height:100vh;
+    padding:20px;
+    color:#111;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    background:#fff;
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.25);
+}
+
+h1{
+    text-align:center;
+    color:#1e3a8a;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#555;
+    margin-bottom:25px;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.timer{
+    background:#dc2626;
+    color:white;
+    padding:10px 18px;
+    border-radius:12px;
+    font-weight:bold;
+}
+
+.progress{
+    background:#e5e7eb;
+    height:12px;
+    border-radius:10px;
+    overflow:hidden;
+    margin-bottom:25px;
+}
+
+.progress-bar{
+    height:100%;
+    width:0%;
+    background:#2563eb;
+    transition:0.4s;
+}
+
+.question-box{
+    background:#f9fafb;
+    border:1px solid #ddd;
+    border-radius:15px;
+    padding:20px;
+    margin-bottom:25px;
+}
+
+.question{
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:15px;
+    color:#111827;
+}
+
+.option{
+    display:block;
+    padding:12px;
+    border:1px solid #d1d5db;
+    border-radius:10px;
+    margin-bottom:12px;
+    cursor:pointer;
+    transition:0.3s;
+    background:white;
+}
+
+.option:hover{
+    background:#dbeafe;
+}
+
+input[type="radio"]{
+    margin-right:10px;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:#2563eb;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+    margin-top:15px;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+.result-section{
+    display:none;
+    text-align:center;
+}
+
+.score{
+    font-size:60px;
+    color:#16a34a;
+    font-weight:bold;
+    margin:20px 0;
+}
+
+.result-details{
+    font-size:20px;
+    margin-bottom:25px;
+}
+
+.correct{
+    color:green;
+    font-weight:bold;
+}
+
+.wrong{
+    color:red;
+    font-weight:bold;
+}
+
+.review-box{
+    text-align:left;
+    margin-top:20px;
+}
+
+.review-item{
+    background:#f9fafb;
+    border:1px solid #ddd;
+    border-radius:12px;
+    padding:15px;
+    margin-bottom:15px;
+}
+
+@media(max-width:600px){
+    .question{
+        font-size:16px;
+    }
+
+    .score{
+        font-size:42px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div id="examSection">
+
+        <h1>FACT & FACT+ MCQ Test</h1>
+        <p class="subtitle">
+            Hypothesis Testing, Chi-Square, Sampling & Uncertainty
+        </p>
+
+        <div class="topbar">
+            <div><strong>Total Questions:</strong> <span id="totalQ"></span></div>
+            <div class="timer">Time Left: <span id="time">20:00</span></div>
+        </div>
+
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <form id="examForm"></form>
+
+        <button onclick="submitExam()">Submit Exam</button>
+
+    </div>
+
+    <div class="result-section" id="resultSection">
+
+        <h1>Exam Result</h1>
+
+        <div class="score" id="scoreText">0/0</div>
+
+        <div class="result-details" id="resultDetails"></div>
+
+        <button onclick="showReview()">View Wrong Answers</button>
+        <button onclick="restartExam()">Restart Test</button>
+
+        <div class="review-box" id="reviewBox"></div>
+
+    </div>
+
+</div>
+
+<script>
+
+const questions = [
+
+{
+question:"Which statistical test compares variances between two datasets?",
+options:["Chi-square test","Paired t-test","F-test","z-test"],
+answer:2
+},
+
+{
+question:"Expected frequency in Chi-square test should preferably be:",
+options:["1","2","5","10"],
+answer:2
+},
+
+{
+question:"Which sampling uses fixed intervals?",
+options:["Random sampling","Systematic sampling","Cluster sampling","Convenience sampling"],
+answer:1
+},
+
+{
+question:"A Type-I error occurs when:",
+options:[
+"False null hypothesis accepted",
+"True null hypothesis rejected",
+"Alternative hypothesis rejected",
+"Sample size increases"
+],
+answer:1
+},
+
+{
+question:"Which test is non-parametric?",
+options:["z-test","t-test","F-test","Chi-square test"],
+answer:3
+},
+
+{
+question:"Which error affects accuracy?",
+options:["Random error","Systematic error","Sampling error","Observation error"],
+answer:1
+},
+
+{
+question:"Which error affects precision?",
+options:["Systematic error","Calibration error","Random error","Gross error"],
+answer:2
+},
+
+{
+question:"If p-value is less than alpha:",
+options:[
+"Accept null hypothesis",
+"Reject null hypothesis",
+"Increase variance",
+"Reduce sample size"
+],
+answer:1
+},
+
+{
+question:"Large standard deviation indicates:",
+options:[
+"High consistency",
+"Data close to mean",
+"Greater spread in data",
+"Zero variance"
+],
+answer:2
+},
+
+{
+question:"Which sampling ensures subgroup representation?",
+options:[
+"Simple random sampling",
+"Systematic sampling",
+"Stratified sampling",
+"Convenience sampling"
+],
+answer:2
+},
+
+{
+question:"An F-statistic close to 1 indicates:",
+options:[
+"Strong association",
+"Variances nearly equal",
+"Means are different",
+"High skewness"
+],
+answer:1
+},
+
+{
+question:"Which test uses observed and expected frequencies?",
+options:[
+"z-test",
+"t-test",
+"F-test",
+"Chi-square test"
+],
+answer:3
+},
+
+{
+question:"Random sampling means:",
+options:[
+"Fixed interval selection",
+"Equal probability of selection",
+"Grouped population",
+"Convenient selection"
+],
+answer:1
+},
+
+{
+question:"Systematic error can be reduced by:",
+options:[
+"Repeating measurements",
+"Calibration correction",
+"Increasing sample size",
+"Random selection"
+],
+answer:1
+},
+
+{
+question:"Primary purpose of hypothesis testing is:",
+options:[
+"Eliminate uncertainty",
+"Prove hypothesis absolutely",
+"Make decisions using sample evidence",
+"Increase variance"
+],
+answer:2
+}
+
+];
+
+const examForm = document.getElementById("examForm");
+const progressBar = document.getElementById("progressBar");
+
+document.getElementById("totalQ").innerText = questions.length;
+
+function loadQuestions(){
+
+    examForm.innerHTML = "";
+
+    questions.forEach((q,index)=>{
+
+        const html = `
+        <div class="question-box">
+
+            <div class="question">
+                Q${index+1}. ${q.question}
+            </div>
+
+            ${q.options.map((opt,i)=>`
+
+                <label class="option">
+                    <input type="radio" 
+                    name="question${index}" 
+                    value="${i}"
+                    onchange="updateProgress()">
+                    ${opt}
+                </label>
+
+            `).join("")}
+
+        </div>
+        `;
+
+        examForm.innerHTML += html;
+    });
+}
+
+let wrongAnswers = [];
+
+function submitExam(){
+
+    let score = 0;
+    wrongAnswers = [];
+
+    questions.forEach((q,index)=>{
+
+        const selected =
+        document.querySelector(`input[name="question${index}"]:checked`);
+
+        if(selected && parseInt(selected.value) === q.answer){
+            score++;
+        }else{
+
+            wrongAnswers.push({
+                question:q.question,
+                selected:selected ? q.options[selected.value] : "Not Answered",
+                correct:q.options[q.answer]
+            });
+
+        }
+
+    });
+
+    document.getElementById("examSection").style.display="none";
+    document.getElementById("resultSection").style.display="block";
+
+    document.getElementById("scoreText").innerText =
+    `${score}/${questions.length}`;
+
+    const percentage =
+    ((score/questions.length)*100).toFixed(2);
+
+    document.getElementById("resultDetails").innerHTML = `
+        Correct Answers:
+        <span class="correct">${score}</span>
+        <br><br>
+
+        Wrong Answers:
+        <span class="wrong">${questions.length-score}</span>
+        <br><br>
+
+        Percentage:
+        <strong>${percentage}%</strong>
+    `;
+
+    clearInterval(timer);
+}
+
+function showReview(){
+
+    const reviewBox =
+    document.getElementById("reviewBox");
+
+    if(wrongAnswers.length===0){
+
+        reviewBox.innerHTML = `
+        <h2 style="color:green;">
+        Excellent! No wrong answers.
+        </h2>
+        `;
+
+        return;
+    }
+
+    reviewBox.innerHTML = "<h2 style='margin-bottom:20px;'>Wrong Answers Review</h2>";
+
+    wrongAnswers.forEach((item,index)=>{
+
+        reviewBox.innerHTML += `
+
+        <div class="review-item">
+
+            <strong>Q${index+1}:
+            ${item.question}</strong>
+
+            <br><br>
+
+            <span style="color:red;">
+            Your Answer:
+            ${item.selected}
+            </span>
+
+            <br><br>
+
+            <span style="color:green;">
+            Correct Answer:
+            ${item.correct}
+            </span>
+
+        </div>
+        `;
+    });
+}
+
+function restartExam(){
+
+    document.getElementById("resultSection").style.display="none";
+    document.getElementById("examSection").style.display="block";
+
+    loadQuestions();
+
+    timeLeft = 1200;
+    startTimer();
+
+    updateProgress();
+}
+
+function updateProgress(){
+
+    const answered =
+    document.querySelectorAll("input[type='radio']:checked").length;
+
+    const percent =
+    (answered/questions.length)*100;
+
+    progressBar.style.width = percent + "%";
+}
+
+let timeLeft = 1200;
+let timer;
+
+function startTimer(){
+
+    clearInterval(timer);
+
+    timer = setInterval(()=>{
+
+        let minutes =
+        Math.floor(timeLeft/60);
+
+        let seconds =
+        timeLeft%60;
+
+        seconds =
+        seconds < 10 ? "0"+seconds : seconds;
+
+        document.getElementById("time").innerText =
+        `${minutes}:${seconds}`;
+
+        if(timeLeft<=0){
+
+            clearInterval(timer);
+            submitExam();
+
+        }
+
+        timeLeft--;
+
+    },1000);
+
+}
+
+loadQuestions();
+startTimer();
+
+</script>
+
+</body>
+</html>
