@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FACT Statistics Practice Test</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#0f172a,#1e3a8a);
+    min-height:100vh;
+    padding:20px;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    background:white;
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+
+h1{
+    text-align:center;
+    color:#1e3a8a;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#555;
+    margin-bottom:25px;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.timer{
+    background:#dc2626;
+    color:white;
+    padding:10px 18px;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+.progress{
+    width:100%;
+    height:12px;
+    background:#e5e7eb;
+    border-radius:10px;
+    overflow:hidden;
+    margin-bottom:25px;
+}
+
+.progress-bar{
+    height:100%;
+    width:0%;
+    background:#2563eb;
+    transition:0.3s;
+}
+
+.question-box{
+    background:#f9fafb;
+    border:1px solid #ddd;
+    border-radius:15px;
+    padding:20px;
+    margin-bottom:20px;
+}
+
+.question{
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:15px;
+    color:#111827;
+}
+
+.option{
+    display:block;
+    padding:12px;
+    border:1px solid #d1d5db;
+    border-radius:10px;
+    margin-bottom:10px;
+    cursor:pointer;
+    transition:0.3s;
+    background:white;
+}
+
+.option:hover{
+    background:#dbeafe;
+}
+
+input[type="radio"]{
+    margin-right:10px;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:#2563eb;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+    margin-top:15px;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+.result-section{
+    display:none;
+    text-align:center;
+}
+
+.score{
+    font-size:60px;
+    color:#16a34a;
+    font-weight:bold;
+    margin:20px 0;
+}
+
+.review{
+    text-align:left;
+    margin-top:25px;
+}
+
+.review-item{
+    background:#f9fafb;
+    border:1px solid #ddd;
+    border-radius:12px;
+    padding:15px;
+    margin-bottom:15px;
+}
+
+.correct{
+    color:green;
+    font-weight:bold;
+}
+
+.wrong{
+    color:red;
+    font-weight:bold;
+}
+
+@media(max-width:600px){
+
+    .question{
+        font-size:16px;
+    }
+
+    .score{
+        font-size:42px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div id="examSection">
+
+<h1>FACT Statistics MCQ Test</h1>
+
+<p class="subtitle">
+Probability, Mean, Median & Mode Practice
+</p>
+
+<div class="topbar">
+<div><strong>Total Questions:</strong> <span id="totalQuestions"></span></div>
+<div class="timer">Time Left: <span id="timer">15:00</span></div>
+</div>
+
+<div class="progress">
+<div class="progress-bar" id="progressBar"></div>
+</div>
+
+<form id="quizForm"></form>
+
+<button onclick="submitQuiz()">Submit Test</button>
+
+</div>
+
+<div class="result-section" id="resultSection">
+
+<h1>Test Result</h1>
+
+<div class="score" id="scoreText">0/0</div>
+
+<div id="resultDetails"></div>
+
+<button onclick="showReview()">View Wrong Answers</button>
+
+<button onclick="restartQuiz()">Restart Test</button>
+
+<div class="review" id="reviewBox"></div>
+
+</div>
+
+</div>
+
+<script>
+
+const questions = [
+
+{
+question:"Probability of an impossible event is:",
+options:["1","0","0.5","Infinite"],
+answer:1
+},
+
+{
+question:"Probability of getting even number on a die is:",
+options:["1/6","2/6","3/6","4/6"],
+answer:2
+},
+
+{
+question:"Probability values always lie between:",
+options:["-1 to 1","0 to 100","0 to 1","1 to 10"],
+answer:2
+},
+
+{
+question:"Sample space of tossing two coins is:",
+options:[
+"{H,T}",
+"{HH, HT, TH, TT}",
+"{1,2}",
+"{H,H,T}"
+],
+answer:1
+},
+
+{
+question:"Experimental probability is based on:",
+options:[
+"Assumption only",
+"Actual observations",
+"Theory only",
+"Formula memorization"
+],
+answer:1
+},
+
+{
+question:"Arithmetic mean of 2,4,6,8 is:",
+options:["4","5","6","8"],
+answer:1
+},
+
+{
+question:"Which measure uses all observations?",
+options:["Median","Mode","Mean","Range"],
+answer:2
+},
+
+{
+question:"Mean is highly affected by:",
+options:[
+"Middle values",
+"Repeated values",
+"Extreme values",
+"Missing values"
+],
+answer:2
+},
+
+{
+question:"Median of 2,4,6,8,10 is:",
+options:["4","5","6","8"],
+answer:2
+},
+
+{
+question:"Arrange data first before calculating:",
+options:["Mean","Median","Probability","Variance"],
+answer:1
+},
+
+{
+question:"Median of 5,7,9,11 is:",
+options:["7","8","9","10"],
+answer:1
+},
+
+{
+question:"Which measure is least affected by outliers?",
+options:["Mean","Median","Average","Sum"],
+answer:1
+},
+
+{
+question:"Mode of 1,2,2,3,4,4,4,5 is:",
+options:["2","3","4","5"],
+answer:2
+},
+
+{
+question:"Mode represents:",
+options:[
+"Average value",
+"Middle value",
+"Most frequent value",
+"Smallest value"
+],
+answer:2
+},
+
+{
+question:"Which measure can be used for categorical data?",
+options:["Mean","Median","Mode","Variance"],
+answer:2
+},
+
+{
+question:"Dataset with two modes is called:",
+options:[
+"Unimodal",
+"Bimodal",
+"Trimodal",
+"Multinomial"
+],
+answer:1
+},
+
+{
+question:"Which measure is called 'middle man'?",
+options:["Mean","Mode","Median","Ratio"],
+answer:2
+},
+
+{
+question:"Best statistical measure for identifying most common weapon:",
+options:[
+"Mean",
+"Median",
+"Mode",
+"Probability"
+],
+answer:2
+},
+
+{
+question:"Which measure may produce value not present in dataset?",
+options:["Mode","Mean","Median","Frequency"],
+answer:1
+},
+
+{
+question:"If all observations are same then:",
+options:[
+"Mean ≠ Median",
+"Median ≠ Mode",
+"Mean = Median = Mode",
+"None"
+],
+answer:2
+}
+
+];
+
+const quizForm = document.getElementById("quizForm");
+
+document.getElementById("totalQuestions").innerText = questions.length;
+
+function loadQuestions(){
+
+quizForm.innerHTML = "";
+
+questions.forEach((q,index)=>{
+
+quizForm.innerHTML += `
+
+<div class="question-box">
+
+<div class="question">
+Q${index+1}. ${q.question}
+</div>
+
+${q.options.map((option,i)=>`
+
+<label class="option">
+
+<input type="radio"
+name="question${index}"
+value="${i}"
+onchange="updateProgress()">
+
+${option}
+
+</label>
+
+`).join("")}
+
+</div>
+
+`;
+
+});
+
+}
+
+let wrongAnswers = [];
+
+function submitQuiz(){
+
+let score = 0;
+
+wrongAnswers = [];
+
+questions.forEach((q,index)=>{
+
+const selected =
+document.querySelector(`input[name="question${index}"]:checked`);
+
+if(selected && parseInt(selected.value) === q.answer){
+
+score++;
+
+}else{
+
+wrongAnswers.push({
+
+question:q.question,
+
+selected:selected
+? q.options[selected.value]
+: "Not Answered",
+
+correct:q.options[q.answer]
+
+});
+
+}
+
+});
+
+document.getElementById("examSection").style.display = "none";
+
+document.getElementById("resultSection").style.display = "block";
+
+document.getElementById("scoreText").innerText =
+`${score}/${questions.length}`;
+
+const percent =
+((score/questions.length)*100).toFixed(2);
+
+document.getElementById("resultDetails").innerHTML = `
+
+<h2>
+Correct:
+<span class="correct">${score}</span>
+</h2>
+
+<br>
+
+<h2>
+Wrong:
+<span class="wrong">${questions.length-score}</span>
+</h2>
+
+<br>
+
+<h2>
+Percentage: ${percent}%
+</h2>
+
+`;
+
+clearInterval(timerInterval);
+
+}
+
+function showReview(){
+
+const reviewBox =
+document.getElementById("reviewBox");
+
+if(wrongAnswers.length === 0){
+
+reviewBox.innerHTML = `
+<h2 style="color:green;">
+Excellent! All answers correct.
+</h2>
+`;
+
+return;
+
+}
+
+reviewBox.innerHTML =
+"<h2 style='margin-bottom:20px;'>Wrong Answers Review</h2>";
+
+wrongAnswers.forEach((item,index)=>{
+
+reviewBox.innerHTML += `
+
+<div class="review-item">
+
+<strong>
+Q${index+1}. ${item.question}
+</strong>
+
+<br><br>
+
+<span class="wrong">
+Your Answer: ${item.selected}
+</span>
+
+<br><br>
+
+<span class="correct">
+Correct Answer: ${item.correct}
+</span>
+
+</div>
+
+`;
+
+});
+
+}
+
+function restartQuiz(){
+
+document.getElementById("resultSection").style.display = "none";
+
+document.getElementById("examSection").style.display = "block";
+
+timeLeft = 900;
+
+loadQuestions();
+
+startTimer();
+
+updateProgress();
+
+}
+
+function updateProgress(){
+
+const answered =
+document.querySelectorAll("input[type='radio']:checked").length;
+
+const percent =
+(answered/questions.length)*100;
+
+document.getElementById("progressBar").style.width =
+percent + "%";
+
+}
+
+let timeLeft = 900;
+
+let timerInterval;
+
+function startTimer(){
+
+clearInterval(timerInterval);
+
+timerInterval = setInterval(()=>{
+
+let minutes = Math.floor(timeLeft/60);
+
+let seconds = timeLeft % 60;
+
+seconds = seconds < 10 ? "0"+seconds : seconds;
+
+document.getElementById("timer").innerText =
+`${minutes}:${seconds}`;
+
+if(timeLeft <= 0){
+
+clearInterval(timerInterval);
+
+submitQuiz();
+
+}
+
+timeLeft--;
+
+},1000);
+
+}
+
+loadQuestions();
+
+startTimer();
+
+</script>
+
+</body>
+</html>
