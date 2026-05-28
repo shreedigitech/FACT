@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FACT & FACT+ MCQ Test</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#0f172a,#1e40af);
+    min-height:100vh;
+    padding:20px;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    background:#fff;
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.25);
+}
+
+h1{
+    text-align:center;
+    color:#1e3a8a;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#555;
+    margin-bottom:25px;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+    gap:10px;
+}
+
+.timer{
+    background:#dc2626;
+    color:white;
+    padding:10px 16px;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+.progress{
+    width:100%;
+    height:12px;
+    background:#e5e7eb;
+    border-radius:10px;
+    overflow:hidden;
+    margin-bottom:25px;
+}
+
+.progress-bar{
+    width:0%;
+    height:100%;
+    background:#2563eb;
+    transition:0.3s;
+}
+
+.question-box{
+    background:#f9fafb;
+    border:1px solid #ddd;
+    border-radius:15px;
+    padding:20px;
+    margin-bottom:20px;
+}
+
+.question{
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:15px;
+    color:#111827;
+}
+
+.option{
+    display:block;
+    padding:12px;
+    border:1px solid #d1d5db;
+    border-radius:10px;
+    margin-bottom:10px;
+    background:white;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.option:hover{
+    background:#dbeafe;
+}
+
+input[type="radio"]{
+    margin-right:10px;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:#2563eb;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+    margin-top:20px;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+.result-section{
+    display:none;
+    text-align:center;
+}
+
+.score{
+    font-size:60px;
+    color:#16a34a;
+    font-weight:bold;
+    margin:20px 0;
+}
+
+.correct{
+    color:green;
+    font-weight:bold;
+}
+
+.wrong{
+    color:red;
+    font-weight:bold;
+}
+
+.review{
+    text-align:left;
+    margin-top:25px;
+}
+
+.review-item{
+    background:#f9fafb;
+    border:1px solid #ddd;
+    border-radius:12px;
+    padding:15px;
+    margin-bottom:15px;
+}
+
+@media(max-width:600px){
+
+    .question{
+        font-size:16px;
+    }
+
+    .score{
+        font-size:40px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div id="examSection">
+
+<h1>FACT & FACT+ MCQ Test</h1>
+
+<p class="subtitle">
+70 Questions Practice Test • Cyber Forensics • Networking • Security
+</p>
+
+<div class="topbar">
+<div><strong>Total Questions:</strong> 70</div>
+<div class="timer">Time Left: <span id="timer">60:00</span></div>
+</div>
+
+<div class="progress">
+<div class="progress-bar" id="progressBar"></div>
+</div>
+
+<form id="quizForm"></form>
+
+<button onclick="submitQuiz()">Submit Exam</button>
+
+</div>
+
+<div class="result-section" id="resultSection">
+
+<h1>Exam Result</h1>
+
+<div class="score" id="scoreText">0/70</div>
+
+<div id="resultDetails"></div>
+
+<button onclick="showReview()">View Wrong Answers</button>
+
+<button onclick="restartQuiz()">Restart Test</button>
+
+<div class="review" id="reviewBox"></div>
+
+</div>
+
+</div>
+
+<script>
+
+const questions = [
+
+{
+question:"The length of a MD5 Hash value is:",
+options:["56 bit","128 bit","256 bit","512 bit"],
+answer:1
+},
+
+{
+question:"The length of a SHA1 Hash value is:",
+options:["128 bit","160 bit","256 bit","512 bit"],
+answer:1
+},
+
+{
+question:"The length of a SHA2 Hash value is:",
+options:["56 bit","128 bit","256 bit","512 bit"],
+answer:2
+},
+
+{
+question:"What is the correct sequence of Cyber Security process cycle?",
+options:[
+"Identify Threats → Identify Risks → Identify Vulnerabilities → Minimize Risk",
+"Minimize Risk → Identify Threats → Identify Vulnerabilities → Identify Risks",
+"Identify Risks → Identify Threats → Identify Vulnerabilities → Minimize Risk",
+"Identify Threats → Minimize Risk → Identify Risks → Identify Vulnerabilities"
+],
+answer:0
+},
+
+{
+question:"What is the correct sequence of Penetration Testing phases?",
+options:[
+"Reconnaissance → Scanning → Gaining Access → Maintaining Access → Covering Tracks",
+"Maintaining Access → Scanning → Gaining Access → Covering Tracks → Reconnaissance",
+"Scanning → Gaining Access → Covering Tracks → Reconnaissance → Maintaining Access",
+"Maintaining Access → Scanning → Reconnaissance → Covering Tracks → Gaining Access"
+],
+answer:0
+},
+
+{
+question:"What is Internet of Things (IoT)?",
+options:[
+"Devices directly connected only to devices",
+"World of interconnected internet-enabled devices sharing data automatically",
+"Changing purchase methods",
+"Predicting future patterns only"
+],
+answer:1
+},
+
+{
+question:"Who said 'The internet will disappear...' regarding IoT?",
+options:["Eric Schmidt","Mark Zuckerberg","Bill Gates","Glen Mecaughty"],
+answer:0
+},
+
+{
+question:"What is the size of IPv6 address?",
+options:["32 bits","64 bits","128 bits","256 bits"],
+answer:2
+},
+
+{
+question:"Communication between IoT devices automatically without humans is called:",
+options:["Bot to Bot","Machine to Machine (M2M)","Intercloud","Skynet"],
+answer:1
+},
+
+{
+question:"Which tool captures emails, URLs, IP addresses and credit card numbers from forensic image?",
+options:["DBAN","Bulk_extractor","Hiren Boot CD","UTK ISO"],
+answer:1
+},
+
+{
+question:"Cryptography transforms messages to make them secure and immune from:",
+options:["Attack","Congestion","Idle","Defend"],
+answer:0
+},
+
+{
+question:"Under which IT Act section can Central Government notify Examiner of Electronic Evidence?",
+options:["Section 79","Section 79A","Section 79B","Section 79C"],
+answer:1
+},
+
+{
+question:"RSA stands for:",
+options:[
+"Rivest, Shamir, Adleman",
+"Roger, Shamir, Adrian",
+"Robert, Shamir, Anthony",
+"Rivest, Shaw, Adleman"
+],
+answer:0
+},
+
+{
+question:"Which is a 4G standard?",
+options:["EDGE","GSM","LTE","GSM4"],
+answer:2
+},
+
+{
+question:"What is found at Cylinder 0, Head 0, Sector 1 on hard drive?",
+options:[
+"Master Boot Record",
+"Master File Table",
+"Volume Boot Record",
+"Volume Boot Sector"
+],
+answer:0
+},
+
+{
+question:"Area between file logical size and physical size is called:",
+options:[
+"Unused disk area",
+"Unallocated clusters",
+"Unallocated sectors",
+"Slack space"
+],
+answer:3
+},
+
+{
+question:"What part of cloud implementation provides virtual servers access to resources?",
+options:[
+"Hypervisor",
+"Resource monitor",
+"Resource auditor",
+"Virtual manager"
+],
+answer:0
+},
+
+{
+question:"File extension for VMware virtual hard drive is:",
+options:[".vdi",".vmdk",".vhx",".vmi"],
+answer:1
+},
+
+{
+question:"File extension for Virtual PC hard drive is:",
+options:[".vdi",".vmdk",".vhd",".vmi"],
+answer:2
+},
+
+{
+question:"Which Windows log tells if software has been uninstalled?",
+options:["Application","Install","Security","User"],
+answer:0
+},
+
+{
+question:"SIM stores:",
+options:[
+"Phone serial number",
+"Mobile Subscriber Identity",
+"Cell network type",
+"Tower details"
+],
+answer:1
+},
+
+{
+question:"Router determines path using:",
+options:[
+"MAC address",
+"IP address",
+"Protocol used",
+"Next available port"
+],
+answer:1
+},
+
+{
+question:"Which header contains sender port number?",
+options:["TCP","IP","Ethernet","None"],
+answer:0
+},
+
+{
+question:"Special database holding user, hardware and program information is:",
+options:[
+"Dynamic Link Library",
+"Initialization file",
+"Compiled Help Module",
+"Windows Registry"
+],
+answer:3
+},
+
+{
+question:"Unsolicited commercial emails are known as:",
+options:["Junk","Hoaxes","Spam","Hypertext"],
+answer:2
+},
+
+{
+question:"Which protocol is connection-oriented?",
+options:["UDP","IP","TCP","ICMP"],
+answer:2
+},
+
+{
+question:"Which OSI layer handles routing?",
+options:["Data Link","Network","Transport","Session"],
+answer:1
+},
+
+{
+question:"Which device mainly works at Layer 2?",
+options:["Router","Hub","Switch","Firewall"],
+answer:2
+},
+
+{
+question:"HTTPS uses which port?",
+options:["80","21","443","25"],
+answer:2
+},
+
+{
+question:"Which addressing is used at Data Link layer?",
+options:["IP","Port","MAC","Logical"],
+answer:2
+},
+
+{
+question:"Which attack injects scripts into webpages?",
+options:["SQL Injection","XSS","MITM","DDoS"],
+answer:1
+},
+
+{
+question:"Which malware encrypts victim files?",
+options:["Worm","Spyware","Trojan","Ransomware"],
+answer:3
+},
+
+{
+question:"Which command shows active network connections in Windows?",
+options:["ipconfig","ping","netstat","tracert"],
+answer:2
+},
+
+{
+question:"Which protocol provides secure remote login?",
+options:["Telnet","FTP","SSH","SMTP"],
+answer:2
+},
+
+{
+question:"Which OSI layer handles encryption?",
+options:["Session","Presentation","Application","Physical"],
+answer:1
+},
+
+{
+question:"Which malware records keystrokes?",
+options:["Adware","Worm","Keylogger","Rootkit"],
+answer:2
+},
+
+{
+question:"Which hashing algorithm is stronger?",
+options:["MD5","SHA1","SHA256","DES"],
+answer:2
+},
+
+{
+question:"Which protocol is connectionless?",
+options:["TCP","UDP","SSH","HTTPS"],
+answer:1
+},
+
+{
+question:"Which protocol resolves domain names?",
+options:["DHCP","DNS","ARP","ICMP"],
+answer:1
+},
+
+{
+question:"VPN primarily provides:",
+options:[
+"Hardware security",
+"Encryption tunnel",
+"Physical protection",
+"Antivirus scanning"
+],
+answer:1
+},
+
+{
+question:"Which protocol transfers email?",
+options:["SMTP","DNS","SSH","SNMP"],
+answer:0
+},
+
+{
+question:"Which malware hides attacker presence?",
+options:["Rootkit","Spyware","Worm","Trojan"],
+answer:0
+},
+
+{
+question:"Which layer uses port numbers?",
+options:["Network","Session","Transport","Data Link"],
+answer:2
+},
+
+{
+question:"Which attack secretly intercepts communication?",
+options:["Brute Force","MITM","Phishing","Smishing"],
+answer:1
+},
+
+{
+question:"Which command checks connectivity?",
+options:["netstat","ping","arp","tasklist"],
+answer:1
+},
+
+{
+question:"DNS uses which port?",
+options:["80","53","22","21"],
+answer:1
+},
+
+{
+question:"Weakest Wi-Fi security protocol is:",
+options:["WPA3","WPA2","WPA","WEP"],
+answer:3
+},
+
+{
+question:"SSID represents:",
+options:[
+"Wireless password",
+"Router firmware",
+"Wi-Fi network name",
+"MAC address"
+],
+answer:2
+},
+
+{
+question:"Which protocol provides reliable delivery?",
+options:["UDP","ICMP","TCP","ARP"],
+answer:2
+},
+
+{
+question:"Which attack uses fake emails to steal credentials?",
+options:["Phishing","Spoofing","Sniffing","Scanning"],
+answer:0
+},
+
+{
+question:"Which forensic technique creates exact disk copy?",
+options:["Formatting","Imaging","Compression","Defragmentation"],
+answer:1
+},
+
+{
+question:"Which evidence disappears after shutdown?",
+options:["Hard disk","USB","RAM","SSD"],
+answer:2
+},
+
+{
+question:"Automatic IP assignment uses:",
+options:["DHCP","DNS","SNMP","SMTP"],
+answer:0
+},
+
+{
+question:"Repeated password attempts are called:",
+options:["Phishing","XSS","Brute Force","MITM"],
+answer:2
+},
+
+{
+question:"Which protocol manages network devices?",
+options:["SMTP","FTP","SNMP","DNS"],
+answer:2
+},
+
+{
+question:"Which layer converts bits into signals?",
+options:["Session","Physical","Network","Application"],
+answer:1
+},
+
+{
+question:"Which malware self-replicates automatically?",
+options:["Trojan","Virus","Worm","Spyware"],
+answer:2
+},
+
+{
+question:"Which address is logical?",
+options:["MAC","Physical","IP","Hardware"],
+answer:2
+},
+
+{
+question:"Which command displays ARP cache?",
+options:["netstat","ping","arp -a","tracert"],
+answer:2
+},
+
+{
+question:"Which protocol secures web traffic?",
+options:["HTTP","HTTPS","FTP","Telnet"],
+answer:1
+},
+
+{
+question:"Fake Wi-Fi access point attack is:",
+options:["Evil Twin","Smishing","Brute Force","Worm"],
+answer:0
+},
+
+{
+question:"IP addressing belongs to:",
+options:["Layer 1","Layer 2","Layer 3","Layer 4"],
+answer:2
+},
+
+{
+question:"Which tool analyzes packets?",
+options:["Metasploit","Wireshark","Hydra","Burp Suite"],
+answer:1
+},
+
+{
+question:"Which concept ensures evidence remains unchanged?",
+options:["Authentication","Encryption","Integrity","Compression"],
+answer:2
+},
+
+{
+question:"Malware pretending to be legitimate software is:",
+options:["Worm","Trojan","Rootkit","Adware"],
+answer:1
+},
+
+{
+question:"Which protocol translates MAC to IP?",
+options:["DNS","ICMP","ARP","DHCP"],
+answer:2
+},
+
+{
+question:"Encryption using two keys is:",
+options:["Symmetric","Asymmetric","Hashing","DES"],
+answer:1
+},
+
+{
+question:"Attack using stolen cookies is:",
+options:["Session Hijacking","Phishing","Smishing","Brute Force"],
+answer:0
+},
+
+{
+question:"Which device forwards packets between networks?",
+options:["Hub","Switch","Router","Repeater"],
+answer:2
+},
+
+{
+question:"Which tool is used for memory forensics?",
+options:["Wireshark","Volatility","Nmap","Hydra"],
+answer:1
+},
+
+{
+question:"Which process verifies evidence integrity?",
+options:["Encryption","Compression","Hashing","Formatting"],
+answer:2
+},
+
+{
+question:"Voice-call fraud attack is:",
+options:["Smishing","Vishing","Sniffing","Spoofing"],
+answer:1
+},
+
+{
+question:"Windows command showing IP configuration is:",
+options:["ifconfig","ipconfig","ping","arp"],
+answer:1
+},
+
+{
+question:"Which forensic tool is used for disk imaging?",
+options:["FTK Imager","Wireshark","Nmap","Aircrack-ng"],
+answer:0
+}
+
+];
+
+const form = document.getElementById("quizForm");
+
+function loadQuestions(){
+
+form.innerHTML = "";
+
+questions.forEach((q,index)=>{
+
+form.innerHTML += `
+
+<div class="question-box">
+
+<div class="question">
+Q${index+1}. ${q.question}
+</div>
+
+${q.options.map((option,i)=>`
+
+<label class="option">
+
+<input type="radio"
+name="q${index}"
+value="${i}"
+onchange="updateProgress()">
+
+${option}
+
+</label>
+
+`).join("")}
+
+</div>
+
+`;
+
+});
+
+}
+
+let wrongAnswers = [];
+
+function submitQuiz(){
+
+let score = 0;
+wrongAnswers = [];
+
+questions.forEach((q,index)=>{
+
+const selected =
+document.querySelector(`input[name="q${index}"]:checked`);
+
+if(selected && parseInt(selected.value) === q.answer){
+
+score++;
+
+}else{
+
+wrongAnswers.push({
+question:q.question,
+selected:selected ? q.options[selected.value] : "Not Answered",
+correct:q.options[q.answer]
+});
+
+}
+
+});
+
+document.getElementById("examSection").style.display = "none";
+document.getElementById("resultSection").style.display = "block";
+
+document.getElementById("scoreText").innerText =
+`${score}/${questions.length}`;
+
+const percentage =
+((score/questions.length)*100).toFixed(2);
+
+document.getElementById("resultDetails").innerHTML = `
+
+<h2>
+Correct:
+<span class="correct">${score}</span>
+</h2>
+
+<br>
+
+<h2>
+Wrong:
+<span class="wrong">${questions.length-score}</span>
+</h2>
+
+<br>
+
+<h2>
+Percentage: ${percentage}%
+</h2>
+
+`;
+
+clearInterval(timerInterval);
+
+}
+
+function showReview(){
+
+const reviewBox =
+document.getElementById("reviewBox");
+
+if(wrongAnswers.length===0){
+
+reviewBox.innerHTML = `
+<h2 style="color:green;">
+Excellent! No wrong answers.
+</h2>
+`;
+
+return;
+
+}
+
+reviewBox.innerHTML =
+"<h2 style='margin-bottom:20px;'>Wrong Answers Review</h2>";
+
+wrongAnswers.forEach((item,index)=>{
+
+reviewBox.innerHTML += `
+
+<div class="review-item">
+
+<strong>
+Q${index+1}. ${item.question}
+</strong>
+
+<br><br>
+
+<span class="wrong">
+Your Answer: ${item.selected}
+</span>
+
+<br><br>
+
+<span class="correct">
+Correct Answer: ${item.correct}
+</span>
+
+</div>
+
+`;
+
+});
+
+}
+
+function restartQuiz(){
+
+document.getElementById("resultSection").style.display = "none";
+document.getElementById("examSection").style.display = "block";
+
+timeLeft = 3600;
+
+loadQuestions();
+updateProgress();
+startTimer();
+
+}
+
+function updateProgress(){
+
+const answered =
+document.querySelectorAll("input[type='radio']:checked").length;
+
+const percent =
+(answered/questions.length)*100;
+
+document.getElementById("progressBar").style.width =
+percent + "%";
+
+}
+
+let timeLeft = 3600;
+let timerInterval;
+
+function startTimer(){
+
+clearInterval(timerInterval);
+
+timerInterval = setInterval(()=>{
+
+let minutes = Math.floor(timeLeft/60);
+let seconds = timeLeft % 60;
+
+seconds = seconds < 10 ? "0"+seconds : seconds;
+
+document.getElementById("timer").innerText =
+`${minutes}:${seconds}`;
+
+if(timeLeft <= 0){
+
+clearInterval(timerInterval);
+submitQuiz();
+
+}
+
+timeLeft--;
+
+},1000);
+
+}
+
+loadQuestions();
+startTimer();
+
+</script>
+
+</body>
+</html>
