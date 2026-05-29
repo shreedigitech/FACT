@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FACT & FACT+ Complete MCQ Test</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#0f172a,#2563eb);
+padding:20px;
+min-height:100vh;
+}
+
+.container{
+max-width:1100px;
+margin:auto;
+background:#fff;
+border-radius:20px;
+padding:30px;
+box-shadow:0 10px 30px rgba(0,0,0,0.25);
+}
+
+h1{
+text-align:center;
+color:#1e3a8a;
+margin-bottom:10px;
+}
+
+.subtitle{
+text-align:center;
+color:#555;
+margin-bottom:25px;
+}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+margin-bottom:20px;
+gap:10px;
+}
+
+.timer{
+background:#dc2626;
+color:white;
+padding:10px 16px;
+border-radius:10px;
+font-weight:bold;
+}
+
+.progress{
+width:100%;
+height:12px;
+background:#e5e7eb;
+border-radius:20px;
+overflow:hidden;
+margin-bottom:25px;
+}
+
+.progress-bar{
+height:100%;
+width:0%;
+background:#2563eb;
+transition:0.3s;
+}
+
+.question-box{
+background:#f9fafb;
+border:1px solid #ddd;
+border-radius:14px;
+padding:20px;
+margin-bottom:20px;
+}
+
+.question{
+font-size:18px;
+font-weight:bold;
+margin-bottom:15px;
+}
+
+.option{
+display:block;
+padding:12px;
+background:white;
+border:1px solid #d1d5db;
+border-radius:10px;
+margin-bottom:10px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.option:hover{
+background:#dbeafe;
+}
+
+input[type="radio"]{
+margin-right:10px;
+}
+
+button{
+width:100%;
+padding:15px;
+background:#2563eb;
+color:white;
+border:none;
+border-radius:12px;
+font-size:16px;
+cursor:pointer;
+margin-top:20px;
+transition:0.3s;
+}
+
+button:hover{
+background:#1d4ed8;
+}
+
+.result-section{
+display:none;
+text-align:center;
+}
+
+.score{
+font-size:60px;
+font-weight:bold;
+color:#16a34a;
+margin:20px 0;
+}
+
+.correct{
+color:green;
+font-weight:bold;
+}
+
+.wrong{
+color:red;
+font-weight:bold;
+}
+
+.review{
+margin-top:30px;
+text-align:left;
+}
+
+.review-item{
+background:#f9fafb;
+border:1px solid #ddd;
+border-radius:12px;
+padding:15px;
+margin-bottom:15px;
+}
+
+@media(max-width:600px){
+
+.question{
+font-size:16px;
+}
+
+.score{
+font-size:42px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div id="examSection">
+
+<h1>FACT & FACT+ Complete MCQ Test</h1>
+
+<p class="subtitle">
+Cyber Forensics • Networking • IT Act • Statistics • Aptitude
+</p>
+
+<div class="topbar">
+<div><strong>Total Questions:</strong> 120</div>
+<div class="timer">Time Left: <span id="timer">90:00</span></div>
+</div>
+
+<div class="progress">
+<div class="progress-bar" id="progressBar"></div>
+</div>
+
+<form id="quizForm"></form>
+
+<button onclick="submitQuiz()">Submit Exam</button>
+
+</div>
+
+<div class="result-section" id="resultSection">
+
+<h1>Exam Result</h1>
+
+<div class="score" id="scoreText">0/120</div>
+
+<div id="resultDetails"></div>
+
+<button onclick="showReview()">View Wrong Answers</button>
+
+<button onclick="restartQuiz()">Restart Test</button>
+
+<div class="review" id="reviewBox"></div>
+
+</div>
+
+</div>
+
+<script>
+
+const questions = [
+
+{
+question:"Probability of an impossible event is:",
+options:["1","0","0.5","Infinite"],
+answer:1
+},
+
+{
+question:"Which protocol is connection-oriented?",
+options:["UDP","TCP","IP","ICMP"],
+answer:1
+},
+
+{
+question:"Which malware encrypts victim files?",
+options:["Spyware","Trojan","Ransomware","Worm"],
+answer:2
+},
+
+{
+question:"HTTPS uses which port?",
+options:["80","22","21","443"],
+answer:3
+},
+
+{
+question:"Which tool analyzes packets?",
+options:["Hydra","Wireshark","Nmap","Burp Suite"],
+answer:1
+},
+
+{
+question:"Which protocol provides secure remote login?",
+options:["FTP","SSH","SMTP","Telnet"],
+answer:1
+},
+
+{
+question:"Which evidence disappears after shutdown?",
+options:["RAM","SSD","USB","Hard Disk"],
+answer:0
+},
+
+{
+question:"Which protocol automatically assigns IP addresses?",
+options:["DNS","DHCP","SMTP","SNMP"],
+answer:1
+},
+
+{
+question:"Which attack secretly intercepts communication?",
+options:["MITM","Phishing","Brute Force","Smishing"],
+answer:0
+},
+
+{
+question:"Which malware records keystrokes?",
+options:["Keylogger","Adware","Rootkit","Spyware"],
+answer:0
+},
+
+{
+question:"Weakest Wi-Fi security protocol?",
+options:["WPA2","WPA3","WEP","WPA"],
+answer:2
+},
+
+{
+question:"SSID means:",
+options:["MAC Address","Wi-Fi Name","Router Firmware","Password"],
+answer:1
+},
+
+{
+question:"Which protocol provides reliable delivery?",
+options:["UDP","ARP","ICMP","TCP"],
+answer:3
+},
+
+{
+question:"Which attack uses fake emails to steal credentials?",
+options:["Scanning","Spoofing","Phishing","Sniffing"],
+answer:2
+},
+
+{
+question:"Which forensic method creates exact disk copy?",
+options:["Compression","Formatting","Imaging","Defragmentation"],
+answer:2
+},
+
+{
+question:"Repeated password attempts are called:",
+options:["MITM","XSS","Brute Force","Phishing"],
+answer:2
+},
+
+{
+question:"Which protocol manages network devices?",
+options:["DNS","FTP","SNMP","SMTP"],
+answer:2
+},
+
+{
+question:"Which malware self-replicates automatically?",
+options:["Virus","Spyware","Trojan","Worm"],
+answer:3
+},
+
+{
+question:"Logical address refers to:",
+options:["MAC","Hardware","Physical","IP"],
+answer:3
+},
+
+{
+question:"Which command displays ARP cache?",
+options:["arp -a","ping","netstat","tracert"],
+answer:0
+},
+
+{
+question:"Fake Wi-Fi access point attack is:",
+options:["Brute Force","Evil Twin","Smishing","Spoofing"],
+answer:1
+},
+
+{
+question:"Which layer uses IP addressing?",
+options:["Layer 1","Layer 2","Layer 3","Layer 4"],
+answer:2
+},
+
+{
+question:"Which process verifies evidence integrity?",
+options:["Encryption","Compression","Hashing","Formatting"],
+answer:2
+},
+
+{
+question:"Malware pretending legitimate software is:",
+options:["Rootkit","Trojan","Adware","Worm"],
+answer:1
+},
+
+{
+question:"Encryption using two keys is:",
+options:["Symmetric","Hashing","DES","Asymmetric"],
+answer:3
+},
+
+{
+question:"Attack using stolen cookies is:",
+options:["Session Hijacking","Phishing","Smishing","Brute Force"],
+answer:0
+},
+
+{
+question:"Which protocol resolves domain names?",
+options:["ARP","ICMP","DNS","DHCP"],
+answer:2
+},
+
+{
+question:"Which command checks connectivity?",
+options:["ping","tasklist","arp","netstat"],
+answer:0
+},
+
+{
+question:"Which layer handles routing?",
+options:["Transport","Data Link","Network","Session"],
+answer:2
+},
+
+{
+question:"Which device mainly operates at Layer 2?",
+options:["Hub","Router","Switch","Firewall"],
+answer:2
+},
+
+{
+question:"Which address belongs to Data Link layer?",
+options:["IP","Port","MAC","Logical"],
+answer:2
+},
+
+{
+question:"Which attack injects scripts into webpages?",
+options:["MITM","DDoS","XSS","SQL Injection"],
+answer:2
+},
+
+{
+question:"Which command shows active network connections?",
+options:["ping","ipconfig","netstat","tracert"],
+answer:2
+},
+
+{
+question:"Which layer handles encryption?",
+options:["Session","Presentation","Application","Physical"],
+answer:1
+},
+
+{
+question:"Strongest hashing algorithm?",
+options:["MD5","SHA1","SHA256","DES"],
+answer:2
+},
+
+{
+question:"VPN mainly provides:",
+options:["Antivirus","Hardware security","Encryption tunnel","Physical protection"],
+answer:2
+},
+
+{
+question:"Which protocol transfers emails?",
+options:["DNS","SMTP","SNMP","SSH"],
+answer:1
+},
+
+{
+question:"Which malware hides attacker presence?",
+options:["Spyware","Rootkit","Trojan","Worm"],
+answer:1
+},
+
+{
+question:"Which OSI layer uses port numbers?",
+options:["Network","Transport","Session","Data Link"],
+answer:1
+},
+
+{
+question:"DNS generally uses which port?",
+options:["21","22","80","53"],
+answer:3
+},
+
+{
+question:"Arithmetic mean of 2,4,6,8 is:",
+options:["4","5","6","8"],
+answer:1
+},
+
+{
+question:"Median of 2,4,6,8,10 is:",
+options:["4","5","6","8"],
+answer:2
+},
+
+{
+question:"Mode of 1,2,2,3,4,4,4,5 is:",
+options:["2","3","4","5"],
+answer:2
+},
+
+{
+question:"Which measure uses all observations?",
+options:["Median","Mode","Mean","Range"],
+answer:2
+},
+
+{
+question:"Which measure is least affected by outliers?",
+options:["Mean","Median","Average","Sum"],
+answer:1
+},
+
+{
+question:"Probability values always lie between:",
+options:["-1 to 1","0 to 100","0 to 1","1 to 10"],
+answer:2
+},
+
+{
+question:"Sample space for tossing two coins is:",
+options:["{H,T}","{HH,HT,TH,TT}","{1,2}","{H,H,T}"],
+answer:1
+},
+
+{
+question:"Probability of getting even number on die?",
+options:["1/6","2/6","3/6","4/6"],
+answer:2
+},
+
+{
+question:"Mode represents:",
+options:["Average","Middle value","Most frequent value","Smallest value"],
+answer:2
+},
+
+{
+question:"Mean is highly affected by:",
+options:["Middle values","Repeated values","Extreme values","Missing values"],
+answer:2
+},
+
+{
+question:"Median is best for:",
+options:["Symmetrical data","Skewed data","Infinite data","Random guessing"],
+answer:1
+},
+
+{
+question:"Which measure can be used for categorical data?",
+options:["Mean","Median","Mode","Variance"],
+answer:2
+},
+
+{
+question:"A probability greater than 1 is:",
+options:["Possible","Impossible","Experimental","Random"],
+answer:1
+},
+
+{
+question:"If all observations are same then:",
+options:[
+"Mean ≠ Median",
+"Median ≠ Mode",
+"Mean = Median = Mode",
+"None"
+],
+answer:2
+},
+
+{
+question:"Probability of complete certainty is:",
+options:["0","0.5","0.75","1"],
+answer:3
+},
+
+{
+question:"A number increased by 20% then decreased by 20% gives:",
+options:[
+"No change",
+"4% decrease",
+"4% increase",
+"2% decrease"
+],
+answer:1
+},
+
+{
+question:"45% of a number is 90. Number is:",
+options:["150","180","200","220"],
+answer:2
+},
+
+{
+question:"360 out of 450 equals:",
+options:["75%","80%","85%","90%"],
+answer:1
+},
+
+{
+question:"Ratio of boys to girls is 7:5 and total 48. Girls?",
+options:["18","20","22","24"],
+answer:1
+},
+
+{
+question:"240 km in 4 hours speed is:",
+options:["40","50","60","80"],
+answer:2
+},
+
+{
+question:"Train at 72 km/h crosses pole in 20 sec. Length?",
+options:["200","300","400","500"],
+answer:2
+},
+
+{
+question:"Relative speed of trains 45 and 55 opposite direction?",
+options:["10","45","55","100"],
+answer:3
+},
+
+{
+question:"A can do work in 12 days, B in 18 days. Together?",
+options:["6.2","7.2","8","9"],
+answer:1
+},
+
+{
+question:"8 workers finish work in 15 days. 12 workers take:",
+options:["8","10","12","15"],
+answer:1
+},
+
+{
+question:"Pipe fills in 6 hours and empties in 8 hours. Tank fills in:",
+options:["12","18","24","30"],
+answer:2
+},
+
+{
+question:"2,6,12,20,30,?",
+options:["36","40","42","44"],
+answer:2
+},
+
+{
+question:"3,9,27,81,?",
+options:["162","243","324","729"],
+answer:1
+},
+
+{
+question:"1,4,9,16,25,?",
+options:["30","35","36","49"],
+answer:2
+},
+
+{
+question:"7,14,28,56,?",
+options:["84","96","112","124"],
+answer:2
+},
+
+{
+question:"A,C,F,J,O,?",
+options:["T","U","V","W"],
+answer:1
+},
+
+{
+question:"Z,X,U,Q,?",
+options:["M","N","O","P"],
+answer:1
+},
+
+{
+question:"B,E,H,K,?",
+options:["L","M","N","O"],
+answer:2
+},
+
+{
+question:"AZ,BY,CX,?",
+options:["DU","DW","EV","EW"],
+answer:1
+},
+
+{
+question:"AB,DE,GH,JK,?",
+options:["LM","MN","NO","OP"],
+answer:1
+},
+
+{
+question:"If income of A is 25% more than B, then B is how much less?",
+options:["20%","22%","25%","30%"],
+answer:0
+},
+
+{
+question:"8,27,64,125,?",
+options:["196","216","225","343"],
+answer:1
+},
+
+{
+question:"ACE,BDF,CEG,?",
+options:["DFH","EGI","DFG","FGH"],
+answer:0
+},
+
+{
+question:"Which is NOT a valid topology?",
+options:["Square","Bus","Ring","Star"],
+answer:0
+},
+
+{
+question:"Built-in utility for Registry access?",
+options:["Regedit","Regscanner","Regviewer","Regripper"],
+answer:0
+},
+
+{
+question:"Which is NOT an email client?",
+options:["Safari","Outlook","Lotus","Hiri"],
+answer:0
+},
+
+{
+question:"Least secure authentication?",
+options:["Password","Key card","Fingerprint","Retina"],
+answer:0
+},
+
+{
+question:"Strongest password?",
+options:["Delhi88","19thAugust88","B@yzjrt32","!augustdelhi"],
+answer:2
+},
+
+{
+question:"Why OTP is safe?",
+options:[
+"Easy generation",
+"Changes every access",
+"Cannot be shared",
+"Complex encryption"
+],
+answer:1
+},
+
+{
+question:"Which IT Act section was invalidated?",
+options:["66F","66B","66D","66A"],
+answer:3
+},
+
+{
+question:"RADIUS characteristic?",
+options:[
+"Centralized authentication",
+"Centralized encryption",
+"Network denial",
+"File system"
+],
+answer:0
+},
+
+{
+question:"Watching typing to steal info is:",
+options:["Snagging","Spying","Shoulder surfing","Social engineering"],
+answer:2
+},
+
+{
+question:"Authorization mainly deals with:",
+options:[
+"Privileges and rights",
+"Encryption",
+"Handshaking",
+"Protection layers"
+],
+answer:0
+},
+
+{
+question:"Who forces password change at first login?",
+options:[
+"Default OS",
+"Administrator",
+"AES",
+"Access devices"
+],
+answer:1
+},
+
+{
+question:"NOT best password policy?",
+options:[
+"Password encryption",
+"Password history",
+"Maximum age policy",
+"Changing every 2 years"
+],
+answer:3
+},
+
+{
+question:"RAID stands for:",
+options:[
+"Random Access Independent Data",
+"Redundant Array of Independent Disks",
+"Rapid Array Internet Disk",
+"Remote Array Integration Disk"
+],
+answer:1
+}
+
+];
+
+const form = document.getElementById("quizForm");
+
+function loadQuestions(){
+
+form.innerHTML="";
+
+questions.forEach((q,index)=>{
+
+form.innerHTML += `
+
+<div class="question-box">
+
+<div class="question">
+Q${index+1}. ${q.question}
+</div>
+
+${q.options.map((opt,i)=>`
+
+<label class="option">
+
+<input type="radio"
+name="q${index}"
+value="${i}"
+onchange="updateProgress()">
+
+${opt}
+
+</label>
+
+`).join("")}
+
+</div>
+
+`;
+
+});
+
+}
+
+let wrongAnswers=[];
+
+function submitQuiz(){
+
+let score=0;
+wrongAnswers=[];
+
+questions.forEach((q,index)=>{
+
+const selected =
+document.querySelector(`input[name="q${index}"]:checked`);
+
+if(selected && parseInt(selected.value)===q.answer){
+
+score++;
+
+}else{
+
+wrongAnswers.push({
+question:q.question,
+selected:selected ? q.options[selected.value] : "Not Answered",
+correct:q.options[q.answer]
+});
+
+}
+
+});
+
+document.getElementById("examSection").style.display="none";
+document.getElementById("resultSection").style.display="block";
+
+document.getElementById("scoreText").innerText =
+`${score}/${questions.length}`;
+
+const percentage =
+((score/questions.length)*100).toFixed(2);
+
+document.getElementById("resultDetails").innerHTML=`
+
+<h2>
+Correct:
+<span class="correct">${score}</span>
+</h2>
+
+<br>
+
+<h2>
+Wrong:
+<span class="wrong">${questions.length-score}</span>
+</h2>
+
+<br>
+
+<h2>
+Percentage: ${percentage}%
+</h2>
+
+`;
+
+clearInterval(timerInterval);
+
+}
+
+function showReview(){
+
+const review =
+document.getElementById("reviewBox");
+
+if(wrongAnswers.length===0){
+
+review.innerHTML=`
+<h2 style="color:green;">
+Excellent! No wrong answers.
+</h2>
+`;
+
+return;
+
+}
+
+review.innerHTML =
+"<h2 style='margin-bottom:20px;'>Wrong Answers Review</h2>";
+
+wrongAnswers.forEach((item,index)=>{
+
+review.innerHTML += `
+
+<div class="review-item">
+
+<strong>
+Q${index+1}. ${item.question}
+</strong>
+
+<br><br>
+
+<span class="wrong">
+Your Answer: ${item.selected}
+</span>
+
+<br><br>
+
+<span class="correct">
+Correct Answer: ${item.correct}
+</span>
+
+</div>
+
+`;
+
+});
+
+}
+
+function restartQuiz(){
+
+document.getElementById("resultSection").style.display="none";
+document.getElementById("examSection").style.display="block";
+
+timeLeft = 5400;
+
+loadQuestions();
+updateProgress();
+startTimer();
+
+}
+
+function updateProgress(){
+
+const answered =
+document.querySelectorAll("input[type='radio']:checked").length;
+
+const percent =
+(answered/questions.length)*100;
+
+document.getElementById("progressBar").style.width =
+percent + "%";
+
+}
+
+let timeLeft = 8000;
+let timerInterval;
+
+function startTimer(){
+
+clearInterval(timerInterval);
+
+timerInterval = setInterval(()=>{
+
+let minutes = Math.floor(timeLeft/60);
+let seconds = timeLeft % 60;
+
+seconds = seconds < 10 ? "0"+seconds : seconds;
+
+document.getElementById("timer").innerText =
+`${minutes}:${seconds}`;
+
+if(timeLeft<=0){
+
+clearInterval(timerInterval);
+submitQuiz();
+
+}
+
+timeLeft--;
+
+},1000);
+
+}
+
+loadQuestions();
+startTimer();
+
+</script>
+
+</body>
+</html>
