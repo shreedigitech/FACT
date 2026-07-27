@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MH SET 2020 Forensic Science - Questions 61 to 80</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #0f172a, #1e40af);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+h1 {
+    text-align: center;
+    color: #1e3a8a;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #555;
+    margin-bottom: 25px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.timer {
+    background: #dc2626;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.progress {
+    width: 100%;
+    height: 12px;
+    background: #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 25px;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: #2563eb;
+    transition: 0.3s;
+}
+
+.question-box {
+    background: #f9fafb;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.question {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #111827;
+}
+
+.option {
+    display: block;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.option:hover {
+    background: #dbeafe;
+}
+
+input[type="radio"] {
+    margin-right: 10px;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background: #2563eb;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 20px;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+.result-section {
+    display: none;
+    text-align: center;
+}
+
+.score {
+    font-size: 60px;
+    color: #16a34a;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.correct {
+    color: green;
+    font-weight: bold;
+}
+
+.wrong {
+    color: red;
+    font-weight: bold;
+}
+
+.review {
+    text-align: left;
+    margin-top: 25px;
+}
+
+.review-item {
+    background: #f9fafb;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.solution {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #ccc;
+    color: #444;
+    font-style: italic;
+    background: #eff6ff;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+@media(max-width: 600px) {
+    .question {
+        font-size: 16px;
+    }
+    .score {
+        font-size: 40px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div id="examSection">
+    <h1>MH SET Forensic Science Practice</h1>
+    <p class="subtitle">Questions 61 to 80 • Paper II Set A (Dec 27, 2020)[span_1](start_span)[span_1](end_span)</p>
+
+    <div class="topbar">
+        <div><strong>Total Questions:</strong> 20</div>
+        <div class="timer">Time Left: <span id="timer">30:00</span></div>
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <form id="quizForm"></form>
+
+    <button onclick="submitQuiz()">Submit Exam</button>
+</div>
+
+<div class="result-section" id="resultSection">
+    <h1>Exam Result</h1>
+    <div class="score" id="scoreText">0/20</div>
+    <div id="resultDetails"></div>
+    <button onclick="showReview()">View Wrong Answers & Solutions</button>
+    <button onclick="restartQuiz()">Restart Test</button>
+    <div class="review" id="reviewBox"></div>
+</div>
+
+</div>
+
+<script>
+const questions = [
+{
+    question: "Casein is an example of:",
+    options: ["Regenerated protein", "Synthetic polymer", "Mineral fiber", "Vegetable fiber"],
+    answer: 0,
+    explanation: "Casein is a protein obtained from milk and is an example of a regenerated protein fiber when chemically processed into textile fibers.[span_2](start_span)[span_2](end_span)"
+},
+{
+    question: "Which of the following is not a test for examination of semen?",
+    options: ["Barberios test", "Ammonium molybdate test", "Florence test", "Schiff's test"],
+    answer: 3,
+    explanation: "Barberio's test (for spermine) and Florence test (for choline) are classic microcrystal tests for semen. Schiff's test is generally used for detecting aldehydes, not specifically for primary semen identification.[span_3](start_span)[span_3](end_span)"
+},
+{
+    question: "Cardite is used in:",
+    options: ["0.303 firearm", "0.315 firearm", "12 Bore shotgun", "0.45 Revolver"],
+    answer: 0,
+    explanation: "Cordite (often spelled Cardite historically/regionally) was the standard smokeless propellant used by the British in their .303 caliber military firearms.[span_4](start_span)[span_4](end_span)"
+},
+{
+    question: "The shortest barrel firearm is:",
+    options: ["Revolver", "Pistol", "Carbine", "Machine Gun"],
+    answer: 0,
+    explanation: "Among conventional categories, revolvers typically feature some of the shortest barrel lengths available, with 'snub-nosed' models often having barrels under 2 inches long.[span_5](start_span)[span_5](end_span)"
+},
+{
+    question: "Which of the following explosive is the lowest density?",
+    options: ["ANFO", "Dynamite", "PETN", "RDX"],
+    answer: 0,
+    explanation: "ANFO (Ammonium Nitrate/Fuel Oil) is a relatively porous and low-density explosive mixture compared to highly compressed military or commercial high explosives like PETN, RDX, and Dynamite.[span_6](start_span)[span_6](end_span)"
+},
+{
+    question: "Which of the following detonating device uses a primary explosive?",
+    options: ["Detonating card", "Novel card", "Exploding Bridgewire Detonators", "Electric Blasting caps"],
+    answer: 3,
+    explanation: "Standard electric blasting caps utilize a small amount of highly sensitive primary explosive (such as lead azide) to reliably initiate the secondary explosive base charge. Bridgewire detonators omit the primary explosive for safety.[span_7](start_span)[span_7](end_span)"
+},
+{
+    question: "Dynamite is manufactured with the help of:",
+    options: ["Mercury fulminate", "Nitroglycerine", "Ammonia nitrate", "Potassium nitrate"],
+    answer: 1,
+    explanation: "Dynamite was invented by Alfred Nobel by successfully stabilizing highly volatile liquid Nitroglycerine with an absorbent material like diatomaceous earth.[span_8](start_span)[span_8](end_span)"
+},
+{
+    question: "Recoil is not affected by:",
+    options: ["The forward motion of the ejecta (Projectile, wads)", "Outrushing gases", "Muzzle blast", "Breach face"],
+    answer: 3,
+    explanation: "Recoil generation is fundamentally dictated by the conservation of momentum involving the forward motion of the ejecta and the mass/velocity of outrushing gases. The breech face sustains the physical force but is not a variable that dictates the generation of the recoil itself.[span_9](start_span)[span_9](end_span)"
+},
+{
+    question: "Assertion: 0.22 inch lead air gun pellet requires a minimum of 500 ft/s velocity to penetrate fresh human skin.<br>Reason: The mass and diameter of lead air gun pellet is relatively less.",
+    options: [
+        "Both Assertion and Reason are true", 
+        "Assertion is true but Reason is false", 
+        "Assertion is false but Reason is true", 
+        "Both Assertion and Reason are false"
+    ],
+    answer: 2,
+    explanation: "The minimum velocity required for a standard .22 caliber air gun pellet to penetrate human skin is generally much lower (around 120 to 250 ft/s). Therefore, asserting it requires a minimum of 500 ft/s is false, but the reason detailing its low mass and diameter is scientifically true.[span_10](start_span)[span_10](end_span)"
+},
+{
+    question: "The sectional density of a bullet of mass 158 g and diameter 0.357 inch is:",
+    options: ["445 g/inch²", "935 g/inch²", "1239 g/inch²", "56 g/inch²"],
+    answer: 2,
+    explanation: "Sectional density is mathematically calculated as Mass / Diameter². By dividing 158 grains by (0.357 inches)², you get approximately 1239 g/inch².[span_11](start_span)[span_11](end_span)"
+},
+{
+    question: "In single digit classification of fingerprints, Battley lens is used, which has:",
+    options: ["Five concentric circles", "Three concentric circles", "Six concentric circles", "Seven concentric circles"],
+    answer: 3,
+    explanation: "The Battley lens is a specialized magnifying glass specifically designed for single-digit fingerprint classification, containing seven concentric circles used to measure the distance from the core to the delta.[span_12](start_span)[span_12](end_span)"
+},
+{
+    question: "The ultimate matching of two fingerprints as belonging to the same individual is based on:",
+    options: [
+        "Comparison of number of triradii and core type", 
+        "Comparison of pattern types", 
+        "Comparison of ridge counts", 
+        "Comparison of minutiae or ridge characteristics"
+    ],
+    answer: 3,
+    explanation: "While patterns and ridge counts are used for classification and exclusion, the definitive individualization and ultimate matching of fingerprints rely exclusively on the comparison of minutiae (ridge characteristics).[span_13](start_span)[span_13](end_span)"
+},
+{
+    question: "Which of the following sexual offences is also known as 'Greek Love'?",
+    options: ["Bestiality", "Cunnilingus", "Buggery", "Lesbianism"],
+    answer: 2,
+    explanation: "'Greek Love' is a historical euphemism that was often legally and colloquially associated with buggery (anal intercourse), stemming from historical references to ancient Greek societal practices.[span_14](start_span)[span_14](end_span)"
+},
+{
+    question: "The absence of a cadaveric spasm in hand and the presence of country made weapon (Katta) at the crime scene is suggestive of:",
+    options: ["Suicidal death", "Natural death", "Accidental death", "Homicidal"],
+    answer: 3,
+    explanation: "Cadaveric spasm (an instantaneous rigor) indicates a person was forcefully gripping the weapon at the moment of death, typical in suicides. Its absence when a weapon is still in hand strongly suggests the scene was staged post-mortem, pointing to homicide.[span_15](start_span)[span_15](end_span)"
+},
+{
+    question: "The feature, which is missing in the signature produced by scanning and printing through color printer is:",
+    options: [
+        "Presence of C.M.Y. dots in the vicinity", 
+        "Pattern of paper from which signature is taken", 
+        "Indentation on the back side of the paper", 
+        "Microscopic texture on the stroke"
+    ],
+    answer: 2,
+    explanation: "A natural signature produced organically with a pen will leave a physical 3D indentation (pen pressure) on the back of the paper. A flat image reproduced by a scanner and printer lacks this physical depth entirely.[span_16](start_span)[span_16](end_span)"
+},
+{
+    question: "Ridged skin on palms and soles is:",
+    options: [
+        "Found only in humans", 
+        "Absent in apes", 
+        "Absent in monkeys", 
+        "Found in humans, apes as well as monkeys"
+    ],
+    answer: 3,
+    explanation: "Friction ridge skin on the palms, soles, and digits is a crucial biological adaptation for grasping and tactile friction, present across primates including humans, apes, and monkeys.[span_17](start_span)[span_17](end_span)"
+},
+{
+    question: "Which of the following black-and-white film is considered as slow film?",
+    options: ["ISO 800/30-3200/36", "ISO 400/27-500/28", "ISO 100/21-200/24", "ISO 25/15-50/80"],
+    answer: 3,
+    explanation: "ISO ratings dictate light sensitivity. A lower ISO number (like ISO 25 to 50) indicates a 'slow' film that requires significantly more light to properly expose but yields an image with very fine grain.[span_18](start_span)[span_18](end_span)"
+},
+{
+    question: "Among the following inkjet and laser printers fall in which of the categories?",
+    options: ["Impact printer", "Line printers", "Non-impact printers", "Page printer"],
+    answer: 2,
+    explanation: "Inkjet and laser printers generate text and graphics without a mechanism physically striking an ink ribbon against the paper, categorizing them as non-impact printers.[span_19](start_span)[span_19](end_span)"
+},
+{
+    question: "Which of the following is considered individual characteristics of a photocopy?",
+    options: ["Splash marks", "Trash marks", "Bleak marks", "Crimp marks"],
+    answer: 1,
+    explanation: "Trash marks are individualizing artifacts transferred onto a photocopy caused by accidental dirt, toner specks, or permanent scratches isolated to that specific machine's glass platter or imaging drum.[span_20](start_span)[span_20](end_span)"
+},
+{
+    question: "Protection of life and personal liberty has been sanctioned to the citizen of India under which of the following Articles of the Constitution?",
+    options: ["Article 19", "Article 21", "Article 20", "Article 22"],
+    answer: 1,
+    explanation: "Article 21 of the Indian Constitution strictly mandates that 'No person shall be deprived of his life or personal liberty except according to procedure established by law.[span_21](start_span)'[span_21](end_span)"
+}
+];
+
+const form = document.getElementById("quizForm");
+
+function loadQuestions(){
+    form.innerHTML = "";
+    questions.forEach((q, index) => {
+        // Offset the display index by 61 to match the source paper
+        let displayIndex = index + 61;
+        form.innerHTML += `
+        <div class="question-box">
+            <div class="question">Q${displayIndex}. ${q.question}</div>
+            ${q.options.map((option, i) => `
+            <label class="option">
+                <input type="radio" name="q${index}" value="${i}" onchange="updateProgress()">
+                ${option}
+            </label>
+            `).join("")}
+        </div>
+        `;
+    });
+}
+
+let wrongAnswers = [];
+
+function submitQuiz(){
+    let score = 0;
+    wrongAnswers = [];
+
+    questions.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        if(selected && parseInt(selected.value) === q.answer){
+            score++;
+        } else {
+            let displayIndex = index + 61;
+            wrongAnswers.push({
+                qNum: displayIndex,
+                question: q.question,
+                selected: selected ? q.options[selected.value] : "Not Answered",
+                correct: q.options[q.answer],
+                explanation: q.explanation
+            });
+        }
+    });
+
+    document.getElementById("examSection").style.display = "none";
+    document.getElementById("resultSection").style.display = "block";
+    document.getElementById("scoreText").innerText = `${score}/${questions.length}`;
+
+    const percentage = ((score / questions.length) * 100).toFixed(2);
+    document.getElementById("resultDetails").innerHTML = `
+        <h2>Correct: <span class="correct">${score}</span></h2><br>
+        <h2>Wrong: <span class="wrong">${questions.length - score}</span></h2><br>
+        <h2>Percentage: ${percentage}%</h2>
+    `;
+    clearInterval(timerInterval);
+}
+
+function showReview(){
+    const reviewBox = document.getElementById("reviewBox");
+    if(wrongAnswers.length === 0){
+        reviewBox.innerHTML = `<h2 style="color:green; margin-top:20px;">Excellent! No wrong answers.</h2>`;
+        return;
+    }
+
+    reviewBox.innerHTML = "<h2 style='margin-bottom:20px;'>Wrong Answers & Solutions</h2>";
+    
+    wrongAnswers.forEach((item) => {
+        reviewBox.innerHTML += `
+        <div class="review-item">
+            <strong>Q${item.qNum}. ${item.question}</strong><br><br>
+            <span class="wrong">Your Answer: ${item.selected}</span><br><br>
+            <span class="correct">Correct Answer: ${item.correct}</span>
+            <div class="solution"><strong>Solution:</strong> ${item.explanation}</div>
+        </div>
+        `;
+    });
+}
+
+function restartQuiz(){
+    document.getElementById("resultSection").style.display = "none";
+    document.getElementById("examSection").style.display = "block";
+    
+    // Reset inputs
+    document.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
+    
+    timeLeft = 1800; // Reset to 30 mins
+    updateProgress();
+    startTimer();
+}
+
+function updateProgress(){
+    const answered = document.querySelectorAll("input[type='radio']:checked").length;
+    const percent = (answered / questions.length) * 100;
+    document.getElementById("progressBar").style.width = percent + "%";
+}
+
+let timeLeft = 1800; // 30 minutes for 20 questions
+let timerInterval;
+
+function startTimer(){
+    clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        document.getElementById("timer").innerText = `${minutes}:${seconds}`;
+        
+        if(timeLeft <= 0){
+            clearInterval(timerInterval);
+            submitQuiz();
+        }
+        timeLeft--;
+    }, 1000);
+}
+
+loadQuestions();
+startTimer();
+</script>
+
+</body>
+</html>
