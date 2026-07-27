@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MH SET Forensic Science - Advanced Practice (Q101-120)</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #0f172a, #1e40af);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+h1 {
+    text-align: center;
+    color: #1e3a8a;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #555;
+    margin-bottom: 25px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.timer {
+    background: #dc2626;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.progress {
+    width: 100%;
+    height: 12px;
+    background: #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 25px;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: #2563eb;
+    transition: 0.3s;
+}
+
+.question-box {
+    background: #f9fafb;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.question {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #111827;
+    line-height: 1.4;
+}
+
+.option {
+    display: block;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.option:hover {
+    background: #dbeafe;
+}
+
+input[type="radio"] {
+    margin-right: 10px;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background: #2563eb;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 20px;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+.result-section {
+    display: none;
+    text-align: center;
+}
+
+.score {
+    font-size: 60px;
+    color: #16a34a;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.correct {
+    color: green;
+    font-weight: bold;
+}
+
+.wrong {
+    color: red;
+    font-weight: bold;
+}
+
+.review {
+    text-align: left;
+    margin-top: 25px;
+}
+
+.review-item {
+    background: #f9fafb;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.solution {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #ccc;
+    color: #444;
+    font-style: italic;
+    background: #eff6ff;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+@media(max-width: 600px) {
+    .question {
+        font-size: 16px;
+    }
+    .score {
+        font-size: 40px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div id="examSection">
+    <h1>MH SET Forensic Science Practice</h1>
+    <p class="subtitle">Synthetic Advanced Difficulty • Questions 101 to 120</p>
+
+    <div class="topbar">
+        <div><strong>Total Questions:</strong> 20</div>
+        <div class="timer">Time Left: <span id="timer">30:00</span></div>
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <form id="quizForm"></form>
+
+    <button onclick="submitQuiz()">Submit Exam</button>
+</div>
+
+<div class="result-section" id="resultSection">
+    <h1>Exam Result</h1>
+    <div class="score" id="scoreText">0/20</div>
+    <div id="resultDetails"></div>
+    <button onclick="showReview()">View Wrong Answers & Solutions</button>
+    <button onclick="restartQuiz()">Restart Test</button>
+    <div class="review" id="reviewBox"></div>
+</div>
+
+</div>
+
+<script>
+const questions = [
+{
+    question: "In forensic structural failure analysis, the presence of 'hackle marks' on a fractured concrete or brittle material surface primarily indicates:",
+    options: [
+        "The direction of crack propagation", 
+        "The exact temperature at the time of failure", 
+        "The chemical degradation of internal rebar", 
+        "Pre-existing microscopic fissures"
+    ],
+    answer: 0,
+    explanation: "Hackle marks (or rib marks) are characteristic fracture patterns found on brittle materials like glass and concrete. They run parallel to the direction of the stress and curve toward the origin, allowing forensic engineers to map the exact direction of crack propagation."
+},
+{
+    question: "When determining the post-mortem interval (PMI) of modern skeletal remains using radiocarbon dating, the 'bomb peak' refers to:",
+    options: [
+        "The sudden depletion of Carbon-14 in the atmosphere after 1950", 
+        "The doubling of atmospheric Carbon-14 due to thermonuclear weapon testing in the 1950s and 60s", 
+        "The isotopic fractionation of C-13 to C-14 during bone collagen synthesis", 
+        "A known calibration curve anomaly occurring during the medieval period"
+    ],
+    answer: 1,
+    explanation: "The 'bomb peak' refers to the massive spike in atmospheric Carbon-14 caused by above-ground nuclear testing between 1955 and 1963. Forensic anthropologists use this distinct calibration curve to accurately date tissues of individuals born or who died during the late 20th century."
+},
+{
+    question: "During a network forensic investigation, an analyst observes anomalous TCP packets with the FIN, PSH, and URG flags set simultaneously. This signature is most characteristic of:",
+    options: [
+        "A SYN flood DDoS attack", 
+        "An XMAS tree port scan", 
+        "A legitimate SSL/TLS handshake termination", 
+        "ARP cache poisoning"
+    ],
+    answer: 1,
+    explanation: "An XMAS tree scan (often executed via tools like Nmap) sends TCP packets with the FIN, PSH, and URG flags illuminated (lit up like a Christmas tree) to sneak through certain non-stateful firewalls and determine if a port is open, closed, or filtered."
+},
+{
+    question: "In the extraction of alkaloids using the Stas-Otto method, what is the primary purpose of adding tartaric acid to the alcoholic extract?",
+    options: [
+        "To saponify fats and lipids", 
+        "To precipitate complex proteins", 
+        "To convert free basic alkaloids into water-soluble salts", 
+        "To rapidly volatize organic solvents"
+    ],
+    answer: 2,
+    explanation: "Alkaloids in their free base form are generally insoluble in water but soluble in organic solvents. Adding tartaric acid converts them into alkaloidal tartrates (salts), making them highly soluble in water so they can be separated from fats and resins during the aqueous phase extraction."
+},
+{
+    question: "Match the following spot tests with their target analytes in forensic ballistics:<br>List I: (a) Griess Test (b) Sodium Rhodizonate Test (c) Dithiooxamide Test (d) Harrison-Gilroy Test<br>List II: (i) Lead (ii) Nitrites (iii) Antimony and Barium (iv) Copper",
+    options: [
+        "(a)-(ii), (b)-(i), (c)-(iv), (d)-(iii)", 
+        "(a)-(i), (b)-(ii), (c)-(iii), (d)-(iv)", 
+        "(a)-(ii), (b)-(iii), (c)-(i), (d)-(iv)", 
+        "(a)-(iii), (b)-(i), (c)-(iv), (d)-(ii)"
+    ],
+    answer: 0,
+    explanation: "The Griess Test detects nitrites (ii) from burnt powder. Sodium Rhodizonate tests for Lead (i). Dithiooxamide detects Copper (iv) from bullet jackets. The Harrison-Gilroy test uses triphenylmethylarsonium iodide to detect Antimony and Barium (iii) in primer residue."
+},
+{
+    question: "In the forensic analysis of toner from laser printers, which of the following analytical techniques provides the most definitive discrimination of the organic resin binder?",
+    options: [
+        "Scanning Electron Microscopy (SEM)", 
+        "Fourier Transform Infrared Spectroscopy (FTIR)", 
+        "X-ray Fluorescence (XRF)", 
+        "Thin Layer Chromatography (TLC)"
+    ],
+    answer: 1,
+    explanation: "While SEM and XRF are excellent for determining the inorganic elemental composition of a toner (like iron oxides), FTIR spectroscopy is the gold standard for identifying and discriminating the organic polymer resin binders (e.g., styrene-acrylate vs. polyester)."
+},
+{
+    question: "Assertion (A): Y-STR profiling is highly effective in resolving complex mixed male-female DNA samples in sexual assault cases.<br>Reason (R): Y-STR loci undergo frequent recombination during meiosis, providing high discriminatory power comparable to autosomal STRs.",
+    options: [
+        "Both A and R are true", 
+        "A is true but R is false", 
+        "A is false but R is true", 
+        "Both A and R are false"
+    ],
+    answer: 1,
+    explanation: "The assertion is true: Y-STRs specifically target the male Y-chromosome, easily isolating a male suspect's profile from a heavy background of female victim DNA. The reason is false: the Y-chromosome (mostly) does NOT undergo recombination, which is why it is inherited as a block (haplotype) and actually has a lower discriminatory power than autosomal STRs."
+},
+{
+    question: "The 'Tardieu spots' observed during an autopsy are most commonly associated with which of the following causes of death?",
+    options: [
+        "Carbon monoxide poisoning", 
+        "Mechanical asphyxiation", 
+        "Extreme hypothermia", 
+        "Strychnine poisoning"
+    ],
+    answer: 1,
+    explanation: "Tardieu spots are subpleural and subpericardial petechial hemorrhages. They are classically observed in deaths caused by mechanical asphyxia (such as hanging, strangulation, or suffocation) due to the rupture of capillaries from increased venous pressure and hypoxia."
+},
+{
+    question: "When examining a Windows NTFS file system, resident data of a very small file (typically under 900 bytes) is stored directly within the:",
+    options: [
+        "Volume Boot Record", 
+        "Master File Table (MFT) entry", 
+        "$LogFile", 
+        "Unallocated clusters"
+    ],
+    answer: 1,
+    explanation: "In the NTFS file system, if a file is sufficiently small (usually under 900-1000 bytes), its actual data content is stored directly inside its Master File Table (MFT) record. This is known as 'resident data'."
+},
+{
+    question: "In Gas Chromatography-Mass Spectrometry (GC-MS), which ionization method is considered a 'soft' ionization technique that preserves the molecular ion peak for determining molecular weight?",
+    options: [
+        "Electron Impact (EI)", 
+        "Chemical Ionization (CI)", 
+        "Matrix-Assisted Laser Desorption/Ionization (MALDI)", 
+        "Inductively Coupled Plasma (ICP)"
+    ],
+    answer: 1,
+    explanation: "Chemical Ionization (CI) is a 'soft' technique in GC-MS that transfers energy via a reagent gas, resulting in less fragmentation and preserving the molecular ion peak. Electron Impact (EI) is a 'hard' technique that shatters the molecule."
+},
+{
+    question: "The phenomenon of a bullet tumbling in flight due to aerodynamic instability, which often results in a 'keyhole' shaped entrance wound, is primarily caused by:",
+    options: [
+        "Excessive rifling twist rate", 
+        "Inadequate spin stabilization (yaw)", 
+        "The Magnus effect", 
+        "Base drag exceeding skin friction"
+    ],
+    answer: 1,
+    explanation: "A bullet requires a specific rotational speed (spin) generated by the barrel's rifling to remain gyroscopically stable. If the spin is inadequate for the bullet's length or velocity, it will begin to yaw and tumble in flight, striking the target sideways and causing a 'keyhole' defect."
+},
+{
+    question: "To reveal latent fingerprints dusted with fluorescent powders on a multi-colored background, a forensic photographer should use a barrier filter on the camera lens that:",
+    options: [
+        "Transmits the excitation wavelength and blocks the emission wavelength", 
+        "Blocks the excitation wavelength and transmits the emission wavelength", 
+        "Blocks both wavelengths entirely", 
+        "Transmits both wavelengths"
+    ],
+    answer: 1,
+    explanation: "Fluorescent photography works by striking the evidence with a specific light source (excitation wavelength) causing the powder to glow at a different, longer wavelength (emission). The camera lens must have a barrier filter that blocks the original excitation light so only the glowing emission light is recorded."
+},
+{
+    question: "In the calculation of Accumulated Degree Days (ADD) for estimating the Time Since Death, the 'base temperature' or 'lower developmental threshold' refers to:",
+    options: [
+        "The optimal temperature for blowfly oviposition", 
+        "The ambient temperature at the time of discovery", 
+        "The temperature below which insect development ceases", 
+        "The elevated temperature inside the maggot mass"
+    ],
+    answer: 2,
+    explanation: "In forensic entomology, insects require a certain amount of thermal energy to grow. The base temperature (lower developmental threshold) is the specific temperature for a species below which their metabolic rate effectively stops and morphological development ceases."
+},
+{
+    question: "In the Henry Classification System, if a person has whorl patterns on their Right Index and Left Index fingers, with all other fingers having loops or arches, what is their primary classification ratio?",
+    options: [
+        "11/2", 
+        "5/18", 
+        "17/3", 
+        "11/3"
+    ],
+    answer: 2,
+    explanation: "Values: R.Thumb=16, R.Index=16, R.Middle=8, R.Ring=8, R.Little=4; L.Thumb=4, L.Index=2, L.Middle=2, L.Ring=1, L.Little=1. Numerator = Even fingers (R.Index, R.Ring, L.Thumb, L.Middle, L.Little) + 1. Denominator = Odd fingers + 1. Whorl on R.Index (Even, value 16). Whorl on L.Index (Odd, value 2). Numerator = 16 + 1 = 17. Denominator = 2 + 1 = 3. Ratio = 17/3."
+},
+{
+    question: "Consider the following statements regarding the structural isomers of Cocaine:<br>I. Only the l-cocaine (levorotatory) isomer occurs naturally in the coca plant.<br>II. d-cocaine is synthetically produced and is pharmacologically inactive as a stimulant.<br>III. The Scott test cannot distinguish between d-cocaine and l-cocaine.<br>Which of the statements are correct?",
+    options: [
+        "I and II only", 
+        "I and III only", 
+        "II and III only", 
+        "I, II, and III"
+    ],
+    answer: 3,
+    explanation: "All three statements are factually correct. Natural cocaine is solely l-cocaine. Enantiomeric d-cocaine must be synthesized and has no euphoric effect. Standard chemical color tests like the Scott test react to the fundamental molecular structure and cannot differentiate between stereoisomers."
+},
+{
+    question: "The principle of the Ouchterlony double diffusion test used in forensic serology to determine the species origin of blood is based on:",
+    options: [
+        "Electrophoretic mobility of proteins across a gradient", 
+        "Precipitation lines formed by antigen and antibody diffusing toward each other in an agar gel matrix", 
+        "Radial immunodiffusion in a single dimension", 
+        "Agglutination of red blood cells under a microscope"
+    ],
+    answer: 1,
+    explanation: "The Ouchterlony test is a double immunodiffusion technique. An extract of the bloodstain (antigen) and an antiserum (antibody) are placed in separate wells in an agar gel. They diffuse radially toward each other, forming a visible line of precipitation where they meet in optimal proportions if they match."
+},
+{
+    question: "Which of the following features is a characteristic indicator of a 'simulated forgery' rather than a 'traced forgery'?",
+    options: [
+        "Presence of a graphite guideline or indentation underneath the ink", 
+        "Uniform pen pressure with poor line quality, tremors, and hesitations", 
+        "An exact mathematical overlay match with the genuine signature", 
+        "The use of transmitted light via a light box"
+    ],
+    answer: 1,
+    explanation: "A simulated forgery is a freehand drawing of a signature from a model. Because the forger is consciously drawing rather than naturally writing, it typically exhibits poor line quality, tremors, unnatural pen lifts, and uniform pressure. Traced forgeries exhibit exact overlays and guidelines."
+},
+{
+    question: "The 'Phenice Method' is widely regarded as one of the most reliable visual techniques in forensic anthropology for determining:",
+    options: [
+        "The age at death using the pubic symphysis", 
+        "The sex of an individual using the os pubis", 
+        "The racial ancestry using cranial morphology", 
+        "The stature using the maximum length of the femur"
+    ],
+    answer: 1,
+    explanation: "Developed by T.W. Phenice in 1969, this highly accurate method determines the biological sex of skeletal remains by examining three specific morphological features of the os pubis (ventral arc, subpubic concavity, and the medial aspect of the ischiopubic ramus)."
+},
+{
+    question: "In mobile device forensics, the term 'JTAG' refers to:",
+    options: [
+        "A forensic extraction technique that bypasses the operating system by connecting directly to test ports on the printed circuit board", 
+        "A logical acquisition protocol used exclusively for extracting data from iOS backup files", 
+        "A cellular network triangulation method used to trace the physical location of the device", 
+        "A cryptographic hashing algorithm used to secure digital evidence containers"
+    ],
+    answer: 0,
+    explanation: "JTAG (Joint Test Action Group) forensics involves soldering wires directly to standardized test access ports on a device's motherboard. This allows forensic examiners to bypass security locks and the OS to perform a low-level physical memory read of the flash storage."
+},
+{
+    question: "According to the FDI (Fédération Dentaire Internationale) World Dental Federation notation system, the tooth numbered '34' refers to:",
+    options: [
+        "The permanent left mandibular first premolar", 
+        "The permanent right maxillary first molar", 
+        "The deciduous left mandibular canine", 
+        "The permanent left maxillary second premolar"
+    ],
+    answer: 0,
+    explanation: "In the FDI two-digit system, the first digit indicates the quadrant (1=Right Maxillary, 2=Left Maxillary, 3=Left Mandibular, 4=Right Mandibular for permanent teeth). The second digit indicates the tooth position from the midline (1 to 8). Thus, '34' is the 3rd quadrant (Left Mandibular), 4th tooth (First Premolar)."
+}
+];
+
+const form = document.getElementById("quizForm");
+
+function loadQuestions(){
+    form.innerHTML = "";
+    questions.forEach((q, index) => {
+        let displayIndex = index + 101; // Offsetting to start at 101
+        form.innerHTML += `
+        <div class="question-box">
+            <div class="question">Q${displayIndex}. ${q.question}</div>
+            ${q.options.map((option, i) => `
+            <label class="option">
+                <input type="radio" name="q${index}" value="${i}" onchange="updateProgress()">
+                ${option}
+            </label>
+            `).join("")}
+        </div>
+        `;
+    });
+}
+
+let wrongAnswers = [];
+
+function submitQuiz(){
+    let score = 0;
+    wrongAnswers = [];
+
+    questions.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        if(selected && parseInt(selected.value) === q.answer){
+            score++;
+        } else {
+            let displayIndex = index + 101;
+            wrongAnswers.push({
+                qNum: displayIndex,
+                question: q.question,
+                selected: selected ? q.options[selected.value] : "Not Answered",
+                correct: q.options[q.answer],
+                explanation: q.explanation
+            });
+        }
+    });
+
+    document.getElementById("examSection").style.display = "none";
+    document.getElementById("resultSection").style.display = "block";
+    document.getElementById("scoreText").innerText = `${score}/${questions.length}`;
+
+    const percentage = ((score / questions.length) * 100).toFixed(2);
+    document.getElementById("resultDetails").innerHTML = `
+        <h2>Correct: <span class="correct">${score}</span></h2><br>
+        <h2>Wrong: <span class="wrong">${questions.length - score}</span></h2><br>
+        <h2>Percentage: ${percentage}%</h2>
+    `;
+    clearInterval(timerInterval);
+}
+
+function showReview(){
+    const reviewBox = document.getElementById("reviewBox");
+    if(wrongAnswers.length === 0){
+        reviewBox.innerHTML = `<h2 style="color:green; margin-top:20px;">Excellent! No wrong answers.</h2>`;
+        return;
+    }
+
+    reviewBox.innerHTML = "<h2 style='margin-bottom:20px;'>Wrong Answers & Detailed Solutions</h2>";
+    
+    wrongAnswers.forEach((item) => {
+        reviewBox.innerHTML += `
+        <div class="review-item">
+            <strong>Q${item.qNum}. ${item.question}</strong><br><br>
+            <span class="wrong">Your Answer: ${item.selected}</span><br><br>
+            <span class="correct">Correct Answer: ${item.correct}</span>
+            <div class="solution"><strong>Forensic Rationale:</strong> ${item.explanation}</div>
+        </div>
+        `;
+    });
+}
+
+function restartQuiz(){
+    document.getElementById("resultSection").style.display = "none";
+    document.getElementById("examSection").style.display = "block";
+    
+    // Reset inputs
+    document.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
+    
+    timeLeft = 1800; // Reset to 30 mins
+    updateProgress();
+    startTimer();
+}
+
+function updateProgress(){
+    const answered = document.querySelectorAll("input[type='radio']:checked").length;
+    const percent = (answered / questions.length) * 100;
+    document.getElementById("progressBar").style.width = percent + "%";
+}
+
+let timeLeft = 1800; // 30 minutes for 20 questions
+let timerInterval;
+
+function startTimer(){
+    clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        document.getElementById("timer").innerText = `${minutes}:${seconds}`;
+        
+        if(timeLeft <= 0){
+            clearInterval(timerInterval);
+            submitQuiz();
+        }
+        timeLeft--;
+    }, 1000);
+}
+
+loadQuestions();
+startTimer();
+</script>
+
+</body>
+</html>
