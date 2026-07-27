@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MH SET Forensic Science - Advanced Practice (Q121-140)</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #0f172a, #1e40af);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+h1 {
+    text-align: center;
+    color: #1e3a8a;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #555;
+    margin-bottom: 25px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.timer {
+    background: #dc2626;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.progress {
+    width: 100%;
+    height: 12px;
+    background: #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 25px;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: #2563eb;
+    transition: 0.3s;
+}
+
+.question-box {
+    background: #f9fafb;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.question {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #111827;
+    line-height: 1.4;
+}
+
+.option {
+    display: block;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.option:hover {
+    background: #dbeafe;
+}
+
+input[type="radio"] {
+    margin-right: 10px;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background: #2563eb;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 20px;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+.result-section {
+    display: none;
+    text-align: center;
+}
+
+.score {
+    font-size: 60px;
+    color: #16a34a;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.correct {
+    color: green;
+    font-weight: bold;
+}
+
+.wrong {
+    color: red;
+    font-weight: bold;
+}
+
+.review {
+    text-align: left;
+    margin-top: 25px;
+}
+
+.review-item {
+    background: #f9fafb;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.solution {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #ccc;
+    color: #444;
+    font-style: italic;
+    background: #eff6ff;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+@media(max-width: 600px) {
+    .question {
+        font-size: 16px;
+    }
+    .score {
+        font-size: 40px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div id="examSection">
+    <h1>MH SET Forensic Science Practice</h1>
+    <p class="subtitle">Synthetic Advanced Difficulty • Questions 121 to 140</p>
+
+    <div class="topbar">
+        <div><strong>Total Questions:</strong> 20</div>
+        <div class="timer">Time Left: <span id="timer">30:00</span></div>
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <form id="quizForm"></form>
+
+    <button onclick="submitQuiz()">Submit Exam</button>
+</div>
+
+<div class="result-section" id="resultSection">
+    <h1>Exam Result</h1>
+    <div class="score" id="scoreText">0/20</div>
+    <div id="resultDetails"></div>
+    <button onclick="showReview()">View Wrong Answers & Solutions</button>
+    <button onclick="restartQuiz()">Restart Test</button>
+    <div class="review" id="reviewBox"></div>
+</div>
+
+</div>
+
+<script>
+const questions = [
+{
+    question: "In Windows memory forensics, which artifact is specifically analyzed to track historically executed programs and their last modification times, even if the executable has been deleted from the disk?",
+    options: [
+        "Prefetch files", 
+        "Shimcache (Application Compatibility Cache)", 
+        "Amcache.hve", 
+        "NTUSER.DAT"
+    ],
+    answer: 1,
+    explanation: "The Shimcache (Application Compatibility Cache) tracks executables to ensure backward compatibility with older Windows versions. It stores the file name, path, last modified time, and execution flag, making it a critical artifact for proving malware execution even after the malware is deleted."
+},
+{
+    question: "Derivatization is a crucial preparatory step in Gas Chromatography (GC) for forensic toxicology. Its primary purpose is to:",
+    options: [
+        "Increase the molecular weight of the compound to bypass the column", 
+        "Decrease the volatility of volatile organic compounds (VOCs)", 
+        "Increase the thermal stability and volatility of polar compounds", 
+        "Saturate the carrier gas to prevent column bleed"
+    ],
+    answer: 2,
+    explanation: "Polar compounds (like those containing -OH, -COOH, or -NH2 groups) often exhibit poor volatility and thermal instability, leading to peak tailing in GC. Derivatization (e.g., silylation or acetylation) replaces active hydrogens, making the analyte more volatile, thermally stable, and suitable for GC analysis."
+},
+{
+    question: "During the interpretation of an electropherogram in forensic DNA analysis, a 'stutter' peak is typically observed at what position relative to the true parent allele peak?",
+    options: [
+        "One repeat unit longer (n+1)", 
+        "One repeat unit shorter (n-1)", 
+        "Two repeat units shorter (n-2)", 
+        "Exactly overlapping the true allele but at half the RFU height"
+    ],
+    answer: 1,
+    explanation: "Stutter is an artifact of the PCR amplification process caused by DNA polymerase 'slipping.' It most commonly results in a minor peak that is one repeat unit shorter (n-1) than the true allele, usually less than 15% of the parent peak's height."
+},
+{
+    question: "According to the '3R Rule' used in the forensic examination of fractured glass, radial cracks form a Right angle on the:",
+    options: [
+        "Reverse side of the force", 
+        "Right side of the concentric fracture", 
+        "Front side (impact side) of the force", 
+        "Radiating edges of the secondary fractures"
+    ],
+    answer: 0,
+    explanation: "The 3R rule states: Radial cracks form a Right angle on the Reverse side of the force. This allows forensic analysts to determine which direction a projectile (like a bullet or rock) came from when breaking a window."
+},
+{
+    question: "Assertion (A): Successive bullets fired sequentially from the exact same firearm may exhibit slightly different microscopic striations.<br>Reason (R): Barrel wear, metallic fouling, and rust can alter the microscopic characteristics of the barrel over time.",
+    options: [
+        "Both A and R are true, and R is the correct explanation of A", 
+        "Both A and R are true, but R is not the correct explanation of A", 
+        "A is true, but R is false", 
+        "A is false, but R is true"
+    ],
+    answer: 0,
+    explanation: "Both statements are true. While a barrel leaves a unique 'fingerprint' on a bullet, the barrel's interior is subjected to immense heat, friction, and fouling with every shot. This micro-wear means that bullet #1 and bullet #1000 from the same gun might have noticeable differences, making R the correct explanation for A."
+},
+{
+    question: "Which of the following techniques is entirely non-destructive and utilizes varying wavelengths of light (IR, UV, visible) to differentiate between visually identical inks on a questioned document?",
+    options: [
+        "Thin Layer Chromatography (TLC)", 
+        "Video Spectral Comparator (VSC)", 
+        "High-Performance Liquid Chromatography (HPLC)", 
+        "Capillary Electrophoresis"
+    ],
+    answer: 1,
+    explanation: "The Video Spectral Comparator (VSC) is a primary tool for document examiners. It is non-destructive and uses different light sources and filters to reveal differences in ink luminescence and infrared absorption, easily exposing alterations or additions to a document."
+},
+{
+    question: "In forensic anthropology, the 'greater sciatic notch' is a morphological feature primarily evaluated to estimate a skeleton's:",
+    options: [
+        "Age at the time of death", 
+        "Ancestry or racial origin", 
+        "Biological sex", 
+        "Stature"
+    ],
+    answer: 2,
+    explanation: "The greater sciatic notch is located on the os coxa (pelvic bone). It is generally wider and shallower in females (to facilitate childbirth) and narrower/more U-shaped in males, making it one of the most reliable indicators of biological sex."
+},
+{
+    question: "Solid Phase Extraction (SPE) is increasingly preferred over traditional Liquid-Liquid Extraction (LLE) in forensic toxicology primarily because it:",
+    options: [
+        "Relies heavily on emulsion formation to trap drugs", 
+        "Requires significantly larger volumes of toxic organic solvents", 
+        "Eliminates emulsion formation and uses less solvent", 
+        "Extracts only inorganic heavy metals"
+    ],
+    answer: 2,
+    explanation: "SPE avoids the common problem of emulsion formation that plagues LLE. Furthermore, SPE is faster, more easily automated, yields cleaner extracts, and requires far less hazardous organic solvent."
+},
+{
+    question: "In digital image steganography, the LSB (Least Significant Bit) insertion method hides data by modifying:",
+    options: [
+        "The file header metadata (EXIF)", 
+        "The least significant bit of the pixel color values", 
+        "The Huffman coding tables of a JPEG file", 
+        "The GPS coordinate tags of the image"
+    ],
+    answer: 1,
+    explanation: "LSB insertion is a spatial domain steganography technique where the hidden message bits overwrite the least significant bits of the image's pixels. Because it only changes the color value by a fraction of a shade, the alteration is imperceptible to the human eye."
+},
+{
+    question: "The birefringence of a synthetic fiber is a critical physical property measured by determining the difference between its two refractive indices. Which microscope is used for this?",
+    options: [
+        "Scanning Electron Microscope (SEM)", 
+        "Phase Contrast Microscope", 
+        "Polarizing Light Microscope (PLM)", 
+        "Comparison Microscope"
+    ],
+    answer: 2,
+    explanation: "The Polarizing Light Microscope (PLM) utilizes polarized light to determine a fiber's refractive indices parallel and perpendicular to its axis. The numerical difference between these two indices is the birefringence, a key identifier for synthetic fibers."
+},
+{
+    question: "The Acid Phosphatase (AP) test is a presumptive chemical test for the presence of semen. It relies on the enzymatic cleavage of which substrate to produce a distinct purple color?",
+    options: [
+        "Luminol", 
+        "Sodium alpha-naphthyl phosphate", 
+        "Phenolphthalein", 
+        "Ortho-tolidine"
+    ],
+    answer: 1,
+    explanation: "In the AP test (often called the Brentamine Fast Blue B test), the enzyme acid phosphatase (found in high concentrations in semen) cleaves sodium alpha-naphthyl phosphate. The resulting naphthol then couples with Fast Blue B dye to produce a deep purple color."
+},
+{
+    question: "TATP (Triacetone Triperoxide) is highly favored by terrorists but is extremely difficult to detect using standard explosive detection swabbing systems (like IMS) primarily because it:",
+    options: [
+        "Is completely water-soluble and evaporates instantly", 
+        "Contains no nitrogenous compounds", 
+        "Is heavily shielded by lead casing", 
+        "Only detonates at temperatures below freezing"
+    ],
+    answer: 1,
+    explanation: "Standard explosive trace detectors are largely tuned to sniff for nitro-groups (like those in TNT, RDX, or PETN). TATP is a peroxide-based explosive and lacks nitrogen entirely, making it 'invisible' to many traditional explosive detection systems."
+},
+{
+    question: "Forensic SEM-EDX analysis of Gunshot Residue (GSR) specifically searches for characteristic spherical particles containing a fused alloy of:",
+    options: [
+        "Lead, Barium, and Antimony", 
+        "Copper, Zinc, and Nickel", 
+        "Nitrates, Nitrites, and Cellulose", 
+        "Iron, Carbon, and Sulfur"
+    ],
+    answer: 0,
+    explanation: "Definitive, characteristic GSR particles are formed by the extreme heat and rapid cooling of the primer mixture upon firing. Finding perfectly spherical particles containing the exact combination of Lead (Pb), Barium (Ba), and Antimony (Sb) is the gold standard for confirming GSR."
+},
+{
+    question: "The watermark on a sheet of high-quality paper is created during the manufacturing process by pressing a wire cylinder into the wet pulp. This cylinder is known as a:",
+    options: [
+        "Fourdrinier mesh", 
+        "Dandy roll", 
+        "Calender stack", 
+        "Sizing press"
+    ],
+    answer: 1,
+    explanation: "A Dandy roll is a light wire cylinder with a raised pattern or design. As it rolls over the wet web of paper pulp on the paper machine, it displaces the fibers to create a thinner, translucent area known as a watermark."
+},
+{
+    question: "The 'Reinsch test' is a classic presumptive toxicological screening test performed by boiling the suspected tissue in hydrochloric acid with a copper strip. It is used to detect:",
+    options: [
+        "Volatile organic solvents", 
+        "Heavy metals (Arsenic, Mercury, Antimony, Bismuth)", 
+        "Organophosphorus pesticides", 
+        "Opiate alkaloids"
+    ],
+    answer: 1,
+    explanation: "The Reinsch test targets specific heavy metals. If Arsenic, Mercury, Antimony, or Bismuth are present in the acidic solution, they will deposit onto the clean copper strip, resulting in a distinct dark or silvery coating."
+},
+{
+    question: "In forensic medicine, 'Burking' is a specific, homicidal method of asphyxiation that combines:",
+    options: [
+        "Strangulation by ligature and hanging", 
+        "Smothering and traumatic asphyxia (chest compression)", 
+        "Drowning and chemical suffocation", 
+        "Choking and positional asphyxia"
+    ],
+    answer: 1,
+    explanation: "Named after the 19th-century serial killer William Burke (of Burke and Hare), 'burking' involves sitting or kneeling on the victim's chest (traumatic asphyxia) while simultaneously covering their nose and mouth (smothering) to kill them without leaving obvious external marks."
+},
+{
+    question: "During iOS (Apple) mobile forensics, an investigator seeking to extract user text messages and iMessages will typically target an SQLite database named:",
+    options: [
+        "mmssms.db", 
+        "contacts2.db", 
+        "sms.db", 
+        "telephony.db"
+    ],
+    answer: 2,
+    explanation: "In the iOS file system, SMS, MMS, and iMessage data are all aggregated and stored within the SQLite database file explicitly named 'sms.db' (located in the /private/var/mobile/Library/SMS/ directory)."
+},
+{
+    question: "When examining a paint chip from a modern automobile, the standard sequence of layers applied at the factory (from bottom to top) is:",
+    options: [
+        "Basecoat, Clearcoat, Primer Surfacer, Electrocoat primer", 
+        "Electrocoat primer, Primer Surfacer, Basecoat, Clearcoat", 
+        "Primer Surfacer, Basecoat, Electrocoat primer, Clearcoat", 
+        "Clearcoat, Basecoat, Primer Surfacer, Electrocoat primer"
+    ],
+    answer: 1,
+    explanation: "The factory paint process for modern vehicles involves applying four main coatings to the bare steel: the Electrocoat primer (corrosion resistance), the Primer Surfacer (smoothing), the Basecoat (the actual color), and finally the Clearcoat (gloss and UV protection)."
+},
+{
+    question: "Consider the following statements regarding Mitochondrial DNA (mtDNA):<br>I. It is maternally inherited.<br>II. It is circular and highly resistant to degradation compared to nuclear DNA.<br>III. It possesses a higher discriminatory power (individualization) than nuclear STR profiling.<br>Which of the statements are correct?",
+    options: [
+        "I and II only", 
+        "II and III only", 
+        "I and III only", 
+        "I, II, and III"
+    ],
+    answer: 0,
+    explanation: "Statements I and II are correct. mtDNA is inherited solely from the mother and its circular structure/high copy number makes it robust in degraded samples (like old bone or hair). Statement III is false: because all maternal relatives share the exact same mtDNA profile, its discriminatory power is much lower than nuclear DNA, which is unique to the individual."
+},
+{
+    question: "The greenish discoloration of the abdomen, usually starting in the right iliac fossa, is one of the earliest signs of putrefaction. This color is chemically caused by the formation of:",
+    options: [
+        "Carboxyhemoglobin", 
+        "Methemoglobin", 
+        "Sulfhemoglobin", 
+        "Cyanmethemoglobin"
+    ],
+    answer: 2,
+    explanation: "During putrefaction, intestinal bacteria break down proteins and release hydrogen sulfide gas. This gas reacts with the hemoglobin in the blood to form sulfhemoglobin, which imparts the characteristic greenish discoloration to the decomposing tissues."
+}
+];
+
+const form = document.getElementById("quizForm");
+
+function loadQuestions(){
+    form.innerHTML = "";
+    questions.forEach((q, index) => {
+        let displayIndex = index + 121; // Offsetting to start at 121
+        form.innerHTML += `
+        <div class="question-box">
+            <div class="question">Q${displayIndex}. ${q.question}</div>
+            ${q.options.map((option, i) => `
+            <label class="option">
+                <input type="radio" name="q${index}" value="${i}" onchange="updateProgress()">
+                ${option}
+            </label>
+            `).join("")}
+        </div>
+        `;
+    });
+}
+
+let wrongAnswers = [];
+
+function submitQuiz(){
+    let score = 0;
+    wrongAnswers = [];
+
+    questions.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        if(selected && parseInt(selected.value) === q.answer){
+            score++;
+        } else {
+            let displayIndex = index + 121;
+            wrongAnswers.push({
+                qNum: displayIndex,
+                question: q.question,
+                selected: selected ? q.options[selected.value] : "Not Answered",
+                correct: q.options[q.answer],
+                explanation: q.explanation
+            });
+        }
+    });
+
+    document.getElementById("examSection").style.display = "none";
+    document.getElementById("resultSection").style.display = "block";
+    document.getElementById("scoreText").innerText = `${score}/${questions.length}`;
+
+    const percentage = ((score / questions.length) * 100).toFixed(2);
+    document.getElementById("resultDetails").innerHTML = `
+        <h2>Correct: <span class="correct">${score}</span></h2><br>
+        <h2>Wrong: <span class="wrong">${questions.length - score}</span></h2><br>
+        <h2>Percentage: ${percentage}%</h2>
+    `;
+    clearInterval(timerInterval);
+}
+
+function showReview(){
+    const reviewBox = document.getElementById("reviewBox");
+    if(wrongAnswers.length === 0){
+        reviewBox.innerHTML = `<h2 style="color:green; margin-top:20px;">Excellent! No wrong answers.</h2>`;
+        return;
+    }
+
+    reviewBox.innerHTML = "<h2 style='margin-bottom:20px;'>Wrong Answers & Detailed Solutions</h2>";
+    
+    wrongAnswers.forEach((item) => {
+        reviewBox.innerHTML += `
+        <div class="review-item">
+            <strong>Q${item.qNum}. ${item.question}</strong><br><br>
+            <span class="wrong">Your Answer: ${item.selected}</span><br><br>
+            <span class="correct">Correct Answer: ${item.correct}</span>
+            <div class="solution"><strong>Forensic Rationale:</strong> ${item.explanation}</div>
+        </div>
+        `;
+    });
+}
+
+function restartQuiz(){
+    document.getElementById("resultSection").style.display = "none";
+    document.getElementById("examSection").style.display = "block";
+    
+    // Reset inputs
+    document.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
+    
+    timeLeft = 1800; // Reset to 30 mins
+    updateProgress();
+    startTimer();
+}
+
+function updateProgress(){
+    const answered = document.querySelectorAll("input[type='radio']:checked").length;
+    const percent = (answered / questions.length) * 100;
+    document.getElementById("progressBar").style.width = percent + "%";
+}
+
+let timeLeft = 1800; // 30 minutes for 20 questions
+let timerInterval;
+
+function startTimer(){
+    clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        document.getElementById("timer").innerText = `${minutes}:${seconds}`;
+        
+        if(timeLeft <= 0){
+            clearInterval(timerInterval);
+            submitQuiz();
+        }
+        timeLeft--;
+    }, 1000);
+}
+
+loadQuestions();
+startTimer();
+</script>
+
+</body>
+</html>
