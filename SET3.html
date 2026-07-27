@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MH SET 2020 Forensic Science - Questions 41 to 60</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #0f172a, #1e40af);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+h1 {
+    text-align: center;
+    color: #1e3a8a;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #555;
+    margin-bottom: 25px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.timer {
+    background: #dc2626;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.progress {
+    width: 100%;
+    height: 12px;
+    background: #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 25px;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: #2563eb;
+    transition: 0.3s;
+}
+
+.question-box {
+    background: #f9fafb;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.question {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #111827;
+}
+
+.option {
+    display: block;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.option:hover {
+    background: #dbeafe;
+}
+
+input[type="radio"] {
+    margin-right: 10px;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background: #2563eb;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 20px;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+.result-section {
+    display: none;
+    text-align: center;
+}
+
+.score {
+    font-size: 60px;
+    color: #16a34a;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.correct {
+    color: green;
+    font-weight: bold;
+}
+
+.wrong {
+    color: red;
+    font-weight: bold;
+}
+
+.review {
+    text-align: left;
+    margin-top: 25px;
+}
+
+.review-item {
+    background: #f9fafb;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.solution {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #ccc;
+    color: #444;
+    font-style: italic;
+    background: #eff6ff;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+@media(max-width: 600px) {
+    .question {
+        font-size: 16px;
+    }
+    .score {
+        font-size: 40px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div id="examSection">
+    <h1>MH SET Forensic Science Practice</h1>
+    <p class="subtitle">Questions 41 to 60 • Paper II Set A (Dec 27, 2020)[span_1](start_span)[span_1](end_span)</p>
+
+    <div class="topbar">
+        <div><strong>Total Questions:</strong> 20</div>
+        <div class="timer">Time Left: <span id="timer">30:00</span></div>
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <form id="quizForm"></form>
+
+    <button onclick="submitQuiz()">Submit Exam</button>
+</div>
+
+<div class="result-section" id="resultSection">
+    <h1>Exam Result</h1>
+    <div class="score" id="scoreText">0/20</div>
+    <div id="resultDetails"></div>
+    <button onclick="showReview()">View Wrong Answers & Solutions</button>
+    <button onclick="restartQuiz()">Restart Test</button>
+    <div class="review" id="reviewBox"></div>
+</div>
+
+</div>
+
+<script>
+const questions = [
+{
+    question: "The terminology used to describe when the sperms are present in large number with abnormal morphology is:",
+    options: ["Aspermia", "Oligospermia", "Teratozoospermia", "Necrozoospermia"],
+    answer: 2,
+    explanation: "Teratozoospermia refers to a condition characterized by the presence of sperm with abnormal morphology. Aspermia is lack of semen, Oligospermia is low sperm count, and Necrozoospermia is dead sperm.[span_2](start_span)[span_2](end_span)"
+},
+{
+    question: "Chronic poisoning due to lead is known as:",
+    options: ["Plumbism", "Hydrargyrism", "Ptyalism", "Arsenicosis"],
+    answer: 0,
+    explanation: "Chronic lead poisoning is clinically referred to as plumbism, derived from the Latin word for lead, 'plumbum'. Hydrargyrism refers to mercury poisoning.[span_3](start_span)[span_3](end_span)"
+},
+{
+    question: "The luminol test is a capable of detecting bloodstains diluted upto :",
+    options: ["30,000 times", "3,00,000 times", "3,000 times", "300 times"],
+    answer: 1,
+    explanation: "Luminol is a highly sensitive presumptive test for blood that is capable of detecting trace amounts of blood even when it has been diluted up to 300,000 times.[span_4](start_span)[span_4](end_span)"
+},
+{
+    question: "The largest protein molecule in blood is:",
+    options: ["Albumin", "Globulin", "Fibrinogen", "Haemoglobin"],
+    answer: 2,
+    explanation: "Fibrinogen is a complex, high-molecular-weight glycoprotein synthesized by the liver and is one of the largest major protein molecules circulating in human blood plasma.[span_5](start_span)[span_5](end_span)"
+},
+{
+    question: "Which of the following ASTM guidelines is not related to forensic document examination?",
+    options: ["ASTM E 1422", "ASTM E 2290-07a", "ASTM F 2503-13", "ASTM E 443-09"],
+    answer: 2,
+    explanation: "ASTM F2503-13 is a standard practice related to marking medical devices for safety in Magnetic Resonance (MR) environments, and has absolutely nothing to do with forensic document examination.[span_6](start_span)[span_6](end_span)"
+},
+{
+    question: "Which of the following is not used for nuclear DNA profiling?",
+    options: ["Cut hair", "Plucked hair", "Fallen hair", "Kinky hair"],
+    answer: 0,
+    explanation: "Cut hair typically lacks the follicular tag (the hair root), which is the primary source of nuclear DNA. Only mitochondrial DNA can generally be extracted from the hair shaft itself.[span_7](start_span)[span_7](end_span)"
+},
+{
+    question: "As 'Wool' is obtained from sheep is obtained hair likewise Mohair is from:",
+    options: ["Camel hair", "Vicuna hair", "Angora goat hair", "Asiatic goat hair"],
+    answer: 2,
+    explanation: "Mohair is a fabric or yarn made directly from the hair of the Angora goat.[span_8](start_span)[span_8](end_span)"
+},
+{
+    question: "Which of the following is the test for detection of urine?",
+    options: ["Kastle Mayer test", "Jaffer test", "Teichmann test", "Phadebas test"],
+    answer: 1,
+    explanation: "The Jaffe test (printed in the paper as 'Jaffer test') is a colorimetric method used to detect the presence of creatinine, which is a key component present in high concentrations in urine.[span_9](start_span)[span_9](end_span)"
+},
+{
+    question: "The STRs with identical length and sequence are known as:",
+    options: ["Simple repeats", "Complex repeats", "Compound repeats", "Complex hypervariable repeats"],
+    answer: 0,
+    explanation: "Simple repeats contain units of identical length and sequence (e.g., GATA GATA GATA). Compound and complex repeats have multiple types of repeat units or intervening sequences.[span_10](start_span)[span_10](end_span)"
+},
+{
+    question: "As per ISO/IEC 7811, a magstripe card contains:",
+    options: ["One track", "Two tracks", "Three tracks", "Four tracks"],
+    answer: 2,
+    explanation: "Standard magnetic stripe cards (like credit and debit cards) governed by ISO/IEC 7811 contain three distinct data tracks for storing different types of information.[span_11](start_span)[span_11](end_span)"
+},
+{
+    question: "Which of the following is not depicting antigen-antibody reaction?",
+    options: ["Neutralization", "Elisa", "Precipitation", "Agglutination"],
+    answer: 1,
+    explanation: "ELISA (Enzyme-Linked Immunosorbent Assay) is a laboratory technique or test format that *utilizes* antigen-antibody reactions, whereas Neutralization, Precipitation, and Agglutination are the actual biological reactions themselves.[span_12](start_span)[span_12](end_span)"
+},
+{
+    question: "In forensic examination of samples, STR are selected which are:",
+    options: ["Genetically linked", "Genetically not linked", "Larger in size", "Smaller in size"],
+    answer: 1,
+    explanation: "Forensic STR loci are deliberately chosen to be genetically not linked (meaning they assort independently during reproduction) so that the product rule can be reliably applied to calculate match probabilities.[span_13](start_span)[span_13](end_span)"
+},
+{
+    question: "The minimum value of area under a receiver operating curve of a biometric system is:",
+    options: ["0.2", "0.3", "0.5", "0.4"],
+    answer: 2,
+    explanation: "An Area Under the Curve (AUC) of 0.5 represents a model with no discrimination capacity (equivalent to a random coin toss). This is the minimum baseline for any functional system.[span_14](start_span)[span_14](end_span)"
+},
+{
+    question: "Salivary amylase converts :",
+    options: ["Starch into glucose", "Starch into glycogen", "Starch into fats", "Starch into carbohydrates"],
+    answer: 3,
+    explanation: "Salivary amylase breaks down complex starches into simpler carbohydrates, primarily maltose and dextrin. It does not break it down all the way to pure glucose.[span_15](start_span)[span_15](end_span)"
+},
+{
+    question: "The most suitable reagent for chemical etching of steel surfaces in cases of restoration of erased number is:",
+    options: ["Fry's reagent", "Villella's reagent", "Thomas's reagent", "William's reagent"],
+    answer: 0,
+    explanation: "Fry's reagent (a mixture of cupric chloride, hydrochloric acid, and water) is the standard and most suitable chemical etchant used to restore obliterated serial numbers on steel surfaces.[span_16](start_span)[span_16](end_span)"
+},
+{
+    question: "The pitch pattern in a sentence is known as:",
+    options: ["Fundamental frequency", "Intonation", "Timbre", "Phonology"],
+    answer: 1,
+    explanation: "Intonation refers to the variation of spoken pitch that is not used to distinguish words, but rather to convey structural, linguistic, and emotional patterns in a sentence.[span_17](start_span)[span_17](end_span)"
+},
+{
+    question: "Narrow band spectrogram is the most suitable to study which of the following?",
+    options: ["Harmonics", "Formant", "Glotal pulses", "Amplitude"],
+    answer: 0,
+    explanation: "A narrow band spectrogram has high frequency resolution, making it ideal for visualizing individual harmonics of the voice, whereas a wide band spectrogram is better for viewing formants and time-based events.[span_18](start_span)[span_18](end_span)"
+},
+{
+    question: "Which of the following is correct? Mixed Guns are:<br>I. Double barrelled guns in which one barrel is of one bore and other is of different bore<br>II. Double barrel guns having different chokes in both the barrels<br>III. Double barrel have one smooth bore barrel and other is rifled barrel",
+    options: ["I is correct", "II is correct", "I & III are correct", "III is correct"],
+    answer: 3,
+    explanation: "A 'mixed gun' (also known as a combination gun) specifically refers to a multi-barrel firearm that features at least one rifled barrel and one smoothbore barrel.[span_19](start_span)[span_19](end_span)"
+},
+{
+    question: "Which of the following statements is correct?<br>I. Forensic examiner encounter a wide range of weapons during the investigation<br>II. Most of these weapons falls in to one of the four major categories (Hand guns, shotgun, rifles and submachine guns)",
+    options: ["Statement I is correct", "Statement II is correct", "Statements I and II are correct", "Neither of statements I and II is correct"],
+    answer: 2,
+    explanation: "Both statements are correct. Examiners deal with a vast array of firearms, but practically all conventional firearms involved in crimes fall under the categories of handguns, shotguns, rifles, or submachine guns.[span_20](start_span)[span_20](end_span)"
+},
+{
+    question: "Which of the following is not an example of soft biometrics?",
+    options: ["Periocular region", "Facial marks", "Gait pattern", "Tattoos"],
+    answer: 0,
+    explanation: "Soft biometrics refer to physical or behavioral traits (like tattoos, marks, height, weight, gait) that provide some information but cannot uniquely identify an individual. The periocular region (the area immediately surrounding the eye) is considered a primary/hard biometric feature capable of high-accuracy identification.[span_21](start_span)[span_21](end_span)"
+}
+];
+
+const form = document.getElementById("quizForm");
+
+function loadQuestions(){
+    form.innerHTML = "";
+    questions.forEach((q, index) => {
+        // Offset the display index by 41 to match the source paper
+        let displayIndex = index + 41;
+        form.innerHTML += `
+        <div class="question-box">
+            <div class="question">Q${displayIndex}. ${q.question}</div>
+            ${q.options.map((option, i) => `
+            <label class="option">
+                <input type="radio" name="q${index}" value="${i}" onchange="updateProgress()">
+                ${option}
+            </label>
+            `).join("")}
+        </div>
+        `;
+    });
+}
+
+let wrongAnswers = [];
+
+function submitQuiz(){
+    let score = 0;
+    wrongAnswers = [];
+
+    questions.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        if(selected && parseInt(selected.value) === q.answer){
+            score++;
+        } else {
+            let displayIndex = index + 41;
+            wrongAnswers.push({
+                qNum: displayIndex,
+                question: q.question,
+                selected: selected ? q.options[selected.value] : "Not Answered",
+                correct: q.options[q.answer],
+                explanation: q.explanation
+            });
+        }
+    });
+
+    document.getElementById("examSection").style.display = "none";
+    document.getElementById("resultSection").style.display = "block";
+    document.getElementById("scoreText").innerText = `${score}/${questions.length}`;
+
+    const percentage = ((score / questions.length) * 100).toFixed(2);
+    document.getElementById("resultDetails").innerHTML = `
+        <h2>Correct: <span class="correct">${score}</span></h2><br>
+        <h2>Wrong: <span class="wrong">${questions.length - score}</span></h2><br>
+        <h2>Percentage: ${percentage}%</h2>
+    `;
+    clearInterval(timerInterval);
+}
+
+function showReview(){
+    const reviewBox = document.getElementById("reviewBox");
+    if(wrongAnswers.length === 0){
+        reviewBox.innerHTML = `<h2 style="color:green; margin-top:20px;">Excellent! No wrong answers.</h2>`;
+        return;
+    }
+
+    reviewBox.innerHTML = "<h2 style='margin-bottom:20px;'>Wrong Answers & Solutions</h2>";
+    
+    wrongAnswers.forEach((item) => {
+        reviewBox.innerHTML += `
+        <div class="review-item">
+            <strong>Q${item.qNum}. ${item.question}</strong><br><br>
+            <span class="wrong">Your Answer: ${item.selected}</span><br><br>
+            <span class="correct">Correct Answer: ${item.correct}</span>
+            <div class="solution"><strong>Solution:</strong> ${item.explanation}</div>
+        </div>
+        `;
+    });
+}
+
+function restartQuiz(){
+    document.getElementById("resultSection").style.display = "none";
+    document.getElementById("examSection").style.display = "block";
+    
+    // Reset inputs
+    document.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
+    
+    timeLeft = 1800; // Reset to 30 mins
+    updateProgress();
+    startTimer();
+}
+
+function updateProgress(){
+    const answered = document.querySelectorAll("input[type='radio']:checked").length;
+    const percent = (answered / questions.length) * 100;
+    document.getElementById("progressBar").style.width = percent + "%";
+}
+
+let timeLeft = 1800; // 30 minutes for 20 questions
+let timerInterval;
+
+function startTimer(){
+    clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        document.getElementById("timer").innerText = `${minutes}:${seconds}`;
+        
+        if(timeLeft <= 0){
+            clearInterval(timerInterval);
+            submitQuiz();
+        }
+        timeLeft--;
+    }, 1000);
+}
+
+loadQuestions();
+startTimer();
+</script>
+
+</body>
+</html>
