@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MH SET 2020 Forensic Science - Questions 81 to 100</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #0f172a, #1e40af);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+h1 {
+    text-align: center;
+    color: #1e3a8a;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #555;
+    margin-bottom: 25px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.timer {
+    background: #dc2626;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.progress {
+    width: 100%;
+    height: 12px;
+    background: #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 25px;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: #2563eb;
+    transition: 0.3s;
+}
+
+.question-box {
+    background: #f9fafb;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.question {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #111827;
+}
+
+.option {
+    display: block;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.option:hover {
+    background: #dbeafe;
+}
+
+input[type="radio"] {
+    margin-right: 10px;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background: #2563eb;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 20px;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+.result-section {
+    display: none;
+    text-align: center;
+}
+
+.score {
+    font-size: 60px;
+    color: #16a34a;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.correct {
+    color: green;
+    font-weight: bold;
+}
+
+.wrong {
+    color: red;
+    font-weight: bold;
+}
+
+.review {
+    text-align: left;
+    margin-top: 25px;
+}
+
+.review-item {
+    background: #f9fafb;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.solution {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #ccc;
+    color: #444;
+    font-style: italic;
+    background: #eff6ff;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+@media(max-width: 600px) {
+    .question {
+        font-size: 16px;
+    }
+    .score {
+        font-size: 40px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div id="examSection">
+    <h1>MH SET Forensic Science Practice</h1>
+    <p class="subtitle">Questions 81 to 100 • Paper II Set A (Dec 27, 2020)[span_1](start_span)[span_1](end_span)</p>
+
+    <div class="topbar">
+        <div><strong>Total Questions:</strong> 20</div>
+        <div class="timer">Time Left: <span id="timer">30:00</span></div>
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <form id="quizForm"></form>
+
+    <button onclick="submitQuiz()">Submit Exam</button>
+</div>
+
+<div class="result-section" id="resultSection">
+    <h1>Exam Result</h1>
+    <div class="score" id="scoreText">0/20</div>
+    <div id="resultDetails"></div>
+    <button onclick="showReview()">View Wrong Answers & Solutions</button>
+    <button onclick="restartQuiz()">Restart Test</button>
+    <div class="review" id="reviewBox"></div>
+</div>
+
+</div>
+
+<script>
+const questions = [
+{
+    question: "The triradii, which are not actually present in a fingerprint but their potential formation is predicted (beyond the boundary of ridged skin) by the character of the pattern, are termed as:",
+    options: ["Extralimital triradii", "Conjoint triradii", "Super triradii", "Phantom triradii"],
+    answer: 0,
+    explanation: "Extralimital triradii are predicted triradii that lie outside the actual friction ridge skin area (e.g., beyond the observable surface limit) but their existence is mathematically and structurally implied by the flow of the ridges.[span_2](start_span)[span_2](end_span)"
+},
+{
+    question: "Kromekote paper method is used in which of the following?",
+    options: [
+        "Determining sequence of intersecting strokes", 
+        "Deciphering indented writings", 
+        "Deciphering erased writings", 
+        "Deciphering secret writings"
+    ],
+    answer: 0,
+    explanation: "The Kromekote paper method is a specialized lifting technique employed by forensic document examiners to lift ink and reliably determine the sequence of intersecting writing strokes (which line was written first).[span_3](start_span)[span_3](end_span)"
+},
+{
+    question: "CEDAR-FOX is an example of:",
+    options: [
+        "Systems for indentification of firearms", 
+        "Systems for handwriting identification", 
+        "Systems for indentification of animals", 
+        "Systems for identification of hair"
+    ],
+    answer: 1,
+    explanation: "CEDAR-FOX is a well-known automated software system developed by the Center of Excellence for Document Analysis and Recognition (CEDAR) for handwriting identification and signature verification.[span_4](start_span)[span_4](end_span)"
+},
+{
+    question: "By cross breeding sativa strain of cannabis with that of indica will lead to the development of.. plant.",
+    options: ["Sinsemilla", "Skunk", "Clone", "Hop"],
+    answer: 1,
+    explanation: "Skunk is a heavily potent hybrid strain of Cannabis that was originally created by selectively crossbreeding *Cannabis sativa* and *Cannabis indica* strains to yield a plant with very high THC levels.[span_5](start_span)[span_5](end_span)"
+},
+{
+    question: "To raise the yield of gasoline from crude oil by spliting higher molecular weight constituents into lower molecular weight is obtained by a process known as:",
+    options: ["Polymerization", "Alkylation", "Cracking", "Isomerization"],
+    answer: 2,
+    explanation: "Cracking is the primary petroleum refining process where heavy, high-molecular-weight hydrocarbon molecules are chemically broken down (cracked) into lighter, more valuable lower-molecular-weight fractions like gasoline.[span_6](start_span)[span_6](end_span)"
+},
+{
+    question: "Match the following:<br>List I: (a) Cardiac (b) Stimulant (c) Hallucinogen (d) Depressant<br>List II: (i) Cannabis sativa (ii) Digitalis purpurea (iii) Papaver somniferum (iv) Nicotiana tabacum",
+    options: [
+        "(a)-(i), (b)-(ii), (c)-(iii), (d)-(iv)", 
+        "(a)-(iii), (b)-(i), (c)-(ii), (d)-(iv)", 
+        "(a)-(ii), (b)-(iv), (c)-(i), (d)-(iii)", 
+        "(a)-(iv), (b)-(iii), (c)-(ii), (d)-(i)"
+    ],
+    answer: 2,
+    explanation: "Cardiac relates to Digitalis purpurea (foxglove). Stimulant relates to Nicotiana tabacum (tobacco). Hallucinogen relates to Cannabis sativa (marijuana). Depressant relates to Papaver somniferum (opium poppy).[span_7](start_span)[span_7](end_span)"
+},
+{
+    question: "Which of the following is not considered as a date rape drug?",
+    options: ["GHB", "Ketamine", "Nicotine", "Flunitrazepam"],
+    answer: 2,
+    explanation: "GHB, Ketamine, and Flunitrazepam (Rohypnol) are notorious central nervous system depressants or dissociatives used in drug-facilitated sexual assaults. Nicotine is an everyday legal stimulant and not categorized as a date rape drug.[span_8](start_span)[span_8](end_span)"
+},
+{
+    question: "Match the following:<br>List I: (a) Alethrin (b) Chlorthion (c) Aldicarb (d) Endrin<br>List II: (i) Organochlorines (ii) Pyrethrin (iii) Organophosphorus (iv) Carbamate",
+    options: [
+        "(a)-(i), (b)-(ii), (c)-(iii), (d)-(iv)", 
+        "(a)-(i), (b)-(iii), (c)-(ii), (d)-(iv)", 
+        "(a)-(ii), (b)-(iii), (c)-(iv), (d)-(i)", 
+        "(a)-(iii), (b)-(iv), (c)-(i), (d)-(ii)"
+    ],
+    answer: 2,
+    explanation: "Alethrin is a Pyrethrin (ii). Chlorthion is an Organophosphorus compound (iii). Aldicarb is a Carbamate (iv). Endrin is an Organochlorine (i). This matches option (C).[span_9](start_span)[span_9](end_span)"
+},
+{
+    question: "Kerosene smell is detected in which of the following poisons?",
+    options: ["Arsenic", "Organophosphorus", "Cannabis", "Cyanide"],
+    answer: 1,
+    explanation: "Organophosphorus pesticide formulations frequently utilize petroleum distillate solvents as a carrier base, which imparts a highly distinct kerosene-like or garlic-like odor to the poison.[span_10](start_span)[span_10](end_span)"
+},
+{
+    question: "National Poison Information Centre (NPIC) was started in All India Institute of Medical Science (AIIMS), New Delhi in which of the following year?",
+    options: ["1998", "1990", "1995", "1993"],
+    answer: 2,
+    explanation: "The National Poison Information Centre (NPIC) in India was officially established at AIIMS, New Delhi, in 1995 to provide toxicological information and management advice.[span_11](start_span)[span_11](end_span)"
+},
+{
+    question: "A suspect is caught 30 days after he committed a murder under the influence of drugs. Analysis of which matrix of suspect is most likely to identify the drug :",
+    options: ["Blood", "Hair", "Sweat", "Saliva"],
+    answer: 1,
+    explanation: "Drugs and their metabolites become permanently trapped in the keratin protein matrix of hair as it grows out of the follicle. It can retain a chronological record of drug use for several months to years, long after it has cleared from blood, sweat, or saliva.[span_12](start_span)[span_12](end_span)"
+},
+{
+    question: "Condition when the temperature of body increases after death is known as:",
+    options: ["Postmortem Caloricity", "Postmortem Lividity", "Postmortem Rigidity", "Algor mortis"],
+    answer: 0,
+    explanation: "Postmortem caloricity is an unusual physiological condition where the body temperature actually rises for a few hours immediately following death, often due to heightened metabolic processes right before death or robust bacterial activity.[span_13](start_span)[span_13](end_span)"
+},
+{
+    question: "Which test is most commonly used spot test for amphetamine?",
+    options: ["Duquenois Levine", "Mandelins", "Ehrlich", "Scott's"],
+    answer: 1,
+    explanation: "Among the choices, the Mandelin reagent is used as a presumptive spot test that produces a dark green color in the presence of amphetamines. (Duquenois Levine is for cannabis, Ehrlich for LSD, Scott's for cocaine).[span_14](start_span)[span_14](end_span)"
+},
+{
+    question: "'Collision Detection Multiple Access' and 'Time Division Multiple Access' are the examples of digital protocol used in:",
+    options: ["PDA", "Cell phones", "CCTV", "Workstation"],
+    answer: 1,
+    explanation: "CDMA (Code Division Multiple Access) and TDMA (Time Division Multiple Access) are fundamental digital transmission protocols utilized to allocate bandwidth in mobile telecommunications and cell phone networks.[span_15](start_span)[span_15](end_span)"
+},
+{
+    question: "Specific guidelines for accreditation of forensic science laboratories has been mentioned in which of the following documents of NABL?",
+    options: ["NABL-112", "NABL-113", "NABL-120", "NABL-121"],
+    answer: 1,
+    explanation: "NABL-113 is the specific publication document containing the 'Specific Guidelines for Accreditation of Forensic Science Laboratories' issued by the National Accreditation Board for Testing and Calibration Laboratories.[span_16](start_span)[span_16](end_span)"
+},
+{
+    question: "Which of the following sample is the most suitable for the detection of diatoms in death due to drowning?",
+    options: ["Sternum", "Liver", "Lungs", "Intestine"],
+    answer: 0,
+    explanation: "The intact bone marrow of a large bone like the sternum or femur is completely isolated from passive water entry post-mortem. Finding diatoms in sternum bone marrow confirms they were actively circulated there by a beating heart before death.[span_17](start_span)[span_17](end_span)"
+},
+{
+    question: "Which of the following is not a test to determine death of heart?",
+    options: ["Magnus test", "Diaphanous test", "Icard's test", "Winslow's test"],
+    answer: 3,
+    explanation: "Winslow's test involves placing a vessel of water or mercury on a person's chest to observe for ripples; it is specifically a test for respiration (lung movement), not cardiovascular/heart function like the others.[span_18](start_span)[span_18](end_span)"
+},
+{
+    question: "When broad surface of skin slides against a rough surface it produces which of the following types of abrasion?",
+    options: ["Graze", "Imprint", "Pressure", "Scratch"],
+    answer: 0,
+    explanation: "A graze (often referred to as a brush or sliding abrasion) occurs when a broad surface area of the skin scrapes horizontally across a rough surface, shedding the epidermis layers.[span_19](start_span)[span_19](end_span)"
+},
+{
+    question: "Which of the following is the first internal organ to putrefy?",
+    options: ["Heart", "Kidney", "Gall bladder", "Larynx and trachea"],
+    answer: 3,
+    explanation: "The larynx and trachea (alongside the stomach/intestines and infantile brain) are typically among the very first internal organs to undergo rapid putrefaction due to their constant exposure to environmental bacteria and moisture.[span_20](start_span)[span_20](end_span)"
+},
+{
+    question: "Chronic poisoning of which of the following causes tactile hallucinations?",
+    options: ["Opium", "Cannabis", "Cocaine", "Lysergic acid diethylamide"],
+    answer: 2,
+    explanation: "Chronic cocaine abusers frequently suffer from a specific form of tactile hallucination known as formication or 'Magnan's sign', where they delusionally feel insects (cocaine bugs) crawling on or beneath their skin.[span_21](start_span)[span_21](end_span)"
+}
+];
+
+const form = document.getElementById("quizForm");
+
+function loadQuestions(){
+    form.innerHTML = "";
+    questions.forEach((q, index) => {
+        // Offset the display index by 81 to match the source paper
+        let displayIndex = index + 81;
+        form.innerHTML += `
+        <div class="question-box">
+            <div class="question">Q${displayIndex}. ${q.question}</div>
+            ${q.options.map((option, i) => `
+            <label class="option">
+                <input type="radio" name="q${index}" value="${i}" onchange="updateProgress()">
+                ${option}
+            </label>
+            `).join("")}
+        </div>
+        `;
+    });
+}
+
+let wrongAnswers = [];
+
+function submitQuiz(){
+    let score = 0;
+    wrongAnswers = [];
+
+    questions.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        if(selected && parseInt(selected.value) === q.answer){
+            score++;
+        } else {
+            let displayIndex = index + 81;
+            wrongAnswers.push({
+                qNum: displayIndex,
+                question: q.question,
+                selected: selected ? q.options[selected.value] : "Not Answered",
+                correct: q.options[q.answer],
+                explanation: q.explanation
+            });
+        }
+    });
+
+    document.getElementById("examSection").style.display = "none";
+    document.getElementById("resultSection").style.display = "block";
+    document.getElementById("scoreText").innerText = `${score}/${questions.length}`;
+
+    const percentage = ((score / questions.length) * 100).toFixed(2);
+    document.getElementById("resultDetails").innerHTML = `
+        <h2>Correct: <span class="correct">${score}</span></h2><br>
+        <h2>Wrong: <span class="wrong">${questions.length - score}</span></h2><br>
+        <h2>Percentage: ${percentage}%</h2>
+    `;
+    clearInterval(timerInterval);
+}
+
+function showReview(){
+    const reviewBox = document.getElementById("reviewBox");
+    if(wrongAnswers.length === 0){
+        reviewBox.innerHTML = `<h2 style="color:green; margin-top:20px;">Excellent! No wrong answers.</h2>`;
+        return;
+    }
+
+    reviewBox.innerHTML = "<h2 style='margin-bottom:20px;'>Wrong Answers & Solutions</h2>";
+    
+    wrongAnswers.forEach((item) => {
+        reviewBox.innerHTML += `
+        <div class="review-item">
+            <strong>Q${item.qNum}. ${item.question}</strong><br><br>
+            <span class="wrong">Your Answer: ${item.selected}</span><br><br>
+            <span class="correct">Correct Answer: ${item.correct}</span>
+            <div class="solution"><strong>Solution:</strong> ${item.explanation}</div>
+        </div>
+        `;
+    });
+}
+
+function restartQuiz(){
+    document.getElementById("resultSection").style.display = "none";
+    document.getElementById("examSection").style.display = "block";
+    
+    // Reset inputs
+    document.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
+    
+    timeLeft = 1800; // Reset to 30 mins
+    updateProgress();
+    startTimer();
+}
+
+function updateProgress(){
+    const answered = document.querySelectorAll("input[type='radio']:checked").length;
+    const percent = (answered / questions.length) * 100;
+    document.getElementById("progressBar").style.width = percent + "%";
+}
+
+let timeLeft = 1800; // 30 minutes for 20 questions
+let timerInterval;
+
+function startTimer(){
+    clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        document.getElementById("timer").innerText = `${minutes}:${seconds}`;
+        
+        if(timeLeft <= 0){
+            clearInterval(timerInterval);
+            submitQuiz();
+        }
+        timeLeft--;
+    }, 1000);
+}
+
+loadQuestions();
+startTimer();
+</script>
+
+</body>
+</html>
