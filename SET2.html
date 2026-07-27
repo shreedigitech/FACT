@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MH SET 2020 Forensic Science - Questions 21 to 40</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #0f172a, #1e40af);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+h1 {
+    text-align: center;
+    color: #1e3a8a;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #555;
+    margin-bottom: 25px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.timer {
+    background: #dc2626;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.progress {
+    width: 100%;
+    height: 12px;
+    background: #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 25px;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: #2563eb;
+    transition: 0.3s;
+}
+
+.question-box {
+    background: #f9fafb;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.question {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #111827;
+}
+
+.option {
+    display: block;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.option:hover {
+    background: #dbeafe;
+}
+
+input[type="radio"] {
+    margin-right: 10px;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background: #2563eb;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 20px;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+.result-section {
+    display: none;
+    text-align: center;
+}
+
+.score {
+    font-size: 60px;
+    color: #16a34a;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.correct {
+    color: green;
+    font-weight: bold;
+}
+
+.wrong {
+    color: red;
+    font-weight: bold;
+}
+
+.review {
+    text-align: left;
+    margin-top: 25px;
+}
+
+.review-item {
+    background: #f9fafb;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.solution {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #ccc;
+    color: #444;
+    font-style: italic;
+    background: #eff6ff;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+@media(max-width: 600px) {
+    .question {
+        font-size: 16px;
+    }
+    .score {
+        font-size: 40px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div id="examSection">
+    <h1>MH SET Forensic Science Practice</h1>
+    <p class="subtitle">Questions 21 to 40 • Paper II Set A (Dec 27, 2020)[span_0](start_span)[span_0](end_span)</p>
+
+    <div class="topbar">
+        <div><strong>Total Questions:</strong> 20</div>
+        <div class="timer">Time Left: <span id="timer">30:00</span></div>
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <form id="quizForm"></form>
+
+    <button onclick="submitQuiz()">Submit Exam</button>
+</div>
+
+<div class="result-section" id="resultSection">
+    <h1>Exam Result</h1>
+    <div class="score" id="scoreText">0/20</div>
+    <div id="resultDetails"></div>
+    <button onclick="showReview()">View Wrong Answers & Solutions</button>
+    <button onclick="restartQuiz()">Restart Test</button>
+    <div class="review" id="reviewBox"></div>
+</div>
+
+</div>
+
+<script>
+const questions = [
+{
+    question: "Which of the following is used as a source of radiation in XRF Spectrometer?",
+    options: ["Collidge Tube", "Crookes Tube", "Hollow Cathode Tube", "Incandescent light bulb"],
+    answer: 0,
+    explanation: "The Coolidge tube (often spelled 'Collidge' as a typo in older papers) is the most widely used type of X-ray tube for generating X-rays in X-ray Fluorescence (XRF) spectrometers.[span_1](start_span)[span_1](end_span)"
+},
+{
+    question: "Analysis of a drug by UHPLC generates a pressure of 14000 psi. A column with which of the following particle size is most suitable for analysis:",
+    options: ["10 µm", "2 µm", "5 µm", "20 µm"],
+    answer: 1,
+    explanation: "Ultra-High Performance Liquid Chromatography (UHPLC) is specifically characterized by the use of sub-2-micron (or approx. 2 µm) stationary phase particles, which results in the high pressure limits like 14000 psi.[span_2](start_span)[span_2](end_span)"
+},
+{
+    question: "Which of the following states has not a separate high court?",
+    options: ["Sikkim", "Manipur", "Meghalaya", "Mizoram"],
+    answer: 3,
+    explanation: "Mizoram does not have its own separate High Court; it falls under the jurisdiction of the Gauhati High Court, which has a bench in Aizawl.[span_3](start_span)[span_3](end_span)"
+},
+{
+    question: "X-ray........... is used to generate......",
+    options: ["Anger tube", "West tube", "Mayer tube", "Coolidge tube"],
+    answer: 3,
+    explanation: "The Coolidge tube is the standard vacuum tube utilized globally in both medical and analytical forensic equipment to generate X-rays.[span_4](start_span)[span_4](end_span)"
+},
+{
+    question: "HPFS and exFAT are examples of which of the following operating systems (or associated with)?",
+    options: ["Windows XP", "Linux", "Mac OSX", "Windows 98"],
+    answer: 0,
+    explanation: "HPFS (High Performance File System) and exFAT are file systems natively associated with Microsoft platforms. They were notably utilized and supported during the Windows XP and Windows NT lifecycles compared to the other options.[span_5](start_span)[span_5](end_span)"
+},
+{
+    question: "Tenax TA is a porous polymer resin based on......... is specifically designed for trapping of true volatile or semivolatile compound from air.",
+    options: ["Asahipak NH2P-504E", "2,4 Dinitrophenyl hydrazine", "2, 4, 6-tribromoaniline", "2, 6-diphenylene oxide"],
+    answer: 3,
+    explanation: "Tenax TA is composed of poly(2,6-diphenyl-p-phenylene oxide). It is commonly used as an adsorbent resin in solid-phase extraction for capturing volatile organic compounds.[span_6](start_span)[span_6](end_span)"
+},
+{
+    question: "Bertillon system of personal identification developed in the late 19th century in France was primarily based on:",
+    options: ["Fingerprints", "Anthropometry", "Retina pattern", "Facial features"],
+    answer: 1,
+    explanation: "Alphonse Bertillon created 'Bertillonage' (Anthropometry), a system based on measuring various physical dimensions of the human body to identify repeat offenders before the widespread adoption of fingerprinting.[span_7](start_span)[span_7](end_span)"
+},
+{
+    question: "Assertion: Rapid hardening cement is prefabricated concrete construction and road works.<br>Reason: With the same water, cement ratio at a fixed day of application strength of rapid hardening cement is more than ordinary portland cement.",
+    options: [
+        "Both Assertion and Reason are correct", 
+        "Assertion is correct but Reason is false", 
+        "Assertion is false but Reason is correct", 
+        "Both Assertion and Reason are false"
+    ],
+    answer: 0,
+    explanation: "Both the assertion and reason are correct. Rapid hardening cement attains high strength early, which justifies its use in prefabricated concrete and road repairs where immediate load-bearing is crucial.[span_8](start_span)[span_8](end_span)"
+},
+{
+    question: "In adults, the transparency of roots of teeth:",
+    options: [
+        "Decreases with increase in age", 
+        "Increases with increase in age", 
+        "Remains constant throughout life", 
+        "First increases and then decreases with age increase"
+    ],
+    answer: 1,
+    explanation: "According to Gustafson's method for age estimation, the transparency (or translucency) of the root dentin increases progressively from the apex toward the crown as an individual ages.[span_9](start_span)[span_9](end_span)"
+},
+{
+    question: "Woods metal, which is used to make cast of tool marks is composed of:",
+    options: [
+        "Bismuth, lead, tin, cadmium", 
+        "Bismuth, copper, cadmium, lead", 
+        "Bismuth, zinc, cadmium, tin", 
+        "Bismuth, copper, zinc, cadmium"
+    ],
+    answer: 0,
+    explanation: "Wood's metal is a fusible alloy with a very low melting point (around 70°C). It is composed of 50% Bismuth, 26.7% Lead, 13.3% Tin, and 10% Cadmium.[span_10](start_span)[span_10](end_span)"
+},
+{
+    question: "The fast-drying coatings that dry by evaporation of the solvent rather than by oxidation or polymerization is better known as:",
+    options: ["Varnish", "Vehicle", "Lacquer", "Resins"],
+    answer: 2,
+    explanation: "Lacquers are coatings consisting of resins dissolved in a volatile solvent. They dry rapidly solely through the physical evaporation of that solvent, unlike varnishes which often dry via chemical oxidation.[span_11](start_span)[span_11](end_span)"
+},
+{
+    question: "When the temperature of liquid is raised, its refractive index:",
+    options: ["Increases", "Decreases", "Remains unchanged", "First increases then decreases"],
+    answer: 1,
+    explanation: "As the temperature of a liquid increases, its density typically decreases (it expands). Since light travels faster in less dense media, the refractive index decreases.[span_12](start_span)[span_12](end_span)"
+},
+{
+    question: "A footwear impression left on a hard flat dusty surface by the clean outsole of a shoe is a:",
+    options: [
+        "Three-dimensional footwear impression", 
+        "Positive two-dimensional footwear impression", 
+        "Negative two-dimensional footwear impression", 
+        "Positive three-dimensional footwear impression"
+    ],
+    answer: 2,
+    explanation: "A clean shoe lifting dust away from a surface creates a 'negative' two-dimensional impression because the shoe removes material, leaving a clean footprint shape against a dusty background.[span_13](start_span)[span_13](end_span)"
+},
+{
+    question: "Which of the following marks are produced during the dynamic process?",
+    options: ["Compression marks", "Striations marks", "Indentation marks", "Imprints"],
+    answer: 1,
+    explanation: "Striation marks are formed by a dynamic or sliding motion (e.g., a screwdriver slipping across a door frame or a bullet passing through a gun barrel). Compression and indentations are static.[span_14](start_span)[span_14](end_span)"
+},
+{
+    question: "Tool marks does not consist of:",
+    options: ["Indents", "Striations", "Elemental composition", "Drill"],
+    answer: 2,
+    explanation: "Tool marks refer strictly to the physical characteristics left behind, such as indents, striations, and drill marks. Elemental composition refers to the chemical makeup of the tool itself, not the structural mark.[span_15](start_span)[span_15](end_span)"
+},
+{
+    question: "Paint analysis does not include:",
+    options: ["Sequence of layers", "Minerological profile", "Pyrolysis gas chromatography", "Trace elemental composition"],
+    answer: 1,
+    explanation: "Mineralogical profiling is a technique primarily used for soil and geological evidence analysis, not for paint. Paint analysis relies on layer sequencing, pyrolysis GC, and elemental composition.[span_16](start_span)[span_16](end_span)"
+},
+{
+    question: "The MRM is a technique in mass spectrometer stands for:",
+    options: [
+        "Multiple reaction monitoring", 
+        "Multiple range monitoring", 
+        "Multiple ratio monitoring", 
+        "Magnetic resonance monitoring"
+    ],
+    answer: 0,
+    explanation: "MRM stands for Multiple Reaction Monitoring. It is a highly specific and sensitive mass spectrometry technique used primarily in tandem mass spectrometry (LC-MS/MS) for quantifying targeted compounds.[span_17](start_span)[span_17](end_span)"
+},
+{
+    question: "Miscope is a/an:",
+    options: [
+        "Small hand held digital microscope", 
+        "IR microscope", 
+        "Microphotograph", 
+        "Spectroscopic instrument"
+    ],
+    answer: 0,
+    explanation: "The MiScope is a widely recognized small, handheld digital microscope that plugs into a computer, frequently utilized by forensic document examiners and field investigators for non-destructive inspection.[span_18](start_span)[span_18](end_span)"
+},
+{
+    question: "Which of the following are correct parameters which influence the nature of tool marks?<br>I. Horizontal angle of tool<br>II. Vertical angle of tool<br>III. Pressure on tool<br>IV. Side of the tool blade",
+    options: ["I & II are correct", "I & III are correct", "I, II and III are correct", "I, II, III & IV are correct"],
+    answer: 3,
+    explanation: "All listed factors (I, II, III, and IV) heavily influence how a tool mark is deposited. Altering the angle, pressure, or side of the blade will drastically change the microscopic striations and depth of the mark.[span_19](start_span)[span_19](end_span)"
+},
+{
+    question: "Which of the following liquids is used to separate the soil grain on the basis of specific gravity?",
+    options: ["Ethanol", "Sodium hydroxide solution", "Bromoform", "Nitrobenzene"],
+    answer: 2,
+    explanation: "Bromoform (CHBr3) is a heavy liquid with a high specific gravity (around 2.89 g/cm³). It is commonly used in density gradients to separate heavy minerals and soil grains.[span_20](start_span)[span_20](end_span)"
+}
+];
+
+const form = document.getElementById("quizForm");
+
+function loadQuestions(){
+    form.innerHTML = "";
+    questions.forEach((q, index) => {
+        // We offset the display index by 21 to match the source paper
+        let displayIndex = index + 21;
+        form.innerHTML += `
+        <div class="question-box">
+            <div class="question">Q${displayIndex}. ${q.question}</div>
+            ${q.options.map((option, i) => `
+            <label class="option">
+                <input type="radio" name="q${index}" value="${i}" onchange="updateProgress()">
+                ${option}
+            </label>
+            `).join("")}
+        </div>
+        `;
+    });
+}
+
+let wrongAnswers = [];
+
+function submitQuiz(){
+    let score = 0;
+    wrongAnswers = [];
+
+    questions.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        if(selected && parseInt(selected.value) === q.answer){
+            score++;
+        } else {
+            let displayIndex = index + 21;
+            wrongAnswers.push({
+                qNum: displayIndex,
+                question: q.question,
+                selected: selected ? q.options[selected.value] : "Not Answered",
+                correct: q.options[q.answer],
+                explanation: q.explanation
+            });
+        }
+    });
+
+    document.getElementById("examSection").style.display = "none";
+    document.getElementById("resultSection").style.display = "block";
+    document.getElementById("scoreText").innerText = `${score}/${questions.length}`;
+
+    const percentage = ((score / questions.length) * 100).toFixed(2);
+    document.getElementById("resultDetails").innerHTML = `
+        <h2>Correct: <span class="correct">${score}</span></h2><br>
+        <h2>Wrong: <span class="wrong">${questions.length - score}</span></h2><br>
+        <h2>Percentage: ${percentage}%</h2>
+    `;
+    clearInterval(timerInterval);
+}
+
+function showReview(){
+    const reviewBox = document.getElementById("reviewBox");
+    if(wrongAnswers.length === 0){
+        reviewBox.innerHTML = `<h2 style="color:green; margin-top:20px;">Excellent! No wrong answers.</h2>`;
+        return;
+    }
+
+    reviewBox.innerHTML = "<h2 style='margin-bottom:20px;'>Wrong Answers & Solutions</h2>";
+    
+    wrongAnswers.forEach((item) => {
+        reviewBox.innerHTML += `
+        <div class="review-item">
+            <strong>Q${item.qNum}. ${item.question}</strong><br><br>
+            <span class="wrong">Your Answer: ${item.selected}</span><br><br>
+            <span class="correct">Correct Answer: ${item.correct}</span>
+            <div class="solution"><strong>Solution:</strong> ${item.explanation}</div>
+        </div>
+        `;
+    });
+}
+
+function restartQuiz(){
+    document.getElementById("resultSection").style.display = "none";
+    document.getElementById("examSection").style.display = "block";
+    
+    // Reset inputs
+    document.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
+    
+    timeLeft = 1800; // Reset to 30 mins
+    updateProgress();
+    startTimer();
+}
+
+function updateProgress(){
+    const answered = document.querySelectorAll("input[type='radio']:checked").length;
+    const percent = (answered / questions.length) * 100;
+    document.getElementById("progressBar").style.width = percent + "%";
+}
+
+let timeLeft = 1800; // 30 minutes for 20 questions
+let timerInterval;
+
+function startTimer(){
+    clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        document.getElementById("timer").innerText = `${minutes}:${seconds}`;
+        
+        if(timeLeft <= 0){
+            clearInterval(timerInterval);
+            submitQuiz();
+        }
+        timeLeft--;
+    }, 1000);
+}
+
+loadQuestions();
+startTimer();
+</script>
+
+</body>
+</html>
