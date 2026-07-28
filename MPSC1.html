@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPSC / Talathi Pariksha Mock Test</title>
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f172a, #1e40af);
+            --container-bg: #ffffff;
+            --text-main: #1e293b;
+            --primary-blue: #2563eb;
+            --hover-blue: #dbeafe;
+            --danger-red: #dc2626;
+            --success-green: #16a34a;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .container {
+            background: var(--container-bg);
+            width: 100%;
+            max-width: 900px;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .top-bar h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: var(--text-main);
+        }
+
+        .timer-box {
+            background: var(--danger-red);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            box-shadow: 0 4px 6px -1px rgba(220, 38, 38, 0.3);
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 12px;
+            background: var(--border-color);
+            border-radius: 6px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--primary-blue);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .question-block {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1rem;
+        }
+
+        .option-label:hover {
+            background: var(--hover-blue);
+            border-color: var(--primary-blue);
+        }
+
+        .option-label input[type="radio"] {
+            margin-right: 15px;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        button {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease;
+            display: block;
+            margin: 20px auto 0;
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        #submit-btn {
+            width: 100%;
+            max-width: 300px;
+        }
+
+        /* Result Section Styles */
+        #result-screen {
+            text-align: center;
+        }
+
+        .score-display {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-blue);
+            margin: 20px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-box h3 { margin: 0 0 10px 0; font-size: 1.1rem; color: #64748b; }
+        
+        .wrong-ans-text { color: var(--danger-red); font-weight: bold; }
+        .correct-ans-text { color: var(--success-green); font-weight: bold; }
+
+        #wrong-answers-container {
+            text-align: left;
+            margin-top: 30px;
+        }
+
+        .review-item {
+            background: #ffffff;
+            border: 1px solid var(--danger-red);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .review-item h4 { margin-top: 0; color: var(--danger-red); }
+
+        .explanation {
+            font-style: italic;
+            background: #f8fafc;
+            border-left: 4px solid var(--primary-blue);
+            padding: 12px 15px;
+            margin-top: 15px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #475569;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 600px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Quiz Screen -->
+        <div id="quiz-screen">
+            <div class="top-bar">
+                <h1 id="header-title">MPSC Assessment (0/20)</h1>
+                <div class="timer-box" id="timer">30:00</div>
+            </div>
+            
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress"></div>
+            </div>
+
+            <form id="quiz-form">
+                <div id="questions-container"></div>
+                <button type="button" id="submit-btn" onclick="submitQuiz()">Submit Quiz</button>
+            </form>
+        </div>
+
+        <!-- Result Screen -->
+        <div id="result-screen" style="display: none;">
+            <h2>Assessment Complete</h2>
+            <div class="score-display" id="total-score"></div>
+            
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <h3>Correct</h3>
+                    <p class="correct-ans-text" id="correct-count" style="font-size: 1.5rem; margin: 0;">0</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Incorrect</h3>
+                    <p class="wrong-ans-text" id="wrong-count" style="font-size: 1.5rem; margin: 0;">0</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Percentage</h3>
+                    <p id="percentage-count" style="font-weight: bold; color: var(--primary-blue); font-size: 1.5rem; margin: 0;">0%</p>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button type="button" id="view-wrong-btn" onclick="toggleReview()">View Wrong Answers & Solutions</button>
+                <button type="button" id="restart-btn" onclick="restartQuiz()" style="background: #475569;">Restart Quiz</button>
+            </div>
+
+            <div id="wrong-answers-container" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        // MPSC / Talathi Exam specific question set extracted from provided reference document
+        const quizData = [
+            {
+                question: "खालीलपैकी कोणता एकवचनी शब्द आहे?",
+                options: ["भिंती", "वाती", "तुळस", "हाका"],
+                answer: 2,
+                explanation: "'तुळस' हा एकवचनी शब्द आहे, त्याचे अनेकवचन 'तुळशी' होते. इतर दिलेले शब्द ('भिंती', 'वाती', 'हाका') अनेकवचनी आहेत[span_0](start_span)[span_0](end_span)."
+            },
+            {
+                question: "\"सज्ञान\" या शब्दाचा समानार्थी शब्द ओळखा.",
+                options: ["साक्षर", "ज्ञान", "सुज्ञ", "अज्ञान"],
+                answer: 2,
+                explanation: "'सज्ञान' म्हणजे शहाणा किंवा समजदार असणे, ज्याचा अचूक समानार्थी शब्द 'सुज्ञ' असा आहे[span_1](start_span)[span_1](end_span)."
+            },
+            {
+                question: "पुढील शब्दाचा समास ओळखा. \"प्रतिक्षण\"",
+                options: ["तत्पुरुष समास", "द्विगु समास", "अव्ययीभाव समास", "कर्मधारय समास"],
+                answer: 2,
+                explanation: "'प्रतिक्षण' (प्रत्येक क्षणाला) हा अव्ययीभाव समास आहे कारण यातील पहिले पद (प्रति) महत्त्वाचे असून ते अव्यय आहे[span_2](start_span)[span_2](end_span)."
+            },
+            {
+                question: "\"संध्याकाळ होताच झाड पाखरांच्या किलबिलाटाने भरून गेलं\" या वाक्याचा प्रकार ओळखा.",
+                options: ["मिश्र वाक्य", "संयुक्त वाक्य", "केवल वाक्य", "आज्ञार्थी वाक्य"],
+                answer: 2,
+                explanation: "दिलेल्या वाक्यात एकच उद्देश आणि एकच विधेय आहे, त्यामुळे ते 'केवल वाक्य' आहे[span_3](start_span)[span_3](end_span)."
+            },
+            {
+                question: "\"पोक्त\" या शब्दाचा विरुद्धार्थी शब्द सांगा.",
+                options: ["अल्लड", "सुजन", "भोळा", "असभ्य"],
+                answer: 0,
+                explanation: "'पोक्त' म्हणजे परिपक्व किंवा समजूतदार, त्याचा योग्य विरुद्धार्थी शब्द 'अल्लड' (बालिश) असा होतो[span_4](start_span)[span_4](end_span)."
+            },
+            {
+                question: "खालीलपैकी कोणते कर्तरी प्रयोगाचे वाक्य आहे?",
+                options: ["तिने गाणे म्हटले.", "तिला आता चालवते.", "मुलींनी हरिण पाळले.", "गायत्री मुलांना शिकवते."],
+                answer: 3,
+                explanation: "'गायत्री मुलांना शिकवते' या वाक्यात कर्ता (गायत्री) प्रथमान्त आहे आणि क्रियापद कर्त्याच्या लिंग, वचनानुसार बदलते, म्हणून हा कर्तरी प्रयोग आहे[span_5](start_span)[span_5](end_span)."
+            },
+            {
+                question: "\"जीवाचे रान करणे\" याचा समानार्थी वाक्प्रचार सांगा.",
+                options: ["हाडे झिजवणे", "हाड मोडून पडणे", "हाडाची काडे करणे", "हाडाचे पाणी करणे"],
+                answer: 2,
+                explanation: "'जीवाचे रान करणे' म्हणजेच खूप कष्ट करणे, ज्याचा समानार्थी वाक्प्रचार 'हाडाची काडे करणे' असा आहे[span_6](start_span)[span_6](end_span)."
+            },
+            {
+                question: "\"वावटळ\" या कादंबरीचे लेखक कोण आहेत?",
+                options: ["आनंद यादव", "विजय तेंडुलकर", "दया पवार", "व्यंकटेश माडगूळकर"],
+                answer: 3,
+                explanation: "'वावटळ' ही प्रसिद्ध कादंबरी सुप्रसिद्ध लेखक व्यंकटेश माडगूळकर यांनी लिहिलेली आहे[span_7](start_span)[span_7](end_span)."
+            },
+            {
+                question: "अभूतपूर्व या शब्दासाठी अचूक पर्याय शोधा.",
+                options: ["पूर्वी कधीही न ऐकलेला", "ज्याचा कधीही वीट येत नाही असे", "पूर्वी कधीही न घडलेला", "कधीही विसरता न येणारे"],
+                answer: 2,
+                explanation: "'अभूतपूर्व' म्हणजे जे भूतकाळात किंवा पूर्वी कधीही घडलेले नाही असे[span_8](start_span)[span_8](end_span)."
+            },
+            {
+                question: "खालीलपैकी कोणता 'संदिग्ध' या शब्दाचा अर्थ नाही?",
+                options: ["निःसंदेह", "अस्पष्ट", "अनिश्चित", "साशंकता"],
+                answer: 0,
+                explanation: "'संदिग्ध' या शब्दाचा अर्थ अस्पष्ट, अनिश्चित किंवा साशंकता असा होतो. 'निःसंदेह' हा त्याचा विरुद्धार्थी शब्द आहे, त्यामुळे तो समानार्थी अर्थ नाही[span_9](start_span)[span_9](end_span)."
+            },
+            {
+                question: "Select the option that uses the correct punctuation marks for the given sentence: Hurray we won the last match",
+                options: ["Hurray, we won the last match.", "Hurray! We won the last match.", "Hurray! We, won the last match.", "Hurray. We, won the last match."],
+                answer: 1,
+                explanation: "'Hurray' is an interjection expressing strong emotion and must be followed by an exclamation mark (!). The following word must start with a capital letter[span_10](start_span)[span_10](end_span)."
+            },
+            {
+                question: "Choose the most appropriate synonym of the given word: Impair",
+                options: ["Ventilate", "Enrich", "Weaken", "Mend"],
+                answer: 2,
+                explanation: "The word 'Impair' means to weaken or damage something. Therefore, 'Weaken' is the correct synonym[span_11](start_span)[span_11](end_span)."
+            },
+            {
+                question: "Identify the most appropriate meaning of the given idiom/phrase: Break one's neck",
+                options: ["To give all the earnings in charity", "To work very hard to accomplish something", "To strangulate someone", "To win by unfair means"],
+                answer: 1,
+                explanation: "The idiom 'break one's neck' means to put forth a great deal of effort or to work very hard to achieve a goal[span_12](start_span)[span_12](end_span)."
+            },
+            {
+                question: "Select the most appropriate option for the given blank: I think you need to give me ___ explanation.",
+                options: ["a", "No article", "an", "the"],
+                answer: 2,
+                explanation: "The word 'explanation' begins with a vowel sound, so the appropriate indefinite article to use is 'an[span_13](start_span)'[span_13](end_span)."
+            },
+            {
+                question: "अलीवर्दी खान याचा मृत्यू कधी झाला?",
+                options: ["1750", "1756", "1753", "1759"],
+                answer: 1,
+                explanation: "अलीवर्दी खान हा बंगालचा नवाब होता. त्याचा मृत्यू १७५६ साली झाला[span_14](start_span)[span_14](end_span)."
+            },
+            {
+                question: "भारताच्या 2011 च्या जनगणनेनुसार, लक्ष‌द्वीपचा साक्षरता दर किती आहे?",
+                options: ["95.85%", "91.85%", "81.85%", "87.85%"],
+                answer: 1,
+                explanation: "२०११ च्या अधिकृत जनगणनेनुसार, लक्षद्वीप या केंद्रशासित प्रदेशाचा साक्षरता दर ९१.८५% इतका नोंदवला गेला आहे[span_15](start_span)[span_15](end_span)."
+            },
+            {
+                question: "स्थायू अवस्थेचे, द्रव अवस्थेतून न जाता थेट वायू अवस्थेत होणारे रुपांतर म्हणजे ___ होय.",
+                options: ["बाष्पन", "विलयन", "बाष्पीकरण", "संप्लवन"],
+                answer: 3,
+                explanation: "स्थायू पदार्थाला उष्णता दिल्यावर त्याचे द्रवात रूपांतर न होता थेट वायू अवस्थेत रूपांतर होण्याच्या प्रक्रियेला 'संप्लवन' (Sublimation) असे म्हणतात[span_16](start_span)[span_16](end_span)."
+            },
+            {
+                question: "12 ऑक्टोबर ___ रोजी भारतात माहिती अधिकार कायदा लागू झाला.",
+                options: ["2003", "2007", "2005", "2001"],
+                answer: 2,
+                explanation: "नागरिकांना माहितीचा हक्क मिळवून देण्यासाठी १२ ऑक्टोबर २००५ रोजी संपूर्ण भारतात माहिती अधिकार कायदा (RTI Act) लागू करण्यात आला[span_17](start_span)[span_17](end_span)."
+            },
+            {
+                question: "एका वर्गालील मुले आणि मुलींच्या संख्येचे गुणोत्तर 10:11 आहे. वर्गातील मुले आणि मुलींचे सरासरी वजन अनुक्रमे 21 kg आणि 84 kg आहे. सर्व मुला-मुलींचे मिळून सरासरी वजन किती आहे?",
+                options: ["65 kg", "62 kg", "59 kg", "54 kg"],
+                answer: 3,
+                explanation: "मुले 10x आणि मुली 11x मानल्यास, एकूण वजन = (10x × 21) + (11x × 84) = 210x + 924x = 1134x. एकूण विद्यार्थी = 21x. सरासरी = 1134x / 21x = 54 kg[span_18](start_span)[span_18](end_span)."
+            },
+            {
+                question: "एक दूध विक्रेता 40 लिटर दूध हे 30 रुपये प्रति लिटर दराने विकत घेतो आणि त्यात 5 लिटर पाणी मिसळतो (पाणी विनामूल्य आहे). हे मिश्रण त्याने रु. 36 प्रति लिटर दराने विकले, तर नफ्याची टक्केवारी किती आहे?",
+                options: ["35 टक्के", "25 टक्के", "33.33 टक्के", "30 टक्के"],
+                answer: 0,
+                explanation: "खरेदी किंमत = 40 × 30 = 1200 रुपये. एकूण मिश्रण = 45 लिटर. विक्री किंमत = 45 × 36 = 1620 रुपये. नफा = 1620 - 1200 = 420 रुपये. शेकडा नफा = (420 / 1200) × 100 = 35%[span_19](start_span)[span_19](end_span)."
+            }
+        ];
+
+        let timeLeft = 1800; // 30 minutes in seconds
+        let timerInterval;
+        let submitted = false;
+        let wrongAnswersData = [];
+
+        // Initialization
+        window.onload = () => {
+            renderQuestions();
+            startTimer();
+            setupProgressTracking();
+        };
+
+        function renderQuestions() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
+            
+            quizData.forEach((q, index) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = 'question-block';
+                
+                let optionsHTML = q.options.map((opt, i) => `
+                    <label class="option-label">
+                        <input type="radio" name="q${index}" value="${i}">
+                        ${opt}
+                    </label>
+                `).join('');
+                
+                qDiv.innerHTML = `<div class="question-text">Q${index + 1}. ${q.question}</div>${optionsHTML}`;
+                container.appendChild(qDiv);
+            });
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    if (!submitted) submitQuiz();
+                } else {
+                    timeLeft--;
+                    updateTimerDisplay();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+            const s = (timeLeft % 60).toString().padStart(2, '0');
+            document.getElementById('timer').innerText = `${m}:${s}`;
+        }
+
+        function setupProgressTracking() {
+            const container = document.getElementById('questions-container');
+            container.addEventListener('change', (e) => {
+                if (e.target.type === 'radio') {
+                    const totalAnswered = document.querySelectorAll('input[type="radio"]:checked').length;
+                    const totalQuestions = quizData.length;
+                    const progressPercent = (totalAnswered / totalQuestions) * 100;
+                    
+                    document.getElementById('progress').style.width = `${progressPercent}%`;
+                    document.getElementById('header-title').innerText = `MPSC Assessment (${totalAnswered}/${totalQuestions})`;
+                }
+            });
+        }
+
+        function submitQuiz() {
+            if (submitted) return;
+            submitted = true;
+            clearInterval(timerInterval);
+            
+            let score = 0;
+            wrongAnswersData = [];
+
+            quizData.forEach((q, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                if (selected) {
+                    const val = parseInt(selected.value);
+                    if (val === q.answer) {
+                        score++;
+                    } else {
+                        wrongAnswersData.push({
+                            questionText: q.question,
+                            userChoice: q.options[val],
+                            correctChoice: q.options[q.answer],
+                            explanation: q.explanation,
+                            qNum: index + 1
+                        });
+                    }
+                } else {
+                    wrongAnswersData.push({
+                        questionText: q.question,
+                        userChoice: "Unanswered",
+                        correctChoice: q.options[q.answer],
+                        explanation: q.explanation,
+                        qNum: index + 1
+                    });
+                }
+            });
+
+            showResults(score);
+        }
+
+        function showResults(score) {
+            document.getElementById('quiz-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'block';
+            
+            const total = quizData.length;
+            const percentage = ((score / total) * 100).toFixed(1);
+            
+            document.getElementById('total-score').innerText = `${score} / ${total}`;
+            document.getElementById('correct-count').innerText = score;
+            document.getElementById('wrong-count').innerText = total - score;
+            document.getElementById('percentage-count').innerText = `${percentage}%`;
+
+            if (wrongAnswersData.length === 0) {
+                document.getElementById('view-wrong-btn').style.display = 'none';
+            } else {
+                document.getElementById('view-wrong-btn').style.display = 'inline-block';
+                generateReviewSection();
+            }
+        }
+
+        function generateReviewSection() {
+            const container = document.getElementById('wrong-answers-container');
+            container.innerHTML = '<h3>Detailed Solutions for Incorrect Answers</h3>';
+            
+            wrongAnswersData.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'review-item';
+                div.innerHTML = `
+                    <h4>Question ${item.qNum}</h4>
+                    <p><strong>${item.questionText}</strong></p>
+                    <p>Your Answer: <span class="wrong-ans-text">${item.userChoice}</span></p>
+                    <p>Correct Answer: <span class="correct-ans-text">${item.correctChoice}</span></p>
+                    <div class="explanation"><strong>Explanation:</strong> ${item.explanation}</div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function toggleReview() {
+            const container = document.getElementById('wrong-answers-container');
+            if (container.style.display === 'none') {
+                container.style.display = 'block';
+            } else {
+                container.style.display = 'none';
+            }
+        }
+
+        function restartQuiz() {
+            submitted = false;
+            timeLeft = 1800;
+            wrongAnswersData = [];
+            
+            document.getElementById('result-screen').style.display = 'none';
+            document.getElementById('wrong-answers-container').style.display = 'none';
+            document.getElementById('quiz-screen').style.display = 'block';
+            
+            const radios = document.querySelectorAll('input[type="radio"]');
+            radios.forEach(radio => radio.checked = false);
+            
+            document.getElementById('progress').style.width = '0%';
+            document.getElementById('header-title').innerText = `MPSC Assessment (0/20)`;
+            
+            updateTimerDisplay();
+            startTimer();
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
