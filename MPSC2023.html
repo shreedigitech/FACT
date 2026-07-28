@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPSC / Talathi Pariksha Mock Test - Part 2</title>
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f172a, #1e40af);
+            --container-bg: #ffffff;
+            --text-main: #1e293b;
+            --primary-blue: #2563eb;
+            --hover-blue: #dbeafe;
+            --danger-red: #dc2626;
+            --success-green: #16a34a;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .container {
+            background: var(--container-bg);
+            width: 100%;
+            max-width: 900px;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .top-bar h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: var(--text-main);
+        }
+
+        .timer-box {
+            background: var(--danger-red);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            box-shadow: 0 4px 6px -1px rgba(220, 38, 38, 0.3);
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 12px;
+            background: var(--border-color);
+            border-radius: 6px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--primary-blue);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .question-block {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1rem;
+        }
+
+        .option-label:hover {
+            background: var(--hover-blue);
+            border-color: var(--primary-blue);
+        }
+
+        .option-label input[type="radio"] {
+            margin-right: 15px;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        button {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease;
+            display: block;
+            margin: 20px auto 0;
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        #submit-btn {
+            width: 100%;
+            max-width: 300px;
+        }
+
+        /* Result Section Styles */
+        #result-screen {
+            text-align: center;
+        }
+
+        .score-display {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-blue);
+            margin: 20px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-box h3 { margin: 0 0 10px 0; font-size: 1.1rem; color: #64748b; }
+        
+        .wrong-ans-text { color: var(--danger-red); font-weight: bold; }
+        .correct-ans-text { color: var(--success-green); font-weight: bold; }
+
+        #wrong-answers-container {
+            text-align: left;
+            margin-top: 30px;
+        }
+
+        .review-item {
+            background: #ffffff;
+            border: 1px solid var(--danger-red);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .review-item h4 { margin-top: 0; color: var(--danger-red); }
+
+        .explanation {
+            font-style: italic;
+            background: #f8fafc;
+            border-left: 4px solid var(--primary-blue);
+            padding: 12px 15px;
+            margin-top: 15px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #475569;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 600px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Quiz Screen -->
+        <div id="quiz-screen">
+            <div class="top-bar">
+                <h1 id="header-title">MPSC Assessment 2 (0/20)</h1>
+                <div class="timer-box" id="timer">30:00</div>
+            </div>
+            
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress"></div>
+            </div>
+
+            <form id="quiz-form">
+                <div id="questions-container"></div>
+                <button type="button" id="submit-btn" onclick="submitQuiz()">Submit Quiz</button>
+            </form>
+        </div>
+
+        <!-- Result Screen -->
+        <div id="result-screen" style="display: none;">
+            <h2>Assessment Complete</h2>
+            <div class="score-display" id="total-score"></div>
+            
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <h3>Correct</h3>
+                    <p class="correct-ans-text" id="correct-count" style="font-size: 1.5rem; margin: 0;">0</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Incorrect</h3>
+                    <p class="wrong-ans-text" id="wrong-count" style="font-size: 1.5rem; margin: 0;">0</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Percentage</h3>
+                    <p id="percentage-count" style="font-weight: bold; color: var(--primary-blue); font-size: 1.5rem; margin: 0;">0%</p>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button type="button" id="view-wrong-btn" onclick="toggleReview()">View Wrong Answers & Solutions</button>
+                <button type="button" id="restart-btn" onclick="restartQuiz()" style="background: #475569;">Restart Quiz</button>
+            </div>
+
+            <div id="wrong-answers-container" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        // The Next 20 Questions from the provided MPSC / Talathi Exam Document
+        const quizData = [
+            { 
+                question: "\"वळीव\" या प्रसिद्ध कथासंग्रहाचे लेखक कोण आहेत?", 
+                options: ["वि. स. खांडेकर", "शंकर पाटील", "अरुण साधू", "भास्कर चंदनशिवे"], 
+                answer: 1, 
+                explanation: "'वळीव' हा प्रसिद्ध कथासंग्रह ग्रामीण साहित्यिक शंकर पाटील यांनी लिहिला आहे[span_0](start_span)[span_0](end_span)." 
+            },
+            { 
+                question: "\"मुलांनी आपला अभ्यास करायला नको का?\" या वाक्याचे विधानार्थी वाक्यातील रूपांतर ओळखा.", 
+                options: ["मुलांनी आपला अभ्यास जरूर करायला हवा.", "मुलांनी आपला अभ्यास करावा.", "मुले आपला अभ्यास करत नाहीत का?", "मुले आपला अभ्यास करत नाहीत."], 
+                answer: 1, 
+                explanation: "प्रश्नार्थी वाक्याचे विधानार्थी वाक्यात रूपांतर करताना 'नको का?' ऐवजी 'करावा' असे साधे विधान केले जाते, त्यामुळे 'मुलांनी आपला अभ्यास करावा' हे योग्य उत्तर आहे[span_1](start_span)[span_1](end_span)." 
+            },
+            { 
+                question: "वाक्प्रचार व त्यांचे अर्थ यांच्या योग्य जोड्या लावा.<br>अ) खितपत पडणे - 1. क्षीण होत जाणे<br>ब) खो घालणे - 2. दोष देणे<br>क) खडे फोडणे - 3. शरण येण्यास भाग पडणे<br>ड) खडे चारणे - 4. विघ्न निर्माण करणे", 
+                options: ["अ-1 ब-4 क-2 ड-3", "अ-4 ब-3 क-1 ड-2", "अ-3 ब-4 क-1 ड-2", "अ-2 ब-3 क-1 ड-4"], 
+                answer: 0, 
+                explanation: "खितपत पडणे म्हणजे क्षीण होत जाणे (अ-1), खो घालणे म्हणजे विघ्न निर्माण करणे (ब-4), खडे फोडणे म्हणजे दोष देणे (क-2) आणि खडे चारणे म्हणजे शरण येण्यास भाग पाडणे (ड-3)[span_2](start_span)[span_2](end_span)." 
+            },
+            { 
+                question: "\"साखरेचे खाणार त्याला देव देणार\" या म्हणीचा अर्थ निवडा.", 
+                options: ["देवाने दिले तर गोड खावे.", "जो चांगली इच्छा करतो त्याला चांगला लाभ होतो.", "गोड खाल्ले की देव भरपूर देतो.", "जशी इच्छा तसे फळ मिळत नाही."], 
+                answer: 1, 
+                explanation: "'साखरेचे खाणार त्याला देव देणार' म्हणजेच जो व्यक्ती नेहमी चांगली इच्छा करतो किंवा चांगले विचार ठेवतो, त्याला परमेश्वराकडून चांगलाच लाभ होतो[span_3](start_span)[span_3](end_span)." 
+            },
+            { 
+                question: "हरभऱ्याच्या झाडावर चढणे म्हणजे काय?", 
+                options: ["धीर सोडणे", "गर्व होणे", "स्तुतीला भुलणे", "इच्छा करणे"], 
+                answer: 2, 
+                explanation: "'हरभऱ्याच्या झाडावर चढणे' या वाक्प्रचाराचा अर्थ खोट्या स्तुतीला भुलून जाणे किंवा हरखून जाणे असा होतो[span_4](start_span)[span_4](end_span)." 
+            },
+            { 
+                question: "\"सुहासने गोष्टीचे पुस्तक वाचले.\" यातील प्रयोग ओळखा.", 
+                options: ["सकर्मक कर्तरी", "अकर्मक कर्तरी", "कर्मणी", "कर्तरी"], 
+                answer: 2, 
+                explanation: "या वाक्यात क्रियापद 'वाचले' हे कर्म 'पुस्तक' याच्या लिंग आणि वचनानुसार बदलते. तसेच कर्त्याला (सुहासने) 'ने' प्रत्यय आहे, म्हणून हा कर्मणी प्रयोग आहे[span_5](start_span)[span_5](end_span)." 
+            },
+            { 
+                question: "\"पावनखिंड\" या कादंबरीचे लेखक कोण आहेत?", 
+                options: ["आनंद यादव", "रणजीत देसाई", "विश्वास पाटील", "शिवाजी सावंत"], 
+                answer: 1, 
+                explanation: "'पावनखिंड' ही सुप्रसिद्ध ऐतिहासिक कादंबरी शिवशाहीर आणि प्रसिद्ध लेखक रणजीत देसाई यांनी लिहिलेली आहे[span_6](start_span)[span_6](end_span)." 
+            },
+            { 
+                question: "\"ज्याने पुष्कळ ऐकले व वाचले आहे असा\" या शब्दसमूहाबद्दल एक शब्द लिहा.", 
+                options: ["ज्ञानी", "बहुश्रुत", "पंडित", "विद्वान"], 
+                answer: 1, 
+                explanation: "ज्याने पुष्कळ ऐकले आणि वाचले आहे अशा ज्ञानी व्यक्तीला मराठीत 'बहुश्रुत' असे म्हणतात[span_7](start_span)[span_7](end_span)." 
+            },
+            { 
+                question: "\"आखाड्याच्या मैदानात पहिलवानाची किंमत\" या म्हणीचा योग्य अर्थ असलेला पर्याय कोणता आहे?", 
+                options: ["संपत्ती असलेल्या व्यक्तीकडे सर्वजण येतात", "माणसाच्या बाह्य स्वरूपावरून त्याचा कार्याचा अंदाज करता येत नाही", "एकमेकांना मदत न करणाऱ्या व्यक्ती जवळ येणे", "माणसाला योग्य ठिकाणीच किंमत मिळते"], 
+                answer: 3, 
+                explanation: "'आखाड्याच्या मैदानात पहिलवानाची किंमत' या म्हणीचा अर्थ असा की माणसाला किंवा त्याच्या गुणांना त्याच्या योग्य ठिकाणीच खरी किंमत मिळते[span_8](start_span)[span_8](end_span)." 
+            },
+            { 
+                question: "Identify the most appropriate meaning of the given idiom/phrase: Make merry", 
+                options: ["To create a chaos", "To resign from a duty", "To have fun", "To mock someone"], 
+                answer: 2, 
+                explanation: "The idiom 'make merry' means to enjoy oneself, have fun, or celebrate, often with feasting and drinking[span_9](start_span)[span_9](end_span)." 
+            },
+            { 
+                question: "Select the most appropriate option for the given blank: ___ twelve years old, Ken was almost as tall as he was.", 
+                options: ["At", "With", "In", "On"], 
+                answer: 0, 
+                explanation: "'At' is the correct preposition used to denote a specific age (e.g., 'At twelve years old...')[span_10](start_span)[span_10](end_span)." 
+            },
+            { 
+                question: "Find the part of the sentence that has a grammatical error: Yesterday morning I had gone to the mall but didn't buy anything.", 
+                options: ["mall but", "I had gone to the", "Yesterday morning", "didn't buy anything"], 
+                answer: 1, 
+                explanation: "The sentence refers to a specific completed time in the past ('Yesterday morning'), so the simple past tense 'I went to the' should be used instead of the past perfect 'I had gone to the[span_11](start_span)'[span_11](end_span)." 
+            },
+            { 
+                question: "Select the most appropriate option for the given blank: You like to go out for a walk, ___?", 
+                options: ["does you", "didn't you", "is you", "don't you"], 
+                answer: 3, 
+                explanation: "The main statement is in the present simple tense and is positive ('You like...'). Therefore, the question tag must be the negative present simple ('don't you?')[span_12](start_span)[span_12](end_span)." 
+            },
+            { 
+                question: "Select the most appropriate option for the given blank: I will be having dinner when I ___ this work.", 
+                options: ["will finish", "would finish", "finish", "finishes"], 
+                answer: 2, 
+                explanation: "In future time clauses introduced by words like 'when', 'as soon as', or 'until', we use the present simple tense ('finish') instead of the future tense[span_13](start_span)[span_13](end_span)." 
+            },
+            { 
+                question: "खालीलपैकी कोणती प्रार्थना समाजाची तत्त्वे होती?<br>I. मूर्तीपूजेला विरोध<br>II. एकेश्वरवाद<br>III. कर्मकांडाला विरोध", 
+                options: ["फक्त I आणि II", "फक्त II आणि III", "I, II, आणि III", "फक्त I आणि III"], 
+                answer: 2, 
+                explanation: "प्रार्थना समाजाची प्रमुख तत्त्वे मूर्तीपूजेला विरोध करणे, एकेश्वरवाद (एकाच देवाची भक्ती) आणि कर्मकांडाला विरोध करणे ही सर्व होती[span_14](start_span)[span_14](end_span)." 
+            },
+            { 
+                question: "भारताचे पहिले मुख्य माहिती आयुक्त कोण होते?", 
+                options: ["दीपक संधू", "ए.एन. तिवारी", "सुषमा सिंह", "वजाहत हबीबुल्लाह"], 
+                answer: 3, 
+                explanation: "वजाहत हबीबुल्लाह हे भारताचे पहिले मुख्य माहिती आयुक्त (Chief Information Commissioner) होते. त्यांची नियुक्ती २००५ मध्ये झाली होती[span_15](start_span)[span_15](end_span)." 
+            },
+            { 
+                question: "कृष्णा नदीची लांबी सुमारे ___ किलोमीटर आहे.", 
+                options: ["1600", "1800", "860", "1400"], 
+                answer: 3, 
+                explanation: "कृष्णा नदी ही भारतातील प्रमुख नद्यांपैकी एक असून तिची एकूण लांबी सुमारे १४०० किलोमीटर आहे[span_16](start_span)[span_16](end_span)." 
+            },
+            { 
+                question: "मुंगीच्या दंशात खालीलपैकी कोणते आम्ल असते?", 
+                options: ["ऑक्सॅलिक आम्ल", "मिथेनोईक आम्ल", "अॅसिटिक आम्ल", "टार्टारिक आम्ल"], 
+                answer: 1, 
+                explanation: "मुंगीच्या दंशात 'मिथेनोईक आम्ल' (Methanoic acid) असते, ज्याला सामान्यतः 'फॉर्मिक आम्ल' (Formic acid) असेही म्हणतात. यामुळेच दंश केलेल्या जागी जळजळ होते[span_17](start_span)[span_17](end_span)." 
+            },
+            { 
+                question: "खालील प्रश्नात, दिलेल्या मालिकेत प्रश्नचिन्हाच्या जागी येणारी संख्या निवडा.<br>6, 23, 91, 363, 1451, ?", 
+                options: ["5810", "5800", "5804", "5803"], 
+                answer: 3, 
+                explanation: "या मालिकेत प्रत्येक मागील संख्येला 4 ने गुणून त्यातून 1 वजा केला आहे. (उदा. 363 × 4 - 1 = 1451). त्यामुळे पुढील संख्या 1451 × 4 - 1 = 5804 - 1 = 5803 असेल[span_18](start_span)[span_18](end_span)." 
+            },
+            { 
+                question: "रमेश, सुरेश आणि महेश यांनी मिळून एक काम पूर्ण केले. रमेश आणि सुरेश यांनी मिळून 35 टक्के काम पूर्ण केले आणि सुरेश आणि महेश यांनी मिळून 75 टक्के काम पूर्ण केले. तिघांपैकी कोण सर्वाधिक कार्यक्षम आहे?", 
+                options: ["सुरेश", "रमेश", "सर्वजण समान प्रमाणात कार्यक्षम आहेत", "महेश"], 
+                answer: 3, 
+                explanation: "(रमेश + सुरेश) = 35%, म्हणून उरलेले काम महेशने केले = 100% - 35% = 65%. (सुरेश + महेश) = 75%, म्हणून रमेश = 100% - 75% = 25%. उरलेले काम सुरेश = 10%. यावरून महेश (65%) सर्वाधिक कार्यक्षम आहे[span_19](start_span)[span_19](end_span)." 
+            }
+        ];
+
+        let timeLeft = 1800; // 30 minutes in seconds
+        let timerInterval;
+        let submitted = false;
+        let wrongAnswersData = [];
+
+        // Initialization
+        window.onload = () => {
+            renderQuestions();
+            startTimer();
+            setupProgressTracking();
+        };
+
+        function renderQuestions() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
+            
+            quizData.forEach((q, index) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = 'question-block';
+                
+                let optionsHTML = q.options.map((opt, i) => `
+                    <label class="option-label">
+                        <input type="radio" name="q${index}" value="${i}">
+                        ${opt}
+                    </label>
+                `).join('');
+                
+                qDiv.innerHTML = `<div class="question-text">Q${index + 1}. ${q.question}</div>${optionsHTML}`;
+                container.appendChild(qDiv);
+            });
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    if (!submitted) submitQuiz();
+                } else {
+                    timeLeft--;
+                    updateTimerDisplay();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+            const s = (timeLeft % 60).toString().padStart(2, '0');
+            document.getElementById('timer').innerText = `${m}:${s}`;
+        }
+
+        function setupProgressTracking() {
+            const container = document.getElementById('questions-container');
+            container.addEventListener('change', (e) => {
+                if (e.target.type === 'radio') {
+                    const totalAnswered = document.querySelectorAll('input[type="radio"]:checked').length;
+                    const totalQuestions = quizData.length;
+                    const progressPercent = (totalAnswered / totalQuestions) * 100;
+                    
+                    document.getElementById('progress').style.width = `${progressPercent}%`;
+                    document.getElementById('header-title').innerText = `MPSC Assessment 2 (${totalAnswered}/${totalQuestions})`;
+                }
+            });
+        }
+
+        function submitQuiz() {
+            if (submitted) return;
+            submitted = true;
+            clearInterval(timerInterval);
+            
+            let score = 0;
+            wrongAnswersData = [];
+
+            quizData.forEach((q, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                if (selected) {
+                    const val = parseInt(selected.value);
+                    if (val === q.answer) {
+                        score++;
+                    } else {
+                        wrongAnswersData.push({
+                            questionText: q.question,
+                            userChoice: q.options[val],
+                            correctChoice: q.options[q.answer],
+                            explanation: q.explanation,
+                            qNum: index + 1
+                        });
+                    }
+                } else {
+                    wrongAnswersData.push({
+                        questionText: q.question,
+                        userChoice: "Unanswered",
+                        correctChoice: q.options[q.answer],
+                        explanation: q.explanation,
+                        qNum: index + 1
+                    });
+                }
+            });
+
+            showResults(score);
+        }
+
+        function showResults(score) {
+            document.getElementById('quiz-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'block';
+            
+            const total = quizData.length;
+            const percentage = ((score / total) * 100).toFixed(1);
+            
+            document.getElementById('total-score').innerText = `${score} / ${total}`;
+            document.getElementById('correct-count').innerText = score;
+            document.getElementById('wrong-count').innerText = total - score;
+            document.getElementById('percentage-count').innerText = `${percentage}%`;
+
+            if (wrongAnswersData.length === 0) {
+                document.getElementById('view-wrong-btn').style.display = 'none';
+            } else {
+                document.getElementById('view-wrong-btn').style.display = 'inline-block';
+                generateReviewSection();
+            }
+        }
+
+        function generateReviewSection() {
+            const container = document.getElementById('wrong-answers-container');
+            container.innerHTML = '<h3>Detailed Solutions for Incorrect Answers</h3>';
+            
+            wrongAnswersData.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'review-item';
+                div.innerHTML = `
+                    <h4>Question ${item.qNum}</h4>
+                    <p><strong>${item.questionText}</strong></p>
+                    <p>Your Answer: <span class="wrong-ans-text">${item.userChoice}</span></p>
+                    <p>Correct Answer: <span class="correct-ans-text">${item.correctChoice}</span></p>
+                    <div class="explanation"><strong>Explanation:</strong> ${item.explanation}</div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function toggleReview() {
+            const container = document.getElementById('wrong-answers-container');
+            if (container.style.display === 'none') {
+                container.style.display = 'block';
+            } else {
+                container.style.display = 'none';
+            }
+        }
+
+        function restartQuiz() {
+            submitted = false;
+            timeLeft = 1800;
+            wrongAnswersData = [];
+            
+            document.getElementById('result-screen').style.display = 'none';
+            document.getElementById('wrong-answers-container').style.display = 'none';
+            document.getElementById('quiz-screen').style.display = 'block';
+            
+            const radios = document.querySelectorAll('input[type="radio"]');
+            radios.forEach(radio => radio.checked = false);
+            
+            document.getElementById('progress').style.width = '0%';
+            document.getElementById('header-title').innerText = `MPSC Assessment 2 (0/20)`;
+            
+            updateTimerDisplay();
+            startTimer();
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
