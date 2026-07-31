@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPSC Grammar Practice: अलंकार</title>
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f172a, #1e40af);
+            --container-bg: #ffffff;
+            --text-main: #1e293b;
+            --primary-blue: #2563eb;
+            --hover-blue: #dbeafe;
+            --danger-red: #dc2626;
+            --success-green: #16a34a;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .container {
+            background: var(--container-bg);
+            width: 100%;
+            max-width: 900px;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .top-bar h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: var(--text-main);
+        }
+
+        .timer-box {
+            background: var(--danger-red);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            box-shadow: 0 4px 6px -1px rgba(220, 38, 38, 0.3);
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 12px;
+            background: var(--border-color);
+            border-radius: 6px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--primary-blue);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .question-block {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1rem;
+        }
+
+        .option-label:hover {
+            background: var(--hover-blue);
+            border-color: var(--primary-blue);
+        }
+
+        .option-label input[type="radio"] {
+            margin-right: 15px;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        button {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease;
+            display: block;
+            margin: 20px auto 0;
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        #submit-btn {
+            width: 100%;
+            max-width: 300px;
+        }
+
+        /* Result Section Styles */
+        #result-screen {
+            text-align: center;
+        }
+
+        .score-display {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-blue);
+            margin: 20px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-box h3 { margin: 0 0 10px 0; font-size: 1.1rem; color: #64748b; }
+        
+        .wrong-ans-text { color: var(--danger-red); font-weight: bold; }
+        .correct-ans-text { color: var(--success-green); font-weight: bold; }
+
+        #wrong-answers-container {
+            text-align: left;
+            margin-top: 30px;
+        }
+
+        .review-item {
+            background: #ffffff;
+            border: 1px solid var(--danger-red);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .review-item h4 { margin-top: 0; color: var(--danger-red); }
+
+        .explanation {
+            font-style: italic;
+            background: #f8fafc;
+            border-left: 4px solid var(--primary-blue);
+            padding: 12px 15px;
+            margin-top: 15px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #475569;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 600px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Quiz Screen -->
+        <div id="quiz-screen">
+            <div class="top-bar">
+                <h1 id="header-title">MPSC Grammar Practice: अलंकार (0/14)</h1>
+                <div class="timer-box" id="timer">30:00</div>
+            </div>
+            
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress"></div>
+            </div>
+
+            <form id="quiz-form">
+                <div id="questions-container"></div>
+                <button type="button" id="submit-btn" onclick="submitQuiz()">Submit Quiz</button>
+            </form>
+        </div>
+
+        <!-- Result Screen -->
+        <div id="result-screen" style="display: none;">
+            <h2>Assessment Complete</h2>
+            <div class="score-display" id="total-score"></div>
+            
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <h3>Correct</h3>
+                    <p class="correct-ans-text" id="correct-count" style="font-size: 1.5rem; margin: 0;">0</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Incorrect</h3>
+                    <p class="wrong-ans-text" id="wrong-count" style="font-size: 1.5rem; margin: 0;">0</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Percentage</h3>
+                    <p id="percentage-count" style="font-weight: bold; color: var(--primary-blue); font-size: 1.5rem; margin: 0;">0%</p>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button type="button" id="view-wrong-btn" onclick="toggleReview()">View Wrong Answers & Solutions</button>
+                <button type="button" id="restart-btn" onclick="restartQuiz()" style="background: #475569;">Restart Quiz</button>
+            </div>
+
+            <div id="wrong-answers-container" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        // Practice questions based entirely on the provided image "1000187556.heic"
+        const quizData = [
+            {
+                question: "भाषेचे सौंदर्य वाढवण्यासाठी वापरण्यात येणाऱ्या तंत्राला काय म्हणतात?",
+                options: ["व्याकरण", "भाषेचे अलंकार", "शब्दसंग्रह", "प्रयोग"],
+                answer: 1,
+                explanation: "प्रतिमेतील व्याख्येनुसार, भाषेचे सौंदर्य वाढवण्यासाठी वापरलेल्या तंत्राला 'भाषेचे अलंकार' असे म्हणतात."
+            },
+            {
+                question: "दिलेल्या चित्रानुसार, अलंकाराचे मुख्य दोन प्रकार कोणते आहेत?",
+                options: ["शब्दालंकार आणि अर्थालंकार", "उपमा आणि उत्प्रेक्षा", "यमक आणि श्लेष", "रूपक आणि अतिशयोक्ती"],
+                answer: 0,
+                explanation: "नोट्समध्ये अलंकाराचे '१) शब्दालंकार' आणि '२) अर्थालंकार' असे दोन मुख्य प्रकार दिले आहेत."
+            },
+            {
+                question: "'अनुप्रास' या शब्दालंकाराची ओळख काय आहे?",
+                options: ["उच्चार समानता", "एक शब्द दोन अर्थ", "अक्षर पुनरावृत्ती", "सारखेपणा"],
+                answer: 2,
+                explanation: "प्रतिमेत अनुप्रास अलंकारासमोर स्पष्टपणे 'अक्षर पुनरावृत्ती' असे लिहिले आहे."
+            },
+            {
+                question: "ज्या अलंकारात 'उच्चार समानता' असते, त्याला काय म्हणतात?",
+                options: ["श्लेष", "यमक", "उपमा", "अनन्वय"],
+                answer: 1,
+                explanation: "चित्रातील नोंदींनुसार 'यमक' अलंकाराची ओळख 'उच्चार समानता' अशी दिली आहे."
+            },
+            {
+                question: "'शब्द १ अर्थ २' हे कोणत्या अलंकाराचे वैशिष्ट्य आहे?",
+                options: ["रूपक", "उत्प्रेक्षा", "यमक", "श्लेष"],
+                answer: 3,
+                explanation: "जेव्हा एकाच शब्दाचे दोन अर्थ निघतात, तेव्हा तो 'श्लेष' अलंकार असतो, असे चित्रात नमूद आहे."
+            },
+            {
+                question: "'सारखी' हा शब्द कोणत्या अर्थालंकाराशी संबंधित आहे?",
+                options: ["अपनहुती", "उपमा", "अतिशयोक्ती", "व्यतिरेक"],
+                answer: 1,
+                explanation: "नोट्समध्ये 'उपमा' अलंकारासमोर 'सारखी' असा शब्द लिहिला आहे."
+            },
+            {
+                question: "'जणू, गमे, भासे, वाटे' या शब्दांचा वापर कोणत्या अलंकारात होतो?",
+                options: ["उत्प्रेक्षा", "अतिशयोक्ती", "अपनहुती", "रूपक"],
+                answer: 0,
+                explanation: "उत्प्रेक्षा अलंकाराच्या ओळखीसाठी 'जणू, गमे, भासे, वाटे' हे शब्द दिले आहेत."
+            },
+            {
+                question: "'नवरी नाही अप्सराच' हे उदाहरण कोणत्या अलंकाराच्या स्पष्टीकरणासाठी दिले आहे?",
+                options: ["अनन्वय", "रूपक", "अपनहुती", "व्यतिरेक"],
+                answer: 2,
+                explanation: "प्रतिमेत 'अपनहुती' या अलंकारासमोर 'नवरी नाही अप्सराच' हे उदाहरण दिले आहे."
+            },
+            {
+                question: "दिलेल्या नोट्समध्ये 'अनन्वय' अलंकारासमोर काय लिहिले आहे?",
+                options: ["अप्सराच", "नवरीच", "अती", "सारखी"],
+                answer: 1,
+                explanation: "अनन्वय अलंकाराच्या उदाहरणादाखल 'नवरीच' असा शब्द नमूद केला आहे."
+            },
+            {
+                question: "'अप्सराच' हे उदाहरण कोणत्या अलंकाराशी जोडले गेले आहे?",
+                options: ["रूपक", "व्यतिरेक", "उपमा", "श्लेष"],
+                answer: 0,
+                explanation: "चित्रात 'रूपक' अलंकाराच्या पुढे 'अप्सराच' असे लिहिले आहे."
+            },
+            {
+                question: "जेव्हा एखाद्या गोष्टीत 'अती' (Exaggeration) केले जाते, तेव्हा कोणता अलंकार होतो?",
+                options: ["अपनहुती", "व्यतिरेक", "अतिशयोक्ती", "उत्प्रेक्षा"],
+                answer: 2,
+                explanation: "प्रतिमेत 'अतिशयोक्ती' या अलंकारासमोर 'अती' असा शब्द दिला आहे."
+            },
+            {
+                question: "'अप्सरे पेक्षा सुंदर' हे कोणत्या अलंकाराचे उदाहरण आहे?",
+                options: ["उपमा", "व्यतिरेक", "अनन्वय", "यमक"],
+                answer: 1,
+                explanation: "चित्रातील नोंदींनुसार, 'व्यतिरेक' अलंकाराचे उदाहरण म्हणून 'अप्सरे पेक्षा सुंदर' हे वाक्य दिले आहे."
+            },
+            {
+                question: "खालीलपैकी कोणता प्रकार 'शब्दालंकार' नाही?",
+                options: ["अनुप्रास", "यमक", "श्लेष", "उत्प्रेक्षा"],
+                answer: 3,
+                explanation: "प्रतिमेनुसार अनुप्रास, यमक आणि श्लेष हे शब्दालंकार आहेत, तर 'उत्प्रेक्षा' हा अर्थालंकाराचा प्रकार आहे."
+            },
+            {
+                question: "खालीलपैकी कोणता प्रकार 'अर्थालंकार' नाही?",
+                options: ["उपमा", "रूपक", "यमक", "व्यतिरेक"],
+                answer: 2,
+                explanation: "उपमा, रूपक, आणि व्यतिरेक हे अर्थालंकार आहेत, परंतु 'यमक' हा शब्दालंकाराचा प्रकार आहे."
+            }
+        ];
+
+        let timeLeft = 1800; // 30 minutes in seconds
+        let timerInterval;
+        let submitted = false;
+        let wrongAnswersData = [];
+
+        // Initialization
+        window.onload = () => {
+            renderQuestions();
+            startTimer();
+            setupProgressTracking();
+        };
+
+        function renderQuestions() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
+            
+            quizData.forEach((q, index) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = 'question-block';
+                
+                let optionsHTML = q.options.map((opt, i) => `
+                    <label class="option-label">
+                        <input type="radio" name="q${index}" value="${i}">
+                        ${opt}
+                    </label>
+                `).join('');
+                
+                qDiv.innerHTML = `<div class="question-text">Q${index + 1}. ${q.question}</div>${optionsHTML}`;
+                container.appendChild(qDiv);
+            });
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    if (!submitted) submitQuiz();
+                } else {
+                    timeLeft--;
+                    updateTimerDisplay();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+            const s = (timeLeft % 60).toString().padStart(2, '0');
+            document.getElementById('timer').innerText = `${m}:${s}`;
+        }
+
+        function setupProgressTracking() {
+            const container = document.getElementById('questions-container');
+            container.addEventListener('change', (e) => {
+                if (e.target.type === 'radio') {
+                    const totalAnswered = document.querySelectorAll('input[type="radio"]:checked').length;
+                    const totalQuestions = quizData.length;
+                    const progressPercent = (totalAnswered / totalQuestions) * 100;
+                    
+                    document.getElementById('progress').style.width = `${progressPercent}%`;
+                    document.getElementById('header-title').innerText = `MPSC Grammar Practice: अलंकार (${totalAnswered}/${totalQuestions})`;
+                }
+            });
+        }
+
+        function submitQuiz() {
+            if (submitted) return;
+            submitted = true;
+            clearInterval(timerInterval);
+            
+            let score = 0;
+            wrongAnswersData = [];
+
+            quizData.forEach((q, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                if (selected) {
+                    const val = parseInt(selected.value);
+                    if (val === q.answer) {
+                        score++;
+                    } else {
+                        wrongAnswersData.push({
+                            questionText: q.question,
+                            userChoice: q.options[val],
+                            correctChoice: q.options[q.answer],
+                            explanation: q.explanation,
+                            qNum: index + 1
+                        });
+                    }
+                } else {
+                    wrongAnswersData.push({
+                        questionText: q.question,
+                        userChoice: "Unanswered",
+                        correctChoice: q.options[q.answer],
+                        explanation: q.explanation,
+                        qNum: index + 1
+                    });
+                }
+            });
+
+            showResults(score);
+        }
+
+        function showResults(score) {
+            document.getElementById('quiz-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'block';
+            
+            const total = quizData.length;
+            const percentage = ((score / total) * 100).toFixed(1);
+            
+            document.getElementById('total-score').innerText = `${score} / ${total}`;
+            document.getElementById('correct-count').innerText = score;
+            document.getElementById('wrong-count').innerText = total - score;
+            document.getElementById('percentage-count').innerText = `${percentage}%`;
+
+            if (wrongAnswersData.length === 0) {
+                document.getElementById('view-wrong-btn').style.display = 'none';
+            } else {
+                document.getElementById('view-wrong-btn').style.display = 'inline-block';
+                generateReviewSection();
+            }
+        }
+
+        function generateReviewSection() {
+            const container = document.getElementById('wrong-answers-container');
+            container.innerHTML = '<h3>Detailed Solutions for Incorrect Answers</h3>';
+            
+            wrongAnswersData.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'review-item';
+                div.innerHTML = `
+                    <h4>Question ${item.qNum}</h4>
+                    <p><strong>${item.questionText}</strong></p>
+                    <p>Your Answer: <span class="wrong-ans-text">${item.userChoice}</span></p>
+                    <p>Correct Answer: <span class="correct-ans-text">${item.correctChoice}</span></p>
+                    <div class="explanation"><strong>Explanation:</strong> ${item.explanation}</div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function toggleReview() {
+            const container = document.getElementById('wrong-answers-container');
+            if (container.style.display === 'none') {
+                container.style.display = 'block';
+            } else {
+                container.style.display = 'none';
+            }
+        }
+
+        function restartQuiz() {
+            submitted = false;
+            timeLeft = 1800;
+            wrongAnswersData = [];
+            
+            document.getElementById('result-screen').style.display = 'none';
+            document.getElementById('wrong-answers-container').style.display = 'none';
+            document.getElementById('quiz-screen').style.display = 'block';
+            
+            const radios = document.querySelectorAll('input[type="radio"]');
+            radios.forEach(radio => radio.checked = false);
+            
+            document.getElementById('progress').style.width = '0%';
+            document.getElementById('header-title').innerText = `MPSC Grammar Practice: अलंकार (0/14)`;
+            
+            updateTimerDisplay();
+            startTimer();
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
